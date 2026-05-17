@@ -1,20 +1,103 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ─── NEUTRALS ─────────────────────────────────────────── */
+  --color-white:           #ffffff;
+  --color-black:           #000000;
+
+  --color-neutral-50:      #f9f9f9;
+  --color-neutral-100:     #f6f6f6;
+  --color-neutral-150:     #f2f2f2;
+  --color-neutral-200:     #eeeeee;
+  --color-neutral-300:     #bbbbbb;
+  --color-neutral-400:     #9c9c9c;
+  --color-neutral-500:     #6f6f6f;
+  --color-neutral-700:     #323135;
+  --color-neutral-750:     #2b2a2c;
+  --color-neutral-800:     #272628;
+  --color-neutral-850:     #1f1e1d;
+  --color-neutral-900:     #171615;
+  --color-neutral-950:     #111111;
+
+  /* ─── ACCENT / BRAND ───────────────────────────────────── */
+  --color-accent-orange:   #f84525;
+
+  /* ─── SEMANTIC TEXT COLORS ─────────────────────────────── */
+  --color-text-primary:    var(--color-neutral-900);
+  --color-text-secondary:  var(--color-neutral-500);
+  --color-text-inverse:    var(--color-white);
+  --color-text-brand:      var(--color-accent-orange);
+
+  /* ─── SEMANTIC BACKGROUND COLORS ───────────────────────── */
+  --color-bg-canvas:       var(--color-neutral-50);
+  --color-bg-surface:      var(--color-white);
+  --color-bg-dark:         var(--color-neutral-850);
+  --color-bg-accent:         var(--color-accent-orange);
+
+  /* ─── SEMANTIC INTERACTIVE COLORS ──────────────────────── */
+  --color-brand-default:   var(--color-accent-orange);
+  --color-brand-hover:     var(--color-neutral-900);
+
+  /* ─── SEMANTIC DESIGN ELEMENTS ─────────────────────────── */
+  --color-border-default:  var(--color-neutral-200);
+  --color-shadow-subtle:   rgba(0, 0, 0, 0.05);
+
+  /* ─── SEMANTIC ALIASES FOR UTILITIES ───────────────────── */
+  --color-background:      var(--color-bg-canvas);
+  --color-foreground:      var(--color-text-primary);
+  --color-surface:         var(--color-bg-surface);
+  --color-surface-foreground: var(--color-text-primary);
+  --color-primary:         var(--color-brand-default);
+  --color-primary-foreground: var(--color-text-inverse);
+  --color-primary-hover:   var(--color-brand-hover);
+  --color-muted:           var(--color-text-secondary);
+  --color-border:          var(--color-border-default);
+  --color-dark:            var(--color-bg-dark);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-montserrat: var(--font-montserrat);
+
+@theme {
+  /* ─── Text Colors ───────────────────────────────────────── */
+  --color-text-primary:    var(--color-text-primary);
+  --color-text-secondary:  var(--color-text-secondary);
+  --color-text-inverse:    var(--color-text-inverse);
+  --color-text-brand:      var(--color-text-brand);
+
+  /* ─── Background Colors ─────────────────────────────────── */
+  --color-background:      var(--color-background);
+  --color-bg-canvas:       var(--color-bg-canvas);
+  --color-bg-surface:      var(--color-bg-surface);
+  --color-bg-dark:         var(--color-bg-dark);
+  --color-bg-accent:         var(--color-bg-accent);
+
+  /* ─── Surface Colors ────────────────────────────────────── */
+  --color-surface:         var(--color-surface);
+  --color-surface-foreground: var(--color-surface-foreground);
+
+  /* ─── Primary/Brand Colors ─────────────────────────────── */
+  --color-primary:         var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-primary-hover:   var(--color-primary-hover);
+
+  /* ─── Neutral/Muted Colors ─────────────────────────────── */
+  --color-foreground:      var(--color-foreground);
+  --color-muted:           var(--color-muted);
+
+  /* ─── Border & Semantics ───────────────────────────────── */
+  --color-border:          var(--color-border);
+  --color-dark:            var(--color-dark);
+
+  /* ─── Fonts ─────────────────────────────────────────────── */
+  --font-sans:             var(--font-geist-sans);
+  --font-mono:             var(--font-geist-mono);
+  --font-montserrat:       var(--font-montserrat);
+
+  /* ─── Shadow Colors ─────────────────────────────────────── */
+  --shadow-subtle:         var(--color-shadow-subtle);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-montserrat), ui-sans-serif, system-ui;
+} */

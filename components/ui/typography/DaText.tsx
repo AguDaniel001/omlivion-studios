@@ -154,6 +154,19 @@ export const textStyles = {
     loose:    "leading-loose",     // 2.0
   },
 
+  /**
+   * TRACKING (Letter Spacing)
+   * Named scale for letter-spacing / tracking.
+   */
+  tracking: {
+    inherit:   "",
+    tight:     "tracking-tight",
+    normal:    "tracking-normal",
+    wide:      "tracking-wide",
+    wider:     "tracking-wider",
+    widest:    "tracking-widest",
+  },
+
 } as const;
 
 // ─── Types ────────────────────────────────────────────────────
@@ -164,6 +177,7 @@ export type TextWeight = keyof typeof textStyles.weight;
 export type TextColor  = keyof typeof textStyles.color;
 export type TextFont   = keyof typeof textStyles.font;
 export type TextLeading = keyof typeof textStyles.leading;
+export type TextTracking = keyof typeof textStyles.tracking;
 
 type TextProps<T extends Tag = "p"> = {
   tag?:        T;
@@ -172,7 +186,9 @@ type TextProps<T extends Tag = "p"> = {
   color?:      TextColor;
   font?:       TextFont;
   leading?:    TextLeading;
+  tracking?:   TextTracking;
   italic?:     boolean;
+  uppercase?:  boolean;
   align?:      "left" | "center" | "right" | "justify";
   truncate?:   boolean;
   className?:  string;
@@ -188,7 +204,9 @@ export default function DaText<T extends Tag = "p">({
   color     = "primary",
   font      = "sans",
   leading   = "normal",
+  tracking  = "inherit",
   italic    = false,
+  uppercase = false,
   align     = "left",
   truncate  = false,
   className,
@@ -205,7 +223,9 @@ export default function DaText<T extends Tag = "p">({
         textStyles.color[color],
         textStyles.font[font],
         textStyles.leading[leading],
+        textStyles.tracking[tracking],
         italic   && "italic",
+        uppercase && "uppercase",
         truncate && "truncate",
         align === "left"    && "text-left",
         align === "center"  && "text-center",

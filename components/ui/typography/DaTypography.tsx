@@ -1,5 +1,5 @@
 import { DaTypoVariants, type TypoVariant } from "./DaTypoVariants";
-import DaText, { type Tag, type TextColor } from "./DaText";
+import DaText, { type Tag, type TextColor, type TextTracking } from "./DaText";
 
 // ─── Props ────────────────────────────────────────────────────
 
@@ -13,13 +13,19 @@ type DaTypographyProps = {
   /** Override the variant's default color role. */
   color?:     TextColor;
 
+  /** Override letter spacing. */
+  tracking?:  TextTracking;
+
+  /** Force uppercase text. */
+  uppercase?: boolean;
+
   /** Additional Tailwind classes (layout, spacing, etc.). */
   className?: string;
 
   children:   React.ReactNode;
 } & Omit<
   React.ComponentPropsWithoutRef<typeof DaText>,
-  "size" | "weight" | "leading" | "font" | "tag"
+  "size" | "weight" | "leading" | "font" | "tag" | "tracking" | "uppercase"
 >;
 
 // ─── Component ────────────────────────────────────────────────
@@ -28,6 +34,8 @@ export default function DaTypography({
   variant   = "bodyMd",
   tag,
   color,
+  tracking,
+  uppercase,
   className,
   children,
   ...props
@@ -49,6 +57,8 @@ export default function DaTypography({
       leading={v.leading}
       font={v.font}
       color={color ?? v.color}
+      tracking={tracking ?? v.tracking ?? "inherit"}
+      uppercase={uppercase ?? v.uppercase ?? false}
       className={className}
       {...props}
     >

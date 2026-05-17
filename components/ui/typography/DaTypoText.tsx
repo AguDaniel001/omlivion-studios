@@ -33,30 +33,36 @@ export const DaTypoTextVariants = {
   // Never bold — weight variations belong in Label, not Body.
 
   bodyLg: {
-    tag:     "p",
-    size:    "md",        // 16→18px fluid
-    weight:  "normal",
-    leading: "relaxed",   // 1.625 — most comfortable for long reads
-    color:   "primary",
-    font:    "sans",
+    tag:       "p",
+    size:      "md",        // 16→18px fluid
+    weight:    "normal",
+    leading:   "relaxed",   // 1.625 — most comfortable for long reads
+    color:     "primary",
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
   bodyMd: {
-    tag:     "p",
-    size:    "base",      // 16px fixed
-    weight:  "normal",
-    leading: "normal",    // 1.5
-    color:   "primary",
-    font:    "sans",
+    tag:       "p",
+    size:      "base",      // 16px fixed
+    weight:    "normal",
+    leading:   "normal",    // 1.5
+    color:     "primary",
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
   bodySm: {
-    tag:     "p",
-    size:    "sm",        // 14px fixed
-    weight:  "normal",
-    leading: "normal",
-    color:   "secondary", // quieter than primary — supporting copy
-    font:    "sans",
+    tag:       "p",
+    size:      "sm",        // 14px fixed
+    weight:    "normal",
+    leading:   "normal",
+    color:     "secondary", // quieter than primary — supporting copy
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
 
@@ -67,30 +73,36 @@ export const DaTypoTextVariants = {
   // Tight leading — labels live in constrained UI spaces.
 
   labelLg: {
-    tag:     "p",
-    size:    "base",      // 16px fixed
-    weight:  "medium",
-    leading: "tight",     // 1.2 — single-line UI elements
-    color:   "primary",
-    font:    "sans",
+    tag:       "p",
+    size:      "base",      // 16px fixed
+    weight:    "medium",
+    leading:   "tight",     // 1.2 — single-line UI elements
+    color:     "primary",
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
   labelMd: {
-    tag:     "p",
-    size:    "sm",        // 14px fixed
-    weight:  "medium",
-    leading: "tight",
-    color:   "secondary",
-    font:    "sans",
+    tag:       "p",
+    size:      "sm",        // 14px fixed
+    weight:    "medium",
+    leading:   "tight",
+    color:     "secondary",
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
   labelSm: {
-    tag:     "p",
-    size:    "xs",        // 12px fixed
-    weight:  "medium",
-    leading: "tight",
-    color:   "secondary",
-    font:    "sans",
+    tag:       "p",
+    size:      "xs",        // 12px fixed
+    weight:    "medium",
+    leading:   "tight",
+    color:     "secondary",
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
 
@@ -99,12 +111,14 @@ export const DaTypoTextVariants = {
   // helper text below form fields.
 
   caption: {
-    tag:     "p",
-    size:    "xs",        // 12px fixed
-    weight:  "normal",
-    leading: "normal",    // 1.5 — may wrap to 2 lines
-    color:   "tertiary",  // quietest text in the system
-    font:    "sans",
+    tag:       "p",
+    size:      "xs",        // 12px fixed
+    weight:    "normal",
+    leading:   "normal",    // 1.5 — may wrap to 2 lines
+    color:     "tertiary",  // quietest text in the system
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
 
@@ -114,12 +128,14 @@ export const DaTypoTextVariants = {
   // Apply `uppercase tracking-widest` via className.
 
   overline: {
-    tag:     "p",
-    size:    "xs",        // 12px fixed
-    weight:  "semibold",
-    leading: "none",      // 1.0 — decorative single line
-    color:   "brand",     // brand colour draws the eye upward
-    font:    "sans",
+    tag:       "p",
+    size:      "xs",        // 12px fixed
+    weight:    "semibold",
+    leading:   "none",      // 1.0 — decorative single line
+    color:     "brand",     // brand colour draws the eye upward
+    font:      "sans",
+    tracking:  "widest",
+    uppercase: true,
   },
 
 
@@ -129,21 +145,25 @@ export const DaTypoTextVariants = {
   // paragraph without changing size, weight, or leading.
 
   inline: {
-    tag:     "span",
-    size:    "inherit",
-    weight:  "inherit",
-    leading: "inherit",
-    color:   "brand",
-    font:    "inherit",
+    tag:       "span",
+    size:      "inherit",
+    weight:    "inherit",
+    leading:   "inherit",
+    color:     "brand",
+    font:      "inherit",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
   inlineAccent: {
-    tag:     "span",
-    size:    "inherit",
-    weight:  "inherit",
-    leading: "inherit",
-    color:   "accent",
-    font:    "inherit",
+    tag:       "span",
+    size:      "inherit",
+    weight:    "inherit",
+    leading:   "inherit",
+    color:     "accent",
+    font:      "inherit",
+    tracking:  "inherit",
+    uppercase: false,
   },
 
 } as const satisfies Record<string, TypoVariantDef>;

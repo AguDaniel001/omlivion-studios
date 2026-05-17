@@ -31,6 +31,7 @@ import type {
   TextLeading,
   TextColor,
   TextFont,
+  TextTracking,
 } from "./DaText";
 
 import { DaTypoDisplayVariants } from "./DaTypoDisplay";
@@ -39,12 +40,14 @@ import { DaTypoTextVariants    } from "./DaTypoText";
 // ─── Variant Shape ────────────────────────────────────────────
 
 export type TypoVariantDef = {
-  tag:     Tag;
-  size:    TextSize;
-  weight:  TextWeight;
-  leading: TextLeading;
-  color:   TextColor;
-  font:    TextFont;
+  tag:       Tag;
+  size:      TextSize;
+  weight:    TextWeight;
+  leading:   TextLeading;
+  color:     TextColor;
+  font:      TextFont;
+  tracking?: TextTracking;
+  uppercase?: boolean;
 };
 
 // ─── Master Map ───────────────────────────────────────────────
