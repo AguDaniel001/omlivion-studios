@@ -34,8 +34,6 @@ import type {
   TextTracking,
 } from "./DaText";
 
-import { DaTypoDisplayVariants } from "./DaTypoDisplay";
-import { DaTypoTextVariants    } from "./DaTypoText";
 
 // ─── Variant Shape ────────────────────────────────────────────
 
@@ -53,8 +51,60 @@ export type TypoVariantDef = {
 // ─── Master Map ───────────────────────────────────────────────
 
 export const DaTypoVariants = {
-  ...DaTypoDisplayVariants,
-  ...DaTypoTextVariants,
+  displayHero: {
+    tag:       "h1",
+    size:      "6xl",
+    weight:    "bold",
+    leading:   "snug",
+    color:     "primary",
+    font:      "montserrat",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  titleLg: {
+    tag:       "h5",
+    size:      "lg",
+    weight:    "semibold",
+    leading:   "normal",
+    color:     "primary",
+    font:      "neueplak",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  bodyMd: {
+    tag:       "p",
+    size:      "base",
+    weight:    "normal",
+    leading:   "normal",
+    color:     "primary",
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  captionSm: {
+    tag:       "p",
+    size:      "xs",
+    weight:    "light",
+    leading:   "tight",
+    color:     "tertiary",
+    font:      "sans",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  overline: {
+    tag:       "p",
+    size:      "xs",
+    weight:    "semibold",
+    leading:   "none",
+    color:     "brand",
+    font:      "sans",
+    tracking:  "megaWide",
+    uppercase: true,
+  },
 } as const satisfies Record<string, TypoVariantDef>;
 
 // ─── Types ────────────────────────────────────────────────────

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import NavOverlay from "./NavOverlay";
+import DaButton from "@/components/ui/buttons/DaButton";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,8 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
+
+      <DaButton variant="underline" className="fixed top-7 right-25" >let's talk</DaButton>
 
       {/* Fixed Menu Button at Top Right */}
       <button

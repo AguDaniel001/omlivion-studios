@@ -1,68 +1,21 @@
-/**
- * DaText.tsx
- * ─────────────────────────────────────────────────────────────
- * Primitive text renderer. Owns the raw style maps for size,
- * weight, color, font-family, and line-height.
- *
- *     Use DaTypography for all named variants (headings, body,
- *     labels, etc.). Use DaText only when you need one-off
- *     overrides outside the variant system.
- *
- * Naming conventions
- * ──────────────────
- * Size keys   → numeric scale, matches CSS token names
- * Weight keys → CSS font-weight names (Flutter: w100–w900)
- * Color keys  → semantic roles, mirrors CSS token roles
- * Font keys   → family name, no duplication (inter ≠ default)
- * Leading keys→ descriptive scale (none → loose)
- * ─────────────────────────────────────────────────────────────
- */
 
 import clsx from "clsx";
 
-// ─── Style Maps ──────────────────────────────────────────────
-
 export const textStyles = {
 
-  /**
-   * SIZE
-   * Responsive fluid scale. Each step maps to a design token
-   * size. Breakpoints follow mobile-first: default → md → lg → xl.
-   *
-   * Rules:
-   *  - xs / sm / base are fixed — they are UI chrome sizes, not
-   *    headings. Never scale these; they should always read at
-   *    exactly one size regardless of viewport.
-   *  - Every fluid step must have a unique ceiling. No two keys
-   *    may resolve to the same px value at the same breakpoint.
-   *  - Each breakpoint step should increase by ≥ 2px to be
-   *    visually distinguishable.
-   *
-   *  xs   →  12px        (fixed)
-   *  sm   →  14px        (fixed)
-   *  base →  16px        (fixed)
-   *  md   →  16 → 18px
-   *  lg   →  16 → 20px
-   *  xl   →  18 → 22px   ← unique ceiling, distinct from lg
-   *  2xl  →  20 → 24px
-   *  3xl  →  22 → 32px
-   *  4xl  →  28 → 48px   ← xl step added (was missing)
-   *  5xl  →  36 → 56px
-   *  6xl  →  36 → 64px   ← lg/xl separated (was stalling at 46px)
-   */
   size: {
     inherit: "text-inherit",
-    xs:      "text-xs",                                                            //  12px (fixed)
-    sm:      "text-sm",                                                            //  14px (fixed)
-    base:    "text-base",                                                          //  16px (fixed)
-    md:      "text-base lg:text-[18px]",                                           //  16 → 18px
-    lg:      "text-base lg:text-[20px]",                                           //  16 → 20px
-    xl:      "text-[18px] md:text-[20px] lg:text-[22px]",                         //  18 → 22px
-    "2xl":   "text-xl md:text-[22px] lg:text-[24px]",                             //  20 → 24px
-    "3xl":   "text-[22px] md:text-[26px] lg:text-[28px] xl:text-[32px]",         //  22 → 32px
-    "4xl":   "text-[28px] md:text-[36px] lg:text-[42px] xl:text-[48px]",         //  28 → 48px
-    "5xl":   "text-[36px] md:text-[44px] lg:text-[56px]",                         //  36 → 56px
-    "6xl":   "text-[36px] md:text-[46px] lg:text-[54px] xl:text-[64px]",         //  36 → 64px
+    xs:      "text-xs",                                                       //  12px (fixed)
+    sm:      "text-sm",                                                       //  14px (fixed)
+    base:    "text-base",                                                     //  16px (fixed)
+    md:      "text-base lg:text-[18px]",                                      //  16 → 18px
+    lg:      "text-base lg:text-[20px]",                                      //  16 → 20px
+    xl:      "text-[18px] md:text-[20px] lg:text-[22px]",                     //  18 → 22px
+    "2xl":   "text-xl md:text-[22px] lg:text-[24px]",                         //  20 → 24px
+    "3xl":   "text-[22px] md:text-[26px] lg:text-[28px] xl:text-[32px]",      //  22 → 32px
+    "4xl":   "text-[28px] md:text-[36px] lg:text-[42px] xl:text-[48px]",      //  28 → 48px
+    "5xl":   "text-[36px] md:text-[44px] lg:text-[56px]",                     //  36 → 56px
+    "6xl":   "text-[36px] md:text-[46px] lg:text-[54px] xl:text-[64px]",      //  36 → 64px
   },
 
   /**
@@ -83,26 +36,6 @@ export const textStyles = {
     black:      "font-black",       // w900
   },
 
-  /**
-   * COLOR
-   * Semantic roles — mirrors the CSS token names in main.css.
-   * Never use raw grey steps here; use role names so dark mode
-   * overrides work automatically via CSS variables.
-   *
-   * Role mapping:
-   *   primary    → --color-text-primary    (headings, body)
-   *   secondary  → --color-text-secondary  (labels, captions)
-   *   tertiary   → --color-text-tertiary   (hints, metadata)
-   *   disabled   → --color-text-disabled
-   *   inverse    → --color-text-inverse    (text on dark fills)
-   *   brand      → --color-text-brand      (brand-coloured copy)
-   *   accent     → --color-text-accent     (accent-coloured copy)
-   *   onBrand    → --color-text-on-brand   (text on brand fill)
-   *   onAccent   → --color-text-on-accent  (text on accent bg)
-   *   link       → --color-text-link
-   *   white      → always white (use sparingly)
-   *   inherit    → falls through to parent
-   */
   color: {
     inherit:   "",
     primary:   "text-text-primary",
@@ -133,17 +66,6 @@ export const textStyles = {
     montserrat: "font-montserrat",
   },
 
-  /**
-   * LINE HEIGHT
-   * Named scale. Values match design tokens & CSS leading-*.
-   *
-   *  none    → 1.0  (single-line display text)
-   *  tight   → 1.2  (large headings)
-   *  snug    → 1.4  (card headers, subheadings)
-   *  normal  → 1.5  (body copy — browser default)
-   *  relaxed → 1.625
-   *  loose   → 2.0
-   */
   leading: {
     inherit:  "leading-inherit",
     none:     "leading-none",      // 1.0
@@ -165,6 +87,7 @@ export const textStyles = {
     wide:      "tracking-wide",
     wider:     "tracking-wider",
     widest:    "tracking-widest",
+    megaWide:  "tracking-mega-wide", // 0.25em — for dramatic display text
   },
 
 } as const;

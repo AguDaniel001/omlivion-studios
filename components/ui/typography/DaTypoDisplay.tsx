@@ -171,16 +171,16 @@ captionSm: {
 
 // ── OVERLINE ────────────────────────────────────────────────
 
-overline: {
-  tag:       "p",
-  size:      "xs",
-  weight:    "semibold",
-  leading:   "tight",
-  color:     "tertiary",
-  font:      "neueplak",
-  tracking:  "wide",
-  uppercase: true,
-},
+  overline: {
+    tag:       "p",
+    size:      "xs",        // 12px fixed
+    weight:    "semibold",
+    leading:   "none",      // 1.0 — decorative single line
+    color:     "brand",     // brand colour draws the eye upward
+    font:      "sans",
+    tracking:  "megaWide",  // 0.25em — for dramatic display text
+    uppercase: true,
+  },
 
 overlineSm: {
   tag:       "p",

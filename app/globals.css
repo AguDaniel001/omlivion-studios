@@ -32,6 +32,7 @@
   --color-bg-canvas:       var(--color-neutral-50);
   --color-bg-surface:      var(--color-white);
   --color-bg-dark:         var(--color-neutral-850);
+  --color-bg-on-dark:         var(--color-neutral-700);
   --color-bg-accent:         var(--color-accent-orange);
 
   /* ─── SEMANTIC INTERACTIVE COLORS ──────────────────────── */
@@ -53,6 +54,7 @@
   --color-muted:           var(--color-text-secondary);
   --color-border:          var(--color-border-default);
   --color-dark:            var(--color-bg-dark);
+  --color-on-dark:            var(--color-bg-on-dark);
 }
 
 
@@ -68,6 +70,7 @@
   --color-bg-canvas:       var(--color-bg-canvas);
   --color-bg-surface:      var(--color-bg-surface);
   --color-bg-dark:         var(--color-bg-dark);
+  --color-bg-on-dark:         var(--color-bg-on-dark);
   --color-bg-accent:         var(--color-bg-accent);
 
   /* ─── Surface Colors ────────────────────────────────────── */
@@ -86,6 +89,7 @@
   /* ─── Border & Semantics ───────────────────────────────── */
   --color-border:          var(--color-border);
   --color-dark:            var(--color-dark);
+  --color-on-dark:         var(--color-on-dark);
 
   /* ─── Fonts ─────────────────────────────────────────────── */
   --font-sans:             var(--font-geist-sans);
@@ -94,6 +98,9 @@
 
   /* ─── Shadow Colors ─────────────────────────────────────── */
   --shadow-subtle:         var(--color-shadow-subtle);
+
+  /* ─── Tracking ─────────────────────────────────────────────── */
+  --tracking-mega-wide: 0.65em; /* For dramatic display text */
 }
 
 /* body {
