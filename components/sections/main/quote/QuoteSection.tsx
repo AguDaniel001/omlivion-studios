@@ -1,4 +1,3 @@
-import DaTypography from "@/components/ui/typography/DaTypography";
 import DaSectionContainer from "../../../layout/DaSectionContainer"; // Adjust import path as necessary
 
 export default function QuoteSection() {

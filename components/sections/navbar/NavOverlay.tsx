@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import DaTypography from "@/components/ui/typography/DaTypography";
-import DaButton from "@/components/ui/buttons/DaButton";
 
 const navItems = [
   { name: "Portfolio", href: "/portfolio" },
@@ -101,56 +100,86 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
 
+  // Reset state when menu closes to avoid cascading renders in useEffect
+  if (!isOpen && (hoveredIndex !== null || isMenuHovered)) {
+    setHoveredIndex(null);
+    setIsMenuHovered(false);
+  }
+
   useEffect(() => {
     if (isOpen) {
-      // Open animation
-      gsap.to(circleRef.current, {
+      const tl = gsap.timeline();
+
+      // 1. Scale up the circle to cover the screen
+      tl.to(circleRef.current, {
         scale: 1500,
         duration: 0.8,
-        ease: "power4.inOut",
+        ease: "power2.inOut",
       });
 
-      gsap.to(overlayRef.current, {
+      tl.to(overlayRef.current, {
         autoAlpha: 1,
         duration: 0.1,
-      });
+      }, 0);
 
-      gsap.fromTo(
+      // 2. Animate content in after circle has mostly covered the screen
+      // Links from left
+      tl.fromTo(
         linksRef.current?.children || [],
         { x: -50, opacity: 0 },
         {
           x: 0,
           opacity: 1,
           duration: 0.6,
-          stagger: 0.08,
+          stagger: 0.05,
           ease: "power3.out",
-          delay: 0.2,
-        }
+        },
+        "-=0.5" // Start reveal sooner for a faster feel
+      );
+
+      // Contact from below
+      tl.fromTo(
+        contactRef.current,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        "<0.1" // Reveal slightly after links start
       );
     } else {
+      const tl = gsap.timeline();
+
       // Close animation
-      setHoveredIndex(null);
-      setIsMenuHovered(false);
-      gsap.to(linksRef.current?.children || [], {
-        x: -50,
+      tl.to(linksRef.current?.children || [], {
+        x: -30,
         opacity: 0,
-        duration: 0.4,
-        stagger: 0.05,
-        ease: "power3.in",
+        duration: 0.3,
+        stagger: 0.02,
+        ease: "power2.in",
       });
 
-      gsap.to(circleRef.current, {
+      tl.to(contactRef.current, {
+        y: 30,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+      }, "<");
+
+      tl.to(circleRef.current, {
         scale: 0,
-        duration: 1,
-        ease: "power4.inOut",
-        delay: 0.2,
+        duration: 0.5,
+        ease: "power4.in",
         onComplete: () => {
           gsap.set(overlayRef.current, { autoAlpha: 0 });
         },
-      });
+      }, "-=0.2");
     }
   }, [isOpen]);
 
@@ -166,10 +195,10 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
       />
       
 
-      <div className="flex w-full justify-between max-md:flex-col max-md:h-screen max-md:justify-center gap-20">
+      <div className="flex w-full justify-between max-md:flex-col max-h-screen overflow-y-auto py-20 gap-20 pointer-events-none">
 
-        <div className=" flex gap-20 max-md:gap-0 " >
-          <div className="relative z-10">
+        <div className=" flex gap-20 max-md:gap-0 pointer-events-none" >
+          <div className="relative z-10 hidden md:block">
             <DaTypography variant="overline" color="white" className=" rotate-90 w-5 pt-16 "  >
                 Menu
             </DaTypography>
@@ -197,7 +226,12 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
             ))}
           </div>
          </div>
-        <div className="absolute bottom-12 right-12 flex justify-end items-end flex-col gap-4 relative z-10 pointer-events-auto">
+        
+        {/* Contact Details Container */}
+        <div 
+          ref={contactRef}
+          className="flex justify-end items-end flex-col gap-4 relative z-10 pointer-events-auto mt-auto md:mt-0"
+        >
           <div className="flex flex-col md:items-end gap-2">
             <DaTypography variant="titleLg" className="text-white">
               Get in touch

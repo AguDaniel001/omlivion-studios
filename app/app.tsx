@@ -7,11 +7,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <header>
         <Navbar />
       </header>
-      <body>
-        <main className="flex-1 smooth-transition">
-          {children}
-        </main>
-      </body>
+      <main className="flex-1 smooth-transition">
+        {children}
+      </main>
       <footer>
         <Footer />
       </footer>

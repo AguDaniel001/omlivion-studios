@@ -1,8 +1,6 @@
 
-import DaSectionContainer from "@/components/layout/DaSectionContainer";
 import HeroSection from "@/components/sections/main/hero/HeroSection";
 import QuoteSection from "@/components/sections/main/quote/QuoteSection";
-import DaTypography from "@/components/ui/typography/DaTypography";
 
 export default function Hero() {
   return (
