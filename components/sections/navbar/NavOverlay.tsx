@@ -85,7 +85,7 @@ function NavLink({
         style={{ "--wipe-pos": "0%" } as React.CSSProperties}
       >
         <DaTypography
-          variant="displayHero"
+          variant="headlineMd"
           color="inherit"
           className="whitespace-nowrap !text-transparent bg-clip-text bg-gradient-to-r from-white from-50% to-zinc-700 to-50% bg-[length:200%_100%] [background-position:var(--wipe-pos)_0%]"
         >
@@ -103,12 +103,6 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
   const contactRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
-
-  // Reset state when menu closes to avoid cascading renders in useEffect
-  if (!isOpen && (hoveredIndex !== null || isMenuHovered)) {
-    setHoveredIndex(null);
-    setIsMenuHovered(false);
-  }
 
   useEffect(() => {
     if (isOpen) {

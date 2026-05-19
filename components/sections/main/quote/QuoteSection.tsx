@@ -1,3 +1,4 @@
+import DaTypography from "@/components/ui/typography/DaTypography";
 import DaSectionContainer from "../../../layout/DaSectionContainer"; // Adjust import path as necessary
 
 export default function QuoteSection() {
@@ -11,12 +12,15 @@ export default function QuoteSection() {
           <p className="text-xs md:text-sm tracking-[0.3em] uppercase font-semibold text-white/90">
             A Digital Agency
           </p>
+          <DaTypography variant="overline" color="white" className="pb-8">
+            A Digital Agency
+          </DaTypography>
 
           {/* Main Hero Statement */}
           <h1 className="text-2xl md:text-5xl font-bold leading-snug md:leading-tight tracking-tight">
             We are a web design and development company, building websites 
             that drive traffic, engagement, and conversion for industry-leading 
-            brands and startups in Silicon Valley.
+            brands and startups in Africa.
             <span className="inline-block ml-1 align-middle text-xl md:text-4xl">↑</span>
           </h1>
 

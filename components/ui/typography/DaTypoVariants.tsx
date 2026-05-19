@@ -51,9 +51,20 @@ export type TypoVariantDef = {
 // ─── Master Map ───────────────────────────────────────────────
 
 export const DaTypoVariants = {
-  displayHero: {
+  headlineLg: {
     tag:       "h1",
     size:      "6xl",
+    weight:    "bold",
+    leading:   "snug",
+    color:     "primary",
+    font:      "montserrat",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  headlineMd: {
+    tag:       "h1",
+    size:      "5xl",
     weight:    "bold",
     leading:   "snug",
     color:     "primary",
@@ -75,11 +86,11 @@ export const DaTypoVariants = {
 
   bodyMd: {
     tag:       "p",
-    size:      "base",
-    weight:    "normal",
+    size:      "lg",
+    weight:    "light",
     leading:   "normal",
     color:     "primary",
-    font:      "sans",
+    font:      "neueplak",
     tracking:  "inherit",
     uppercase: false,
   },
@@ -97,11 +108,11 @@ export const DaTypoVariants = {
 
   overline: {
     tag:       "p",
-    size:      "xs",
+    size:      "sm",
     weight:    "semibold",
     leading:   "none",
     color:     "brand",
-    font:      "sans",
+    font:      "neueplak",
     tracking:  "megaWide",
     uppercase: true,
   },

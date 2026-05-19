@@ -1,110 +1,157 @@
 @import "tailwindcss";
 
+/* ─── FONTS ────────────────────────────────────────────── */
+
+/* Neue Plak and Montserrat are now handled via next/font in _app.page.tsx */
+
 :root {
-  /* ─── NEUTRALS ─────────────────────────────────────────── */
-  --color-white:           #ffffff;
-  --color-black:           #000000;
+  /* ─── CORE COLORS ─────────────────────────────────────── */
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-  --color-neutral-50:      #f9f9f9;
-  --color-neutral-100:     #f6f6f6;
-  --color-neutral-150:     #f2f2f2;
-  --color-neutral-200:     #eeeeee;
-  --color-neutral-300:     #bbbbbb;
-  --color-neutral-400:     #9c9c9c;
-  --color-neutral-500:     #6f6f6f;
-  --color-neutral-700:     #323135;
-  --color-neutral-750:     #2b2a2c;
-  --color-neutral-800:     #272628;
-  --color-neutral-850:     #1f1e1d;
-  --color-neutral-900:     #171615;
-  --color-neutral-950:     #111111;
+  /* ─── PRIMARY PALETTE ─────────────────────────────────── */
+  --color-primary-black-1: #1f1e1d;
+  --color-primary-black-2: #111111;
+  --color-primary-black-3: #171615;
+  --color-primary-gray: #f9f9f9;
+  --color-primary-white: #ffffff;
+  --color-primary-red: #f84525;
 
-  /* ─── ACCENT / BRAND ───────────────────────────────────── */
-  --color-accent-orange:   #f84525;
+  /* ─── SUB PALETTE ─────────────────────────────────────── */
+  --color-sub-black-1: #1d1c1b;
+  --color-sub-black-2: #2b2a2c;
+  --color-sub-black-3: #2f2e2d;
+  --color-sub-black-4: #252426;
+  --color-sub-black-5: #393837;
 
-  /* ─── SEMANTIC TEXT COLORS ─────────────────────────────── */
-  --color-text-primary:    var(--color-neutral-900);
-  --color-text-secondary:  var(--color-neutral-500);
-  --color-text-inverse:    var(--color-white);
-  --color-text-brand:      var(--color-accent-orange);
+  --color-sub-gray-1: #464646;
+  --color-sub-gray-2: #5b5b5a;
+  --color-sub-gray-3: #9c9c9c;
+  --color-sub-gray-4: #bbbbbb;
 
-  /* ─── SEMANTIC BACKGROUND COLORS ───────────────────────── */
-  --color-bg-canvas:       var(--color-neutral-50);
-  --color-bg-surface:      var(--color-white);
-  --color-bg-dark:         var(--color-neutral-850);
-  --color-bg-on-dark:         var(--color-neutral-700);
-  --color-bg-accent:         var(--color-accent-orange);
+  --color-sub-white-1: #f2f2f2;
+  --color-sub-white-2: #f6f6f6;
 
-  /* ─── SEMANTIC INTERACTIVE COLORS ──────────────────────── */
-  --color-brand-default:   var(--color-accent-orange);
-  --color-brand-hover:     var(--color-neutral-900);
+  /* ─── SEMANTIC TEXT COLORS ────────────────────────────── */
+  --color-text-primary: var(--color-primary-black-3);
+  --color-text-secondary: var(--color-sub-gray-2);
+  --color-text-muted: var(--color-sub-gray-3);
+  --color-text-inverse: var(--color-primary-white);
+  --color-text-brand: var(--color-primary-red);
 
-  /* ─── SEMANTIC DESIGN ELEMENTS ─────────────────────────── */
-  --color-border-default:  var(--color-neutral-200);
-  --color-shadow-subtle:   rgba(0, 0, 0, 0.05);
+  /* ─── SEMANTIC BACKGROUNDS ────────────────────────────── */
+  --color-bg-canvas: var(--color-primary-gray);
+  --color-bg-surface: var(--color-primary-white);
 
-  /* ─── SEMANTIC ALIASES FOR UTILITIES ───────────────────── */
-  --color-background:      var(--color-bg-canvas);
-  --color-foreground:      var(--color-text-primary);
-  --color-surface:         var(--color-bg-surface);
+  --color-bg-dark: var(--color-primary-black-1);
+  --color-bg-dark-secondary: var(--color-sub-black-2);
+  --color-bg-dark-tertiary: var(--color-sub-black-4);
+
+  --color-bg-accent: var(--color-primary-red);
+
+  /* ─── SEMANTIC BRAND COLORS ───────────────────────────── */
+  --color-primary: var(--color-primary-red);
+  --color-primary-hover: var(--color-primary-black-3);
+  --color-primary-foreground: var(--color-primary-white);
+
+  /* ─── BORDER & UI COLORS ──────────────────────────────── */
+  --color-border: var(--color-sub-white-1);
+  --color-border-dark: var(--color-sub-black-5);
+
+  --color-surface: var(--color-bg-surface);
   --color-surface-foreground: var(--color-text-primary);
-  --color-primary:         var(--color-brand-default);
-  --color-primary-foreground: var(--color-text-inverse);
-  --color-primary-hover:   var(--color-brand-hover);
-  --color-muted:           var(--color-text-secondary);
-  --color-border:          var(--color-border-default);
-  --color-dark:            var(--color-bg-dark);
-  --color-on-dark:            var(--color-bg-on-dark);
-}
 
+  --color-muted: var(--color-text-secondary);
+
+  --color-background: var(--color-bg-canvas);
+  --color-foreground: var(--color-text-primary);
+
+  --color-dark: var(--color-bg-dark);
+  --color-on-dark: var(--color-bg-dark-secondary);
+
+  /* ─── SHADOWS ─────────────────────────────────────────── */
+  --color-shadow-subtle: rgba(0, 0, 0, 0.05);
+
+  /* ─── EASING ──────────────────────────────────────────── */
+  --custom-ease-1: cubic-bezier(0.475, 0.425, 0, 0.995);
+  --custom-ease-2: cubic-bezier(0.835, -0.005, 0.06, 1);
+  --custom-ease-3: cubic-bezier(0.19, 1, 0.22, 1);
+  --custom-ease-4: cubic-bezier(0.63, 0.03, 0.21, 1);
+
+  --primary-ease: var(--custom-ease-1);
+
+  /* ─── LAYOUT WIDTHS ───────────────────────────────────── */
+  --desktop-content-width: 1200px;
+  --laptop-content-width: 1080px;
+  --small-laptop-content-width: 960px;
+}
 
 @theme {
-  /* ─── Text Colors ───────────────────────────────────────── */
-  --color-text-primary:    var(--color-text-primary);
-  --color-text-secondary:  var(--color-text-secondary);
-  --color-text-inverse:    var(--color-text-inverse);
-  --color-text-brand:      var(--color-text-brand);
+  /* ─── TEXT COLORS ─────────────────────────────────────── */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+  --color-text-brand: var(--color-text-brand);
 
-  /* ─── Background Colors ─────────────────────────────────── */
-  --color-background:      var(--color-background);
-  --color-bg-canvas:       var(--color-bg-canvas);
-  --color-bg-surface:      var(--color-bg-surface);
-  --color-bg-dark:         var(--color-bg-dark);
-  --color-bg-on-dark:         var(--color-bg-on-dark);
-  --color-bg-accent:         var(--color-bg-accent);
+  /* ─── BACKGROUNDS ─────────────────────────────────────── */
+  --color-background: var(--color-background);
+  --color-bg-canvas: var(--color-bg-canvas);
+  --color-bg-surface: var(--color-bg-surface);
 
-  /* ─── Surface Colors ────────────────────────────────────── */
-  --color-surface:         var(--color-surface);
+  --color-bg-dark: var(--color-bg-dark);
+  --color-bg-dark-secondary: var(--color-bg-dark-secondary);
+  --color-bg-dark-tertiary: var(--color-bg-dark-tertiary);
+
+  --color-bg-accent: var(--color-bg-accent);
+
+  /* ─── SURFACE ─────────────────────────────────────────── */
+  --color-surface: var(--color-surface);
   --color-surface-foreground: var(--color-surface-foreground);
 
-  /* ─── Primary/Brand Colors ─────────────────────────────── */
-  --color-primary:         var(--color-primary);
+  /* ─── PRIMARY / BRAND ────────────────────────────────── */
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
   --color-primary-foreground: var(--color-primary-foreground);
-  --color-primary-hover:   var(--color-primary-hover);
 
-  /* ─── Neutral/Muted Colors ─────────────────────────────── */
-  --color-foreground:      var(--color-foreground);
-  --color-muted:           var(--color-muted);
+  /* ─── NEUTRAL / MUTED ────────────────────────────────── */
+  --color-foreground: var(--color-foreground);
+  --color-muted: var(--color-muted);
 
-  /* ─── Border & Semantics ───────────────────────────────── */
-  --color-border:          var(--color-border);
-  --color-dark:            var(--color-dark);
-  --color-on-dark:         var(--color-on-dark);
+  /* ─── BORDERS ────────────────────────────────────────── */
+  --color-border: var(--color-border);
+  --color-border-dark: var(--color-border-dark);
 
-  /* ─── Fonts ─────────────────────────────────────────────── */
-  --font-sans:             var(--font-geist-sans);
-  --font-mono:             var(--font-geist-mono);
-  --font-montserrat:       var(--font-montserrat);
+  /* ─── DARK UI ────────────────────────────────────────── */
+  --color-dark: var(--color-dark);
+  --color-on-dark: var(--color-on-dark);
 
-  /* ─── Shadow Colors ─────────────────────────────────────── */
-  --shadow-subtle:         var(--color-shadow-subtle);
+  /* ─── TYPOGRAPHY ─────────────────────────────────────── */
+  --font-sans: var(--font-neueplak), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: monospace;
+  --font-montserrat: var(--font-montserrat);
+  --font-neueplak: var(--font-neueplak);
 
-  /* ─── Tracking ─────────────────────────────────────────────── */
-  --tracking-mega-wide: 0.65em; /* For dramatic display text */
+
+  /* ─── SHADOWS ────────────────────────────────────────── */
+  --shadow-subtle: var(--color-shadow-subtle);
+
+  /* ─── LETTER SPACING ─────────────────────────────────── */
+  --tracking-mega-wide: 0.65em;
+
+  /* ─── LAYOUT ─────────────────────────────────────────── */
+  --desktop-content-width: var(--desktop-content-width);
+  --laptop-content-width: var(--laptop-content-width);
+  --small-laptop-content-width: var(--small-laptop-content-width);
 }
 
-/* body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-montserrat), ui-sans-serif, system-ui;
-} */
+body {
+    font-family: var(--font-neueplak);
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 36px;
+    letter-spacing: .03em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}

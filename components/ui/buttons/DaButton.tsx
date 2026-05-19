@@ -16,24 +16,55 @@ interface DaButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  */
 function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps, "variant">) {
   const charsRef = useRef<HTMLSpanElement[]>([]);
+  const underlineRef = useRef<HTMLDivElement>(null);
   
+  const animateUnderlineCycle = () => {
+    const underline = underlineRef.current;
+    if (!underline) return;
+
+    gsap.killTweensOf(underline);
+    const tl = gsap.timeline({ overwrite: true });
+
+    tl.set(underline, { transformOrigin: "right center" })
+      .to(underline, {
+        scaleX: 0,
+        duration: 0.22,
+        ease: "power2.in",
+      })
+      .set(underline, { transformOrigin: "left center" })
+      .to(underline, {
+        scaleX: 1,
+        duration: 0.26,
+        ease: "power2.out",
+      });
+
+    return tl;
+  };
+
   const onMouseEnter = () => {
+    animateUnderlineCycle();
+
     gsap.to(charsRef.current, {
       y: -5,
-      duration: 0.3,
+      duration: 0.12,
       stagger: {
-        each: 0.08,
+        each: 0.04,
         yoyo: true,
-        repeat: 1
+        repeat: 1,
       },
       ease: "sine.inOut"
     });
   };
 
+  const onMouseLeave = () => {
+    animateUnderlineCycle();
+  };
+
   return (
     <button 
       onMouseEnter={onMouseEnter}
-      className={cn("relative uppercase flex flex-col items-start group py-1 font-bold", className)}
+      onMouseLeave={onMouseLeave}
+      className={cn("relative uppercase flex flex-col items-start group py-1 font-semibold text-base cursor-pointer font-neueplak " , className)}
       {...props}
     >
       <div className="flex">
@@ -47,7 +78,11 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
           </span>
         ))}
       </div>
-      <div className="w-full h-[1px] bg-white mt-1 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+      <div
+        ref={underlineRef}
+        className="w-full h-[1px] bg-white mt-2 transition-opacity duration-700 "
+        style={{ transformOrigin: "left center", transform: "scaleX(1)" }}
+      />
     </button>
   );
 }
@@ -140,7 +175,7 @@ function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps
       ref={containerRef}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={cn("relative flex items-center gap-8 px-6 py-3 uppercase group font-bold text-sm isolate overflow-visible text-white tracking-widest ", className)}
+      className={cn("relative flex items-center gap-8 px-6 py-3 uppercase group font-bold text-sm isolate overflow-visible text-white tracking-widest cursor-pointer font-neueplak ", className)}
       {...props}
     >
       <div 

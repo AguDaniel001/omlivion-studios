@@ -154,10 +154,23 @@ export default function HeroSection() {
         ref={bgFillRef} 
         className="absolute inset-0 bg-dark z-0" 
       />
-
+        <div className="absolute bottom-10 right-5 h-[130vh]  pointer-events-none z-0 overflow-visible">
+          <svg
+            viewBox="0 0 100 100"
+            className="h-full w-auto"
+            preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="50" cy="50" r="45" stroke="#9ca3af" strokeWidth={0.2} fill="transparent" strokeOpacity={0.1} />
+          </svg>
+        </div>
       <DaSectionContainer className="relative z-10 flex min-h-screen flex-col items-center justify-center py-20 max-w-7xl mx-auto">
         
-        <div className="absolute top-1/2 -translate-y-1/2 right-10 h-[130vh] w-auto pointer-events-none z-0">
+        
+
+        
+        <div className="absolute top-1/2 -translate-y-1/2 right-30 h-[130vh] w-auto pointer-events-none z-0">
             <HeroBackgroundSVG 
               vGradientRef={vGradientRef} 
               othersGradientRef={othersGradientRef}
@@ -165,17 +178,16 @@ export default function HeroSection() {
               vPathRef={vPathRef}
             />
         </div>
-
-        <div className="relative z-10 flex w-full items-center justify-between gap-12">
-          <div className="w-full max-w-2xl flex-shrink-0">
+        <div className="relative z-10 flex w-full items-center justify-between gap-12 pt-20 ">
+          <div className="w-full max-w-3xl flex-shrink-0">
             <div ref={overlineRef} style={{ opacity: 0 }}>
-              <DaTypography variant="overline" color="brand" className="pb-8">
+              <DaTypography variant="overline" className="pb-10">
                 We are omlivion
               </DaTypography>
             </div>
             
             <div ref={headlineRef}>
-              <DaTypography className="pl-8 pb-6 flex flex-wrap" variant="displayHero" color="white">
+              <DaTypography className="pl-8 pb-6 flex flex-wrap" variant="headlineLg" color="white">
                 {headlineWords.map((word, i) => (
                   <span key={i} className="inline-block overflow-hidden mr-[0.25em] leading-[1.1]">
                     <span className="word-inner inline-block">
@@ -188,7 +200,7 @@ export default function HeroSection() {
 
             <div ref={bodyRef} style={{ opacity: 0 }}>
               <DaTypography
-                className="pl-8 pb-8 mt-0 w-full max-w-md"
+                className="pl-8 pb-8 mt-0 w-full "
                 variant="bodyMd"
                 color="white"
               >

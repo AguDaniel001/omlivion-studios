@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useLayoutEffect, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -68,8 +68,8 @@ export default function Navbar() {
   return (
     <>
       <nav ref={containerRef} className="fixed top-8 left-0 w-full z-[110] bg-transparent">
-        <div className=" px-20 h-20 flex items-center justify-between">
-          <Link href="/" className="relative flex items-center h-10">
+        <div className=" px-10 h-20 flex items-center justify-between">
+          <Link href="/" className="relative flex items-center h-10" onClick={() => setIsOpen(false)}>
             {/* Logo Text SVG */}
             <div ref={logoTextRef} className="flex items-center">
               <svg width="130" height="29" viewBox="0 0 187 29" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +119,7 @@ export default function Navbar() {
 
       
 
-      <NavOverlay isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <NavOverlay key={isOpen ? "open" : "closed"} isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 }

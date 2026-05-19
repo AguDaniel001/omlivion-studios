@@ -14,8 +14,8 @@ export const textStyles = {
     "2xl":   "text-xl md:text-[22px] lg:text-[24px]",                         //  20 → 24px
     "3xl":   "text-[22px] md:text-[26px] lg:text-[28px] xl:text-[32px]",      //  22 → 32px
     "4xl":   "text-[28px] md:text-[36px] lg:text-[42px] xl:text-[48px]",      //  28 → 48px
-    "5xl":   "text-[36px] md:text-[44px] lg:text-[56px]",                     //  36 → 56px
-    "6xl":   "text-[36px] md:text-[46px] lg:text-[54px] xl:text-[64px]",      //  36 → 64px
+    "5xl":   "text-[36px] md:text-[44px] lg:text-[67px]",                     //  36 → 56px
+    "6xl":   "text-[36px] md:text-[46px] lg:text-[54px] xl:text-[80px]",      //  36 → 64px
   },
 
   /**
