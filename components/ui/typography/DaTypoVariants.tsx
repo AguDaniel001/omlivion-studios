@@ -72,6 +72,16 @@ export const DaTypoVariants = {
     tracking:  "inherit",
     uppercase: false,
   },
+  headlineSm: {
+    tag:       "h1",
+    size:      "4xl",
+    weight:    "bold",
+    leading:   "snug",
+    color:     "primary",
+    font:      "montserrat",
+    tracking:  "inherit",
+    uppercase: false,
+  },
 
   titleLg: {
     tag:       "h5",
@@ -80,6 +90,17 @@ export const DaTypoVariants = {
     leading:   "normal",
     color:     "primary",
     font:      "neueplak",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  subTitle: {
+    tag:       "h5",
+    size:      "lg",
+    weight:    "semibold",
+    leading:   "normal",
+    color:     "primary",
+    font:      "montserrat",
     tracking:  "inherit",
     uppercase: false,
   },
@@ -99,6 +120,17 @@ export const DaTypoVariants = {
     tag:       "p",
     size:      "lg",
     weight:    "light",
+    leading:   "normal",
+    color:     "primary",
+    font:      "neueplak",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  bodySm: {
+    tag:       "p",
+    size:      "base",
+    weight:    "semibold",
     leading:   "normal",
     color:     "primary",
     font:      "neueplak",

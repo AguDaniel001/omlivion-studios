@@ -33,8 +33,8 @@
   --color-sub-white-2: #f6f6f6;
 
   /* ─── SEMANTIC TEXT COLORS ────────────────────────────── */
-  --color-text-primary: var(--color-primary-black-3);
-  --color-text-secondary: var(--color-sub-gray-2);
+  --color-text-primary: var(--color-primary-black-2);
+  --color-text-secondary: var(--color-primary-black-3);
   --color-text-muted: var(--color-sub-gray-3);
   --color-text-inverse: var(--color-primary-white);
   --color-text-brand: var(--color-primary-red);
@@ -58,13 +58,7 @@
   --color-border: var(--color-sub-white-1);
   --color-border-dark: var(--color-sub-black-5);
 
-  --color-surface: var(--color-bg-surface);
-  --color-surface-foreground: var(--color-text-primary);
-
   --color-muted: var(--color-text-secondary);
-
-  --color-background: var(--color-bg-canvas);
-  --color-foreground: var(--color-text-primary);
 
   --color-dark: var(--color-bg-dark);
   --color-on-dark: var(--color-bg-dark-secondary);

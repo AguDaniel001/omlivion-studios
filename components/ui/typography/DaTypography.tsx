@@ -12,9 +12,9 @@ export const textStyles = {
     xl:      "text-[18px] md:text-[20px] lg:text-[22px]",                     //  18 → 22px
     "2xl":   "text-xl md:text-[22px] lg:text-[24px]",                         //  20 → 24px
     "3xl":   "text-[22px] md:text-[26px] lg:text-[28px] xl:text-[36px]",      //  22 → 36px
-    "4xl":   "text-[28px] md:text-[36px] lg:text-[42px] xl:text-[48px]",      //  28 → 48px
-    "5xl":   "text-[36px] md:text-[44px] lg:text-[67px]",                     //  36 → 56px
-    "6xl":   "text-[36px] md:text-[46px] lg:text-[54px] xl:text-[80px]",      //  36 → 64px
+    "4xl":   "text-[28px] md:text-[36px] lg:text-[42px] xl:text-[54px]",      //  28 → 54px
+    "5xl":   "text-[36px] md:text-[44px] lg:text-[67px]",                     //  36 → 67px
+    "6xl":   "text-[36px] md:text-[46px] lg:text-[54px] xl:text-[80px]",      //  36 → 80px
   },
 
   /**
