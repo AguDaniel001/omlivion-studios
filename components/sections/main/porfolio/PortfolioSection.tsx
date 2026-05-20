@@ -27,6 +27,13 @@ const PORTFOLIO_PROJECTS: ProjectItem[] = [
     imageSrc: "/assets/images/fuel-pump.webp",
     imageAlt: "Apex Corporate Website Showcase",
   },
+    {
+    id: "pulse",
+    title: "Pulse AI",
+    subtitle: "SaaS Landing Page",
+    imageSrc: "/assets/images/camera.webp",
+    imageAlt: "Pulse AI SaaS Landing Page Showcase",
+  },
   {
     id: "nova",
     title: "Nova Labs",
@@ -34,13 +41,7 @@ const PORTFOLIO_PROJECTS: ProjectItem[] = [
     imageSrc: "/assets/images/robotics.webp",
     imageAlt: "Nova Labs Corporate Website Showcase",
   },
-  {
-    id: "pulse",
-    title: "Pulse AI",
-    subtitle: "SaaS Landing Page",
-    imageSrc: "/assets/images/camera.webp",
-    imageAlt: "Pulse AI SaaS Landing Page Showcase",
-  },
+
 ];
 
 export default function PortfolioSection() {
@@ -58,13 +59,14 @@ export default function PortfolioSection() {
 
       {/* 3. Grid Container mapping the config data */}
       <div className="w-full max-w-[1200px] mb-[215px] grid grid-cols-1 md:grid-cols-2 gap-8 space-y-30 lg:gap-12">
-        {PORTFOLIO_PROJECTS.map((project) => (
+        {PORTFOLIO_PROJECTS.map((project, index) => (
           <PortfolioCard
             key={project.id}
             title={project.title}
             subtitle={project.subtitle}
             imageSrc={project.imageSrc}
             imageAlt={project.imageAlt}
+            parallax={index % 2 !== 0}
           />
         ))}
       </div>

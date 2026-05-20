@@ -2,9 +2,10 @@
 
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(CustomEase);
+  gsap.registerPlugin(CustomEase, ScrollTrigger);
   
   // Register custom eases from global.css
   CustomEase.create("custom-1", "0.475, 0.425, 0, 0.995");
@@ -42,37 +43,72 @@ export const revealFromUnder = (
  * Applies a "Door Opening" effect from the left (Right edge static)
  */
 export const applyCardHoverEffect = (
-  container: HTMLElement,
+  trigger: HTMLElement,
+  skewElement: HTMLElement,
   image: HTMLElement,
-  text: HTMLElement
 ) => {
-  // Set transform origin to the right so it stays static
-  gsap.set(container, { transformOrigin: "right center", transformPerspective: 2000 });
+  // Set transform origin to the RIGHT so the right corner stays static
+  gsap.set(skewElement, { transformOrigin: "right center", transformPerspective: 2000 });
 
-  const tl = gsap.timeline({ 
-    paused: true, 
-    defaults: { 
-      ease: "custom-1", 
-      duration: 1.2 // Even slower and smoother
-    } 
-  });
+  const handleMouseEnter = () => {
+    gsap.to(skewElement, {
+      rotateY: -10, // Swings the left side backward into the screen
+      duration: 0.6,
+      ease: "custom-1",
+      overwrite: true
+    });
+    gsap.to(image, {
+      scale: 1.1,
+      duration: 1.8,
+      ease: "custom-1",
+      overwrite: true
+    });
+  };
 
-  tl.to(container, {
-    rotateY: -8, // Negative rotateY with right origin swings the left side BACKWARD
-    z: -40,      // Noticeable push back
-  })
-  .to(image, {
-    scale: 1.1, // Reduced zoom scale
-  }, 0)
-  .to(text, {
-    x: 80, 
-  }, 0);
+  const handleMouseLeave = () => {
+    gsap.to(skewElement, {
+      rotateY: 0,
+      duration: 0.6,
+      ease: "custom-1",
+      overwrite: true
+    });
+    gsap.to(image, {
+      scale: 1,
+      duration: 1.8,
+      ease: "custom-1",
+      overwrite: true
+    });
+  };
 
-  container.addEventListener("mouseenter", () => tl.play());
-  container.addEventListener("mouseleave", () => tl.reverse());
+  trigger.addEventListener("mouseenter", handleMouseEnter);
+  trigger.addEventListener("mouseleave", handleMouseLeave);
 
   return () => {
-    container.removeEventListener("mouseenter", () => tl.play());
-    container.removeEventListener("mouseleave", () => tl.reverse());
+    trigger.removeEventListener("mouseenter", handleMouseEnter);
+    trigger.removeEventListener("mouseleave", handleMouseLeave);
   };
+};
+
+/**
+ * Reusable Scroll Parallax Animation
+ * Elements move upwards as the user scrolls down.
+ */
+export const applyScrollParallax = (
+  element: HTMLElement,
+  trigger: HTMLElement,
+  amount: number = 160 // Increased to ensure it moves past neighbors
+) => {
+  gsap.fromTo(element, 
+    { y: amount }, 
+    { 
+      y: -amount, 
+      ease: "none",
+      scrollTrigger: {
+        trigger: trigger,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      }
+    }
+  );
 };
