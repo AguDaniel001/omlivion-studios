@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import DaSectionContainer from "@/components/layout/DaSectionContainer";
 import DaButton from "@/components/ui/buttons/DaButton";
-import DaTypography from "@/components/ui/typography/DaTypography";
+import DaText from "@/components/ui/typography/DaText";
 
 /**
  * HeroBackgroundSVG
@@ -181,13 +181,13 @@ export default function HeroSection() {
         <div className="relative z-10 flex w-full items-center justify-between gap-12 pt-20 ">
           <div className="w-full max-w-3xl flex-shrink-0">
             <div ref={overlineRef} style={{ opacity: 0 }}>
-              <DaTypography variant="overline" className="pb-10">
+              <DaText variant="overline" className="pb-10">
                 We are omlivion
-              </DaTypography>
+              </DaText>
             </div>
             
             <div ref={headlineRef}>
-              <DaTypography className="pl-8 pb-6 flex flex-wrap" variant="headlineLg" color="white">
+              <DaText className="pl-8 pb-6 flex flex-wrap" variant="headlineLg" color="white">
                 {headlineWords.map((word, i) => (
                   <span key={i} className="inline-block overflow-hidden mr-[0.25em] leading-[1.1]">
                     <span className="word-inner inline-block">
@@ -195,18 +195,18 @@ export default function HeroSection() {
                     </span>
                   </span>
                 ))}
-              </DaTypography>
+              </DaText>
             </div>
 
             <div ref={bodyRef} style={{ opacity: 0 }}>
-              <DaTypography
+              <DaText
                 className="pl-8 pb-8 mt-0 w-full "
                 variant="bodyMd"
                 color="white"
               >
                 We are a creative team of designers, developers, strategists,
                 and producers building elevated websites in the heart of Africa.
-              </DaTypography>
+              </DaText>
             </div>
             
             <div ref={ctaRef} style={{ opacity: 0 }}>

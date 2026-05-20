@@ -3,7 +3,7 @@
  * ─────────────────────────────────────────────────────────────
  * Master index for all typography variants.
  * Merges display/heading scale and content/text scale into one
- * map consumed by DaTypography.
+ * map consumed by DaText.
  *
  * Files
  * ─────
@@ -32,7 +32,7 @@ import type {
   TextColor,
   TextFont,
   TextTracking,
-} from "./DaText";
+} from "./DaTypography";
 
 
 // ─── Variant Shape ────────────────────────────────────────────
@@ -80,6 +80,17 @@ export const DaTypoVariants = {
     leading:   "normal",
     color:     "primary",
     font:      "neueplak",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  bodyLg: {
+    tag:       "p",
+    size:      "3xl",
+    weight:    "bold",
+    leading:   "loose",
+    color:     "primary",
+    font:      "montserrat",
     tracking:  "inherit",
     uppercase: false,
   },

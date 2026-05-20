@@ -1,5 +1,5 @@
 import Link from "next/link";
-import DaTypography from "@/components/ui/typography/DaTypography";
+import DaText from "@/components/ui/typography/DaText";
 
 const navItems = [
   { name: "Portfolio", href: "/portfolio" },
@@ -34,9 +34,9 @@ export default function Footer() {
           <Link href="/" className="text-3xl font-bold tracking-tighter">
             OMLIVION
           </Link>
-          <DaTypography variant="bodyMd" className="text-zinc-400 max-w-xs">
+          <DaText variant="bodyMd" className="text-zinc-400 max-w-xs">
             Crafting digital experiences with precision, motion, and a touch of the extraordinary.
-          </DaTypography>
+          </DaText>
           <div className="flex gap-4">
             {socialIcons.map((social) => (
               <a 
@@ -55,9 +55,9 @@ export default function Footer() {
         <div className="flex flex-col md:items-end justify-between gap-12">
           {/* Contact Details */}
           <div className="flex flex-col md:items-end gap-2">
-            <DaTypography variant="titleLg" className="text-white">
+            <DaText variant="titleLg" className="text-white">
               Get in touch
-            </DaTypography>
+            </DaText>
             <a href="mailto:hello@omlivion.com" className="text-zinc-400 hover:text-white transition-colors">
               hello@omlivion.com
             </a>
@@ -82,12 +82,12 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4">
-        <DaTypography variant="captionSm" className="text-zinc-600">
+        <DaText variant="captionSm" className="text-zinc-600">
           © {new Date().getFullYear()} Omlivion Studios. All rights reserved.
-        </DaTypography>
-        <DaTypography variant="captionSm" className="text-zinc-600">
+        </DaText>
+        <DaText variant="captionSm" className="text-zinc-600">
           Privacy Policy • Terms of Service
-        </DaTypography>
+        </DaText>
       </div>
     </footer>
   );

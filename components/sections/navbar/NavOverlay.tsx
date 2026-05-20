@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
-import DaTypography from "@/components/ui/typography/DaTypography";
+import DaText from "@/components/ui/typography/DaText";
 
 const navItems = [
   { name: "Portfolio", href: "/portfolio" },
@@ -84,13 +84,13 @@ function NavLink({
         ref={textRef} 
         style={{ "--wipe-pos": "0%" } as React.CSSProperties}
       >
-        <DaTypography
+        <DaText
           variant="headlineMd"
           color="inherit"
           className="whitespace-nowrap !text-transparent bg-clip-text bg-gradient-to-r from-white from-50% to-zinc-700 to-50% bg-[length:200%_100%] [background-position:var(--wipe-pos)_0%]"
         >
           {name}
-        </DaTypography>
+        </DaText>
       </div>
     </Link>
   );
@@ -193,9 +193,9 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
 
         <div className=" flex gap-20 max-md:gap-0 pointer-events-none" >
           <div className="relative z-10 hidden md:block">
-            <DaTypography variant="overline" color="white" className=" rotate-90 w-5 pt-16 "  >
+            <DaText variant="overline" color="white" className=" rotate-90 w-5 pt-16 "  >
                 Menu
-            </DaTypography>
+            </DaText>
           </div>
                 {/* Nav Links Container */}
           <div
@@ -227,9 +227,9 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
           className="flex justify-end items-end flex-col gap-4 relative z-10 pointer-events-auto mt-auto md:mt-0"
         >
           <div className="flex flex-col md:items-end gap-2">
-            <DaTypography variant="titleLg" className="text-white">
+            <DaText variant="titleLg" className="text-white">
               Get in touch
-            </DaTypography>
+            </DaText>
             <a href="mailto:hello@omlivion.com" className="text-zinc-400 hover:text-white transition-colors">
               hello@omlivion.com
             </a>
