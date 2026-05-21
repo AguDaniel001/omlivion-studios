@@ -62,6 +62,7 @@ export default function PortfolioSection() {
         {PORTFOLIO_PROJECTS.map((project, index) => (
           <PortfolioCard
             key={project.id}
+            index={index}
             title={project.title}
             subtitle={project.subtitle}
             imageSrc={project.imageSrc}

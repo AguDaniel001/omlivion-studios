@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
 import DaSectionContainer from "@/components/layout/DaSectionContainer";
 import DaButton from "@/components/ui/buttons/DaButton";
 import DaText from "@/components/ui/typography/DaText";
@@ -87,10 +88,8 @@ export default function HeroSection() {
   const headline = "A digital agency focused on web.";
   const headlineWords = headline.split(" ");
 
-  useEffect(() => {
-    (async () => {
-      const { gsap } = await import("gsap");
-
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       // Final color: bg-bg-on-dark (#323135)
@@ -145,7 +144,9 @@ export default function HeroSection() {
         { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
         "-=0.7"
       );
-    })();
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (

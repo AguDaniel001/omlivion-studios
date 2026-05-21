@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* ─── FONTS ────────────────────────────────────────────── */
 
 /* Neue Plak and Montserrat are now handled via next/font in _app.page.tsx */

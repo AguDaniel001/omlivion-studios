@@ -55,13 +55,13 @@ export const applyCardHoverEffect = (
       rotateY: -10, // Swings the left side backward into the screen
       duration: 0.6,
       ease: "custom-1",
-      overwrite: true
+      overwrite: "auto"
     });
     gsap.to(image, {
       scale: 1.1,
       duration: 1.8,
       ease: "custom-1",
-      overwrite: true
+      overwrite: "auto"
     });
   };
 
@@ -70,13 +70,13 @@ export const applyCardHoverEffect = (
       rotateY: 0,
       duration: 0.6,
       ease: "custom-1",
-      overwrite: true
+      overwrite: "auto"
     });
     gsap.to(image, {
       scale: 1,
       duration: 1.8,
       ease: "custom-1",
-      overwrite: true
+      overwrite: "auto"
     });
   };
 
