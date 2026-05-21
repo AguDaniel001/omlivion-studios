@@ -97,8 +97,13 @@ export default function Navbar() {
   const isDarkElements = (isOpen && !isLight) || (!isOpen && isLight);
   const colorClass = isDarkElements ? "text-dark" : "text-white";
   const iconColor = isDarkElements ? "#1f1e1d" : "#ffffff";
-  const hamburgerBg = isDarkElements ? "bg-dark" : "bg-white";
+  
+  // For cutout effect: 
+  // - Dark circle (Black) + White spans + mix-blend-multiply = Black circle with background-colored holes
+  // - Light circle (White) + Black spans + mix-blend-screen = White circle with background-colored holes
+  const hamburgerBg = isDarkElements ? "bg-black" : "bg-white";
   const hamburgerSpan = isDarkElements ? "bg-white" : "bg-black";
+  const blendClass = isDarkElements ? "mix-blend-multiply" : "mix-blend-screen";
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -114,7 +119,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav ref={containerRef} className={`navbar fixed top-8 left-0 w-full z-[110] bg-transparent transition-all duration-500 ${colorClass}`}>
+      <nav ref={containerRef} className={`navbar fixed top-8 left-0 w-full z-[110] bg-transparent transition-all duration-100 ease-in-out ${colorClass}`}>
         <div className=" px-10 h-20 flex items-center justify-between">
           <Link href="/" className="relative flex items-center h-10" onClick={() => setIsOpen(false)}>
             {/* Logo Text SVG */}
@@ -139,10 +144,13 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="flex justify-end items-center">
-             <Link href="/contact" className={`z-[110] mr-12 transition-all duration-300 ${colorClass}`}>
-              <DaButton variant="underline">let&apos;s talk</DaButton>
-            </Link>
+          <div className="flex irems-center gap-3 ">
+            <div className="flex-1 pt-3 items-center h-full">
+                <Link href="/contact" className={`   my-auto    z-[110] mr-12 transition-all duration-100 ease-in-out ${colorClass}`}>
+                <DaButton variant="underline">let&apos;s talk</DaButton>
+              </Link>
+            </div>
+             
 
             <div 
               className="z-[120] flex items-center justify-center w-16 h-16 -mr-6" // Larger trigger area
@@ -153,7 +161,7 @@ export default function Navbar() {
                 ref={hamburgerRef}
                 onClick={() => setIsOpen(!isOpen)}
                 data-magnetic="true"
-                className={`group flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-500 active:scale-95 ${hamburgerBg}`}
+                className={`group flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-100 ease-in-out active:scale-95 ${hamburgerBg} ${blendClass}`}
               >
                 <div className="relative flex flex-col items-end justify-center w-5 gap-1 z-10">
                   <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "rotate-45 translate-y-2" : ""}`} />

@@ -1,5 +1,6 @@
 
 import HeroSection from "@/components/sections/main/hero/HeroSection";
+import InsightSection from "@/components/sections/main/insight/InsightSection";
 import PortfolioSection from "@/components/sections/main/porfolio/PortfolioSection";
 import QuoteSection from "@/components/sections/main/quote/QuoteSection";
 
@@ -9,6 +10,7 @@ export default function Hero() {
         <HeroSection />
         <PortfolioSection />
         <QuoteSection />
+        <InsightSection />
     </div>
   );
 }

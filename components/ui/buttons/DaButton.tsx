@@ -45,10 +45,10 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
     animateUnderlineCycle();
 
     gsap.to(charsRef.current, {
-      y: -5,
-      duration: 0.12,
+      y: -7,
+      duration: 0.2,
       stagger: {
-        each: 0.04,
+        each: 0.02,
         yoyo: true,
         repeat: 1,
       },
@@ -57,7 +57,7 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
   };
 
   const onMouseLeave = () => {
-    animateUnderlineCycle();
+    // No underline animation on leave
   };
 
   return (
@@ -80,7 +80,7 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
       </div>
       <div
         ref={underlineRef}
-        className="w-full h-[1px] bg-current mt-2 transition-opacity duration-700 "
+        className="w-full h-[1px] bg-current mt-2 transition-opacity duration-100 "
         style={{ transformOrigin: "left center", transform: "scaleX(1)" }}
       />
     </button>
@@ -89,83 +89,71 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
 
 /**
  * Variant 2: Circle + Plus Icon with Circle Movement
- * Gray circle slides from behind first character to behind plus icon on hover
+ * Gray circle expands to full width then shrinks to the right end on hover
  */
 function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps, "variant">) {
   const circleRef = useRef<HTMLDivElement>(null);
-  const firstCharRef = useRef<HTMLSpanElement>(null);
-  const plusRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLButtonElement>(null);
 
   useLayoutEffect(() => {
-    if (!circleRef.current || !firstCharRef.current || !containerRef.current) return;
-    
-    const updatePos = () => {
-      const containerRect = containerRef.current!.getBoundingClientRect();
-      const firstRect = firstCharRef.current!.getBoundingClientRect();
-      const x = firstRect.left - containerRect.left + (firstRect.width / 2);
-      gsap.set(circleRef.current, { x, xPercent: -170, width: 40 });
-    };
+    const ctx = gsap.context(() => {
+      if (!circleRef.current || !containerRef.current) return;
+      
+      const updatePos = () => {
+        if (!circleRef.current || !containerRef.current) return;
+        const h = containerRef.current.offsetHeight;
+        gsap.set(circleRef.current, { width: h, x: 0 });
+      };
 
-    updatePos();
-    const timeout = setTimeout(updatePos, 50);
-    window.addEventListener('resize', updatePos);
-    return () => {
-      window.removeEventListener('resize', updatePos);
-      clearTimeout(timeout);
-    };
+      updatePos();
+      const timeout = setTimeout(updatePos, 50);
+      window.addEventListener("resize", updatePos);
+      
+      return () => {
+        window.removeEventListener("resize", updatePos);
+        clearTimeout(timeout);
+      };
+    }, containerRef);
+    
+    return () => ctx.revert();
   }, []);
 
   const onMouseEnter = () => {
-    if (!circleRef.current || !plusRef.current || !containerRef.current || !firstCharRef.current) return;
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const firstRect = firstCharRef.current.getBoundingClientRect();
-    const plusRect = plusRef.current.getBoundingClientRect();
+    if (!circleRef.current || !containerRef.current) return;
+    const h = containerRef.current.offsetHeight;
+    const w = containerRef.current.offsetWidth;
     
-    const startX = firstRect.left - containerRect.left + (firstRect.width / 2);
-    const targetX = plusRect.left - containerRect.left + (plusRect.width / 2);
-    const distance = targetX - startX;
-    
-    const tl = gsap.timeline();
-    // Expand strictly to the right. Left edge remains fixed.
+    const tl = gsap.timeline({ overwrite: "auto" });
     tl.to(circleRef.current, {
-      width: distance + 40,
-      x: startX + (1.7 * distance),
+      width: w,
+      x: 0,
       duration: 0.3,
       ease: "power2.inOut"
     })
-    // Contract towards targetX
     .to(circleRef.current, {
-      width: 40,
-      x: targetX,
+      width: h,
+      x: w - h,
       duration: 0.3,
       ease: "power2.inOut"
     });
   };
 
   const onMouseLeave = () => {
-    if (!circleRef.current || !firstCharRef.current || !containerRef.current || !plusRef.current) return;
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const firstRect = firstCharRef.current.getBoundingClientRect();
-    const plusRect = plusRef.current.getBoundingClientRect();
+    if (!circleRef.current || !containerRef.current) return;
+    const h = containerRef.current.offsetHeight;
+    const w = containerRef.current.offsetWidth;
     
-    const startX = firstRect.left - containerRect.left + (firstRect.width / 2);
-    const targetX = plusRect.left - containerRect.left + (plusRect.width / 2);
-    const distance = targetX - startX;
-    
-    const tl = gsap.timeline();
-    // Expand back to the left. Right edge remains fixed.
+    const tl = gsap.timeline({ overwrite: "auto" });
     tl.to(circleRef.current, {
-      width: distance + 40,
-      x: targetX + (0.7 * distance),
-      duration: 0.3,
+      width: w,
+      x: 0,
+      duration: 0.45,
       ease: "power2.inOut"
     })
-    // Contract back to startX
     .to(circleRef.current, {
-      width: 40,
-      x: startX,
-      duration: 0.3,
+      width: h,
+      x: 0,
+      duration: 0.45,
       ease: "power2.inOut"
     });
   };
@@ -175,21 +163,20 @@ function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps
       ref={containerRef}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={cn("relative flex items-center gap-8 px-6 py-3 uppercase group font-bold text-sm isolate overflow-visible text-inherit tracking-widest cursor-pointer font-neueplak ", className)}
+      className={cn(
+        "relative flex items-center  gap-6 px-4.5 pr-3.5 py-3 uppercase group font-bold text-sm isolate overflow-hidden text-inherit tracking-widest cursor-pointer font-neueplak rounded-full transition-colors duration-300", 
+        className
+      )}
       {...props}
     >
       <div 
         ref={circleRef}
-        className="absolute w-10 h-10 bg-current opacity-20 rounded-full -z-10 top-1/2 -translate-y-1/2 pointer-events-none"
+        className="absolute h-full bg-on-dark opacity-20 left-0 top-0 -z-10 pointer-events-none rounded-full"
       />
-      <div className="flex">
-        {children.toUpperCase().split("").map((char, i) => (
-          <span key={i} ref={i === 0 ? firstCharRef : null}>
-            {char === " " ? "\u00A0" : char}
-          </span>
-        ))}
-      </div>
-      <div ref={plusRef} className="flex items-center justify-center w-3 h-3">
+      <span className="whitespace-nowrap">
+        {children.toUpperCase()}
+      </span>
+      <div className="flex items-center justify-center w-3 h-3">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-full h-full">
           <path d="M12 5v14M5 12h14" strokeLinecap="round" />
         </svg>
