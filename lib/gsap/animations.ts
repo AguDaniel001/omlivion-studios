@@ -12,6 +12,7 @@ if (typeof window !== "undefined") {
   CustomEase.create("custom-2", "0.835, -0.005, 0.06, 1");
   CustomEase.create("custom-3", "0.19, 1, 0.22, 1");
   CustomEase.create("custom-4", "0.63, 0.03, 0.21, 1");
+  CustomEase.create("custom-expo", "0.16, 1, 0.3, 1");
 }
 
 /**

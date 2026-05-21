@@ -37,9 +37,9 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
       if (isOpen) {
         // Scale up the circle
         tl.to(refs.circle.current, {
-          scale: 1500,
-          duration: 0.8,
-          ease: "power2.inOut",
+          scale: 230,
+          duration: 0.7,
+          ease: "ease-4",
           overwrite: true,
         });
 
@@ -52,7 +52,7 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
             opacity: 1,
             duration: 0.6,
             stagger: 0.05,
-            ease: "power3.out",
+             ease: "ease-4",
             overwrite: true,
           },
           "-=0.5"
@@ -65,7 +65,7 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
             y: 0,
             opacity: 1,
             duration: 0.6,
-            ease: "power3.out",
+            ease: "ease-4",
             overwrite: true,
           },
           "<0.1"
@@ -75,7 +75,7 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
         tl.to(refs.contact.current, {
           y: 50,
           opacity: 0,
-          duration: 0.4,
+          duration: 0.3,
           ease: "power3.in",
           overwrite: true,
         });
@@ -85,8 +85,8 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
           {
             x: -50,
             opacity: 0,
-            duration: 0.4,
-            stagger: 0.05,
+            duration: 0.3,
+            stagger: 0.03,
             ease: "power3.in",
             overwrite: true,
           },
@@ -96,20 +96,20 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
         tl.to(refs.menu.current, {
           x: -50,
           opacity: 0,
-          duration: 0.4,
+          duration: 0.3,
           ease: "power3.in",
           overwrite: true,
         }, "<");
 
         tl.to(refs.circle.current, {
           scale: 0,
-          duration: 0.8,
+          duration: 0.6,
           ease: "power2.inOut",
           overwrite: true,
           onComplete: () => {
             gsap.set(refs.overlay.current, { autoAlpha: 0 });
           },
-        }, "-=0.4");
+        }, "-=0.5");
       }
     });
   }, [isOpen]);

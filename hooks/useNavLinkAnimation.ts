@@ -30,17 +30,17 @@ export function useNavLinkAnimation(
     ctx.current?.add(() => {
       // Movement Animation
       gsap.to(refs.link.current, {
-        x: isHovered ? 48 : 0,
-        duration: 0.6,
-        ease: "power3.out",
+        x: isHovered ? 30 : 0,
+        duration: 0.7,
+        ease: "power1.inOut",
         overwrite: "auto" // Smoothly kills previous conflicting tweens
       });
 
       // Internal Color Wipe Animation
       gsap.to(refs.text.current, {
         "--wipe-pos": isDimmed ? "100%" : "0%",
-        duration: 0.8,
-        ease: "power3.inOut",
+        duration: 0.7,
+        ease: "power1.inOut",
         overwrite: "auto"
       });
     });
