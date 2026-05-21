@@ -5,6 +5,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { applyScrollParallax } from "@/lib/gsap/animations";
 
+// Module-level flag to track if the full entrance animation has played in this session.
+// This persists across client-side navigations.
+let hasPlayedFullAnimation = false;
+
 export interface HeroAnimationRefs {
   section: React.RefObject<HTMLDivElement | null>;
   bgFill: React.RefObject<HTMLDivElement | null>;
@@ -30,10 +34,10 @@ export function useHeroAnimation(refs: HeroAnimationRefs) {
   useLayoutEffect(() => {
     // gsap.context handles scoping and automatic cleanup of ScrollTriggers
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
       // Final color: bg-bg-on-dark (#323135)
       const ON_DARK_COLOR = "#323135";
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       // Initialize the decorative circle for an anti-clockwise draw animation
       if (refs.circle.current) {
@@ -86,21 +90,8 @@ export function useHeroAnimation(refs: HeroAnimationRefs) {
         );
       }
 
-      // 1. V Path FILLS IN black first (Transparent -> Black wipe, Left to Right)
-      tl.fromTo(refs.vGradient.current,
-        { attr: { x1: "-100%", x2: "0%" } },
-        { attr: { x1: "100%", x2: "200%" }, duration: 1.5, ease: "custom-1" }
-      );
-
-      // 2. Hero background fills from left to right
-      tl.fromTo(refs.bgFill.current,
-        { scaleX: 0, transformOrigin: "left" },
-        { scaleX: 1, duration: 1.6, ease: "custom-1" },
-        "-=0.5"
-      );
-
-      // 3. Simultaneously transition V to black and WIPE others (Right to Left)
-      const triggerReveal = () => {
+      // Simultaneously transition V to black and WIPE others (Right to Left)
+      const triggerReveal = (isReset = false) => {
         const revealTl = gsap.timeline();
         const vStops = refs.vGradient.current?.querySelectorAll("stop");
         
@@ -116,88 +107,148 @@ export function useHeroAnimation(refs: HeroAnimationRefs) {
         }
         revealTl.set(refs.vGradient.current, { attr: { x1: "100%", x2: "200%" } }, 0);
 
-        // Synchronized reveal to ON_DARK_COLOR for both
-        revealTl.to([refs.othersGradient.current, refs.vGradient.current],
-          { attr: { x1: "-100%", x2: "0%" }, duration: 1.8, ease: "custom-1" },
-          0.1
-        );
+        if (!isReset) {
+          // Synchronized reveal to ON_DARK_COLOR for both
+          revealTl.to([refs.othersGradient.current, refs.vGradient.current],
+            { attr: { x1: "-100%", x2: "0%" }, duration: 1.8, ease: "custom-1" },
+            0.1
+          );
+        }
         
         return revealTl;
       };
 
-      tl.add(triggerReveal(), "<");
-      tl.addLabel("bgDone"); // Mark the point where background sequence is complete
+      // Dedicated ScrollTrigger for the LIVIO SVG "reset and play" behavior (only the grey fill)
+      ScrollTrigger.create({
+        trigger: refs.section.current,
+        start: "top top",
+        onLeave: () => {
+          // Reset to the black/white state when scrolling out
+          triggerReveal(true);
+        },
+        onEnterBack: () => {
+          // Play the grey reveal again when scrolling back in
+          triggerReveal(false);
+        }
+      });
 
-      // 4. Reveal sparks JUST BEFORE text
-      const spark1Points = refs.spark1.current?.querySelectorAll(".spark-point");
-      const spark2Points = refs.spark2.current?.querySelectorAll(".spark-point");
-      
-      if (spark1Points && spark1Points.length > 0) {
-        tl.fromTo(spark1Points,
-          { scale: 0, opacity: 0 },
-          { 
-            scale: 1, 
-            opacity: 0.6, 
-            duration: 0.4, 
-            stagger: { each: 0.04, from: "random" },
-            ease: "back.out(2)" 
-          },
-          "bgDone-=0.4" // Start reveal slightly before bg ends
-        );
-      }
-
-      if (spark2Points && spark2Points.length > 0) {
-        tl.fromTo(spark2Points,
-          { scale: 0, opacity: 0 },
-          { 
-            scale: 1, 
-            opacity: 0.6, 
-            duration: 0.4, 
-            stagger: { each: 0.04, from: "random" },
-            ease: "back.out(2)" 
-          },
-          "<0.1"
-        );
-      }
-
-      // 5. Reveal hero text - Starts immediately as background reveal is done
-      tl.fromTo(refs.overline.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 },
-        "bgDone" // Start exactly at the label
-      );
-
-      const words = refs.headline.current?.querySelectorAll(".word-inner");
-      if (words) {
-        tl.fromTo(words,
-          { y: "110%" },
-          { y: "0%", duration: 1, stagger: 0.1, ease: "power4.out" },
-          "-=0.7" // Start headline shortly after overline
-        );
-      }
-
-      tl.fromTo([refs.body.current, refs.cta.current],
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
-        "-=0.7"
-      );
-
-      // 6. Decorative Circle Fill (Anti-clockwise, very slow, at the end)
-      if (refs.circle.current) {
-        const radius = refs.circle.current.r.baseVal.value;
-        const circumference = 2 * Math.PI * radius;
+      if (hasPlayedFullAnimation) {
+        // --- SUBSEQUENT VISITS: Skip long entrance sequence ---
         
-        // Use negative offset to draw anti-clockwise
-        tl.fromTo(refs.circle.current, {
-          strokeDasharray: circumference,
-          strokeDashoffset: -circumference,
-          rotation: -90, 
-          transformOrigin: "50% 50%"
-        }, {
-          strokeDashoffset: 0,
-          duration: 16.5, // Even slower for a quiet feel
-          ease: "power1.inOut",
-        }, "-=0.5");
+        // 1. Instantly reveal background, text, and sparks
+        gsap.set(refs.bgFill.current, { scaleX: 1 });
+        gsap.set(refs.overline.current, { y: 0, opacity: 1 });
+        gsap.set(refs.body.current, { y: 0, opacity: 1 });
+        gsap.set(refs.cta.current, { y: 0, opacity: 1 });
+        
+        const words = refs.headline.current?.querySelectorAll(".word-inner");
+        if (words) gsap.set(words, { y: "0%" });
+        
+        const spark1Points = refs.spark1.current?.querySelectorAll(".spark-point");
+        const spark2Points = refs.spark2.current?.querySelectorAll(".spark-point");
+        if (spark1Points) gsap.set(spark1Points, { scale: 1, opacity: 0.6 });
+        if (spark2Points) gsap.set(spark2Points, { scale: 1, opacity: 0.6 });
+
+        // 2. Play only the LIVIO SVG grey fill animation
+        triggerReveal(false);
+
+        // 3. Decorative Circle should also be finished
+        if (refs.circle.current) {
+          gsap.set(refs.circle.current, { strokeDashoffset: 0 });
+        }
+      } else {
+        // --- INITIAL PAGE LOAD: Play the full cinematic sequence ---
+        
+        // 1. V Path FILLS IN black first (Transparent -> Black wipe, Left to Right)
+        tl.fromTo(refs.vGradient.current,
+          { attr: { x1: "-100%", x2: "0%" } },
+          { attr: { x1: "100%", x2: "200%" }, duration: 1.5, ease: "custom-1" }
+        );
+
+        // 2. Hero background fills from left to right
+        tl.fromTo(refs.bgFill.current,
+          { scaleX: 0, transformOrigin: "left" },
+          { scaleX: 1, duration: 1.6, ease: "custom-1" },
+          "-=0.5"
+        );
+
+        tl.add(triggerReveal(), "<");
+        tl.addLabel("bgDone"); // Mark the point where background sequence is complete
+
+        // 4. Reveal sparks JUST BEFORE text
+        const spark1Points = refs.spark1.current?.querySelectorAll(".spark-point");
+        const spark2Points = refs.spark2.current?.querySelectorAll(".spark-point");
+        
+        if (spark1Points && spark1Points.length > 0) {
+          tl.fromTo(spark1Points,
+            { scale: 0, opacity: 0 },
+            { 
+              scale: 1, 
+              opacity: 0.6, 
+              duration: 0.4, 
+              stagger: { each: 0.04, from: "random" },
+              ease: "back.out(2)" 
+            },
+            "bgDone-=0.4" // Start reveal slightly before bg ends
+          );
+        }
+
+        if (spark2Points && spark2Points.length > 0) {
+          tl.fromTo(spark2Points,
+            { scale: 0, opacity: 0 },
+            { 
+              scale: 1, 
+              opacity: 0.6, 
+              duration: 0.4, 
+              stagger: { each: 0.04, from: "random" },
+              ease: "back.out(2)" 
+            },
+            "<0.1"
+          );
+        }
+
+        // 5. Reveal hero text - Starts immediately as background reveal is done
+        tl.fromTo(refs.overline.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8 },
+          "bgDone" // Start exactly at the label
+        );
+
+        const words = refs.headline.current?.querySelectorAll(".word-inner");
+        if (words) {
+          tl.fromTo(words,
+            { y: "110%" },
+            { y: "0%", duration: 1, stagger: 0.1, ease: "power4.out" },
+            "-=0.7" // Start headline shortly after overline
+          );
+        }
+
+        tl.fromTo([refs.body.current, refs.cta.current],
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
+          "-=0.7"
+        );
+
+        // 6. Decorative Circle Fill (Anti-clockwise, very slow, at the end)
+        if (refs.circle.current) {
+          const radius = refs.circle.current.r.baseVal.value;
+          const circumference = 2 * Math.PI * radius;
+          
+          // Use negative offset to draw anti-clockwise
+          tl.fromTo(refs.circle.current, {
+            strokeDasharray: circumference,
+            strokeDashoffset: -circumference,
+            rotation: -90, 
+            transformOrigin: "50% 50%"
+          }, {
+            strokeDashoffset: 0,
+            duration: 10, // Increased speed for a better feel
+            ease: "power1.inOut",
+          }, "-=0.5");
+        }
+
+        // Mark as played so next visits are faster
+        hasPlayedFullAnimation = true;
       }
     }, refs.section);
 
