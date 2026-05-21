@@ -39,6 +39,31 @@ export const revealFromUnder = (
 };
 
 /**
+ * Reusable Background Wipe Animation
+ * Animates a background element scale from 0 to 1 (left to right).
+ */
+export const revealBackground = (
+  bgElement: gsap.DOMTarget,
+  trigger: gsap.DOMTarget,
+  options: gsap.TimelineVars = {}
+) => {
+  return gsap.fromTo(bgElement,
+    { scaleX: 0, transformOrigin: "left" },
+    {
+      scaleX: 1,
+      duration: 1.6,
+      ease: "custom-1",
+      scrollTrigger: {
+        trigger: trigger,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+      ...options,
+    }
+  );
+};
+
+/**
  * Reusable Card Skew & Zoom Interaction
  * Applies a "Door Opening" effect from the left (Right edge static)
  */

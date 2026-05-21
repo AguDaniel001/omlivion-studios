@@ -2,9 +2,12 @@
 
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DaSectionContainer from "@/components/layout/DaSectionContainer";
 import DaButton from "@/components/ui/buttons/DaButton";
 import DaText from "@/components/ui/typography/DaText";
+import { applyScrollParallax } from "@/lib/gsap/animations";
+import { Spark } from "@/components/ui/Spark";
 
 /**
  * HeroBackgroundSVG
@@ -43,13 +46,13 @@ const HeroBackgroundSVG = ({
 
       {/* 
         The gradient for the other paths (O, Bars, L).
-        Wipe from Transparent to ON_DARK_COLOR (Right to Left).
-        Initial: x1=100%, x2=200% -> Object is in the 'before' zone (Transparent)
+        Wipe from White to ON_DARK_COLOR (Right to Left).
+        Initial: x1=100%, x2=200% -> Object is in the 'before' zone (White)
         Final: x1=-100%, x2=0% -> Object is in the 'after' zone (ON_DARK_COLOR)
       */}
       <linearGradient id="others-wipe-gradient" x1="100%" y1="0%" x2="200%" y2="0%" gradientUnits="userSpaceOnUse" ref={othersGradientRef}>
-        <stop offset="0%" stopColor="transparent" />
-        <stop offset="50%" stopColor="transparent" />
+        <stop offset="0%" stopColor="white" />
+        <stop offset="50%" stopColor="white" />
         <stop offset="50%" stopColor="#323135" /> 
         <stop offset="100%" stopColor="#323135" />
       </linearGradient>
@@ -79,11 +82,14 @@ export default function HeroSection() {
   const headlineRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const spark1Ref = useRef<HTMLDivElement>(null);
+  const spark2Ref = useRef<HTMLDivElement>(null);
   
   const vGradientRef = useRef<SVGLinearGradientElement>(null);
   const othersGradientRef = useRef<SVGLinearGradientElement>(null);
   const otherPathsRef = useRef<SVGGElement>(null);
   const vPathRef = useRef<SVGPathElement>(null);
+  const svgWrapperRef = useRef<HTMLDivElement>(null);
 
   const headline = "A digital agency focused on web.";
   const headlineWords = headline.split(" ");
@@ -95,33 +101,70 @@ export default function HeroSection() {
       // Final color: bg-bg-on-dark (#323135)
       const ON_DARK_COLOR = "#323135";
 
+      // 0. Scroll Parallax for the LIVIO SVG
+      if (svgWrapperRef.current && sectionRef.current) {
+        applyScrollParallax(svgWrapperRef.current, sectionRef.current, 250);
+      }
+
       // 1. V Path FILLS IN black first (Transparent -> Black wipe, Left to Right)
       tl.fromTo(vGradientRef.current,
         { attr: { x1: "-100%", x2: "0%" } },
-        { attr: { x1: "100%", x2: "200%" }, duration: 1.2, ease: "power2.inOut" }
+        { attr: { x1: "100%", x2: "200%" }, duration: 1.5, ease: "custom-1" }
       );
 
       // 2. Hero background fills from left to right
       tl.fromTo(bgFillRef.current,
         { scaleX: 0, transformOrigin: "left" },
-        { scaleX: 1, duration: 1.4, ease: "power4.inOut" },
-        "-=0.4"
+        { scaleX: 1, duration: 1.6, ease: "custom-1" },
+        "-=0.5"
       );
 
-      // 3. Simultaneously transition V to ON_DARK_COLOR and WIPE others (Right to Left)
-      const vStops = vGradientRef.current?.querySelectorAll("stop");
-      if (vStops) {
-        tl.to(vStops, 
-          { stopColor: ON_DARK_COLOR, duration: 0.8 },
-          "<"
+      // 3. Simultaneously transition V to black and WIPE others (Right to Left)
+      const triggerReveal = () => {
+        const revealTl = gsap.timeline();
+        const vStops = vGradientRef.current?.querySelectorAll("stop");
+        
+        // Reset states for re-triggering (or initial run)
+        // Others: Reset to White (x1=100%)
+        revealTl.set(othersGradientRef.current, { attr: { x1: "100%", x2: "200%" } }, 0);
+        
+        // V: Transition from Black to Grey via a Right-to-Left wipe
+        // First, update stops: 0-50% Black, 50-100% Grey
+        if (vStops) {
+          revealTl.set(vStops[0], { stopColor: "black" }, 0);
+          revealTl.set(vStops[1], { stopColor: "black" }, 0);
+          revealTl.set(vStops[2], { stopColor: ON_DARK_COLOR }, 0);
+          revealTl.set(vStops[3], { stopColor: ON_DARK_COLOR }, 0);
+        }
+        // Ensure x1 is at 100% to show Black (stop at 0) before sliding
+        revealTl.set(vGradientRef.current, { attr: { x1: "100%", x2: "200%" } }, 0);
+
+        // Synchronized reveal to ON_DARK_COLOR for both (sliding Right to Left)
+        revealTl.to([othersGradientRef.current, vGradientRef.current],
+          { attr: { x1: "-100%", x2: "0%" }, duration: 1.8, ease: "custom-1" },
+          0.1
         );
-      }
+        
+        return revealTl;
+      };
 
-      tl.fromTo(othersGradientRef.current,
-        { attr: { x1: "100%", x2: "200%" } },
-        { attr: { x1: "-100%", x2: "0%" }, duration: 1.2, ease: "power2.inOut" },
-        "<"
-      );
+      // Add the initial reveal to the main timeline
+      tl.add(triggerReveal(), "<");
+
+      // Setup a ScrollTrigger to re-trigger the reveal when entering back
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top center",
+        onEnter: () => {
+          // Only play if the main timeline is past this point
+          if (tl.progress() > 0.5) {
+            triggerReveal();
+          }
+        },
+        onEnterBack: () => {
+          triggerReveal();
+        }
+      });
 
       // 4. Reveal hero text
       tl.fromTo(overlineRef.current,
@@ -144,6 +187,12 @@ export default function HeroSection() {
         { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
         "-=0.7"
       );
+
+      tl.fromTo([spark1Ref.current, spark2Ref.current],
+        { scale: 0, opacity: 0, rotation: -15 },
+        { scale: 1, opacity: 0.6, rotation: 0, duration: 1, stagger: 0.2, ease: "back.out(1.7)" },
+        "-=0.5"
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -155,23 +204,31 @@ export default function HeroSection() {
         ref={bgFillRef} 
         className="absolute inset-0 bg-dark z-0" 
       />
-        <div className="absolute bottom-10 right-5 h-[130vh]  pointer-events-none z-0 overflow-visible">
-          <svg
-            viewBox="0 0 100 100"
-            className="h-full w-auto"
-            preserveAspectRatio="xMidYMid meet"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <circle cx="50" cy="50" r="45" stroke="#9ca3af" strokeWidth={0.2} fill="transparent" strokeOpacity={0.1} />
-          </svg>
-        </div>
-      <DaSectionContainer className="relative z-10 flex min-h-screen flex-col items-center justify-center py-20 max-w-7xl mx-auto">
-        
-        
+      
+      {/* Background decoration */}
+      <div className="absolute bottom-10 right-5 h-[130vh] pointer-events-none z-0 overflow-visible">
+        <svg
+          viewBox="0 0 100 100"
+          className="h-full w-auto"
+          preserveAspectRatio="xMidYMid meet"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="50" cy="50" r="45" stroke="#9ca3af" strokeWidth={0.2} fill="transparent" strokeOpacity={0.1} />
+        </svg>
+      </div>
 
-        
-        <div className="absolute top-1/2 -translate-y-1/2 right-30 h-[130vh] w-auto pointer-events-none z-0">
+      <DaSectionContainer className="relative z-10 flex min-h-screen flex-col items-center justify-center max-w-7xl mx-auto">
+        {/* Sparks */}
+        <div ref={spark1Ref} className="absolute bottom-60 right-24 z-0 pointer-events-none text-white">
+          <Spark variant="sparkAfrica" className="w-28 h-28" />
+        </div>
+        <div ref={spark2Ref} className="absolute bottom-0 right-1/3 z-0 pointer-events-none text-white">
+          <Spark variant="spark2" className="w-28 h-28" />
+        </div>
+
+        {/* LIVIO Background SVG */}
+        <div ref={svgWrapperRef} className="absolute top-1/2 -translate-y-1/2 right-30 h-[130vh] w-auto pointer-events-none z-0">
             <HeroBackgroundSVG 
               vGradientRef={vGradientRef} 
               othersGradientRef={othersGradientRef}
@@ -179,6 +236,7 @@ export default function HeroSection() {
               vPathRef={vPathRef}
             />
         </div>
+
         <div className="relative z-10 flex w-full items-center justify-between gap-12 pt-20 ">
           <div className="w-full max-w-3xl flex-shrink-0">
             <div ref={overlineRef} style={{ opacity: 0 }}>

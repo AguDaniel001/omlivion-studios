@@ -1,0 +1,6 @@
+<svg width="200" height="300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" fill="white">
+  <text x="50" y="30">+</text>
+  <text x="80" y="30">+</text>
+  <text x="50" y="70" fill="#FF4500">+</text> 
+  <text x="80" y="70">+</text>
+  </svg>
