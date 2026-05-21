@@ -1,7 +1,11 @@
+"use client";
+
+import { useRef } from "react";
 import DaText from "@/components/ui/typography/DaText";
 import DaSectionContainer from "../../../layout/DaSectionContainer";
 import PortfolioCard from "@/components/composite/PortfolioCard";
 import DaButton from "@/components/ui/buttons/DaButton";
+import { usePortfolioSectionAnimation } from "@/hooks/usePortfolioSectionAnimation";
 
 // 1. Define the type structure for our portfolio items
 interface ProjectItem {
@@ -46,41 +50,61 @@ const PORTFOLIO_PROJECTS: ProjectItem[] = [
 ];
 
 export default function PortfolioSection() {
-  return (
-    <DaSectionContainer className="min-h-screen flex flex-col items-center w-full py-0">
-      {/* Header Section */}
-      <div className="flex flex-col w-full max-w-[1200px] pt-[200px] gap-3 mb-16">
-        <DaText variant="headlineSm">
-          Featured Work
-        </DaText>
-        <DaText variant="bodyMd">
-          Explore some of our latest website projects.
-        </DaText>
-      </div>
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
-      {/* 3. Grid Container mapping the config data */}
-      <div className="w-full max-w-[1200px] mb-20 grid grid-cols-1 md:grid-cols-2 gap-8 space-y-30 lg:gap-12">
-        {PORTFOLIO_PROJECTS.map((project, index) => (
-          <PortfolioCard
-            key={project.id}
-            index={index}
-            title={project.title}
-            subtitle={project.subtitle}
-            imageSrc={project.imageSrc}
-            imageAlt={project.imageAlt}
-            parallax={index % 2 !== 0}
-          />
-        ))}
-      </div>
-      {/* <DaButton variant="circle-plus" className=" text-text-primary">
-          Get to know us
-        </DaButton> */}
-      <div className="mb-60">
-        <DaButton variant="circle-plus" className=" text-text-primary">
-          View more projects
-        </DaButton>
-      </div>
-      
-    </DaSectionContainer>
+  usePortfolioSectionAnimation({
+    container: containerRef,
+    header: headerRef,
+    title: titleRef,
+    body: bodyRef,
+  });
+
+  return (
+    <div ref={containerRef} className="w-full">
+      <DaSectionContainer className="min-h-screen flex flex-col items-center w-full py-0">
+        {/* Header Section */}
+        <div ref={headerRef} className="flex flex-col w-full max-w-[1200px] pt-[200px] gap-3 mb-16">
+          <div className="overflow-hidden">
+            <div ref={titleRef}>
+              <DaText variant="headlineSm">
+                Featured Work
+              </DaText>
+            </div>
+          </div>
+          <div className="overflow-hidden">
+            <div ref={bodyRef}>
+              <DaText variant="bodyMd">
+                Explore some of our latest website projects.
+              </DaText>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. Grid Container mapping the config data */}
+        <div className="w-full max-w-[1200px] mb-20 grid grid-cols-1 md:grid-cols-2 gap-8 space-y-30 lg:gap-12">
+          {PORTFOLIO_PROJECTS.map((project, index) => (
+            <PortfolioCard
+              key={project.id}
+              index={index}
+              title={project.title}
+              subtitle={project.subtitle}
+              imageSrc={project.imageSrc}
+              imageAlt={project.imageAlt}
+              parallax={index % 2 !== 0}
+            />
+          ))}
+        </div>
+
+        <div className="mb-60">
+          <DaButton variant="circle-plus" className=" text-text-primary">
+            View more projects
+          </DaButton>
+        </div>
+        
+      </DaSectionContainer>
+    </div>
   );
 }

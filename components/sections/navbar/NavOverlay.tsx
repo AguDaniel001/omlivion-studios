@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import Link from "next/link";
-import gsap from "gsap";
 import DaText from "@/components/ui/typography/DaText";
+import { useNavOverlayAnimation } from "@/hooks/useNavOverlayAnimation";
+import { useNavLinkAnimation } from "@/hooks/useNavLinkAnimation";
 
 const navItems = [
   { name: "Portfolio", href: "/portfolio" },
@@ -54,23 +55,8 @@ function NavLink({
   const linkRef = useRef<HTMLAnchorElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // 1. Movement Animation
-    gsap.to(linkRef.current, {
-      x: isHovered ? 48 : 0,
-      duration: 0.6,
-      ease: "power3.out",
-    });
-
-    // 2. Internal Color Wipe Animation
-    // We animate a CSS variable to control the background-position of the text clip
-    // 100% = Dark Gray (from right), 0% = White (from left)
-    gsap.to(textRef.current, {
-      "--wipe-pos": isDimmed ? "100%" : "0%",
-      duration: 0.8,
-      ease: "power3.inOut", // Smooth starting and ending
-    });
-  }, [isHovered, isDimmed]);
+  const animationRefs = useMemo(() => ({ link: linkRef, text: textRef }), []);
+  useNavLinkAnimation(animationRefs, isHovered, isDimmed);
 
   return (
     <Link
@@ -104,78 +90,14 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      const tl = gsap.timeline();
+  const animationRefs = useMemo(() => ({
+    overlay: overlayRef,
+    circle: circleRef,
+    links: linksRef,
+    contact: contactRef,
+  }), []);
 
-      // 1. Scale up the circle to cover the screen
-      tl.to(circleRef.current, {
-        scale: 1500,
-        duration: 0.8,
-        ease: "power2.inOut",
-      });
-
-      tl.to(overlayRef.current, {
-        autoAlpha: 1,
-        duration: 0.1,
-      }, 0);
-
-      // 2. Animate content in after circle has mostly covered the screen
-      // Links from left
-      tl.fromTo(
-        linksRef.current?.children || [],
-        { x: -50, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.05,
-          ease: "power3.out",
-        },
-        "-=0.5" // Start reveal sooner for a faster feel
-      );
-
-      // Contact from below
-      tl.fromTo(
-        contactRef.current,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          ease: "power3.out",
-        },
-        "<0.1" // Reveal slightly after links start
-      );
-    } else {
-      const tl = gsap.timeline();
-
-      // Close animation
-      tl.to(linksRef.current?.children || [], {
-        x: -30,
-        opacity: 0,
-        duration: 0.3,
-        stagger: 0.02,
-        ease: "power2.in",
-      });
-
-      tl.to(contactRef.current, {
-        y: 30,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in",
-      }, "<");
-
-      tl.to(circleRef.current, {
-        scale: 0,
-        duration: 0.5,
-        ease: "power4.in",
-        onComplete: () => {
-          gsap.set(overlayRef.current, { autoAlpha: 0 });
-        },
-      }, "-=0.2");
-    }
-  }, [isOpen]);
+  useNavOverlayAnimation(animationRefs, isOpen);
 
   return (
     <div

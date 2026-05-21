@@ -100,7 +100,11 @@ export const Spark: React.FC<SparkProps> = ({
       xmlns="http://www.w3.org/2000/svg"
     >
       {points.map((point, index) => (
-        <g key={index} transform={`translate(${point.x - 2}, ${point.y - 2})`}>
+        <g 
+          key={index} 
+          className="spark-point"
+          transform={`translate(${point.x - 2}, ${point.y - 2})`}
+        >
           <path
             d="M2 0V4M0 2H4"
             stroke={index === accentIndex ? accentColor : "currentColor"}

@@ -1,25 +1,16 @@
-"use client";
-
-import { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
+import { useRef } from "react";
 import DaText from "@/components/ui/typography/DaText";
 import DaSectionContainer from "@/components/layout/DaSectionContainer";
-import { revealBackground } from "@/lib/gsap/animations";
+import { useQuoteAnimation } from "@/hooks/useQuoteAnimation";
 
 export default function QuoteSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgFillRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      // 1. Reveal Background
-      if (bgFillRef.current && sectionRef.current) {
-        revealBackground(bgFillRef.current, sectionRef.current);
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useQuoteAnimation({
+    section: sectionRef,
+    bgFill: bgFillRef,
+  });
 
   return (
     <main 
