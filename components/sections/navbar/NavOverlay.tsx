@@ -5,6 +5,7 @@ import Link from "next/link";
 import DaText from "@/components/ui/typography/DaText";
 import { useNavOverlayAnimation } from "@/hooks/useNavOverlayAnimation";
 import { useNavLinkAnimation } from "@/hooks/useNavLinkAnimation";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Portfolio", href: "/portfolio" },
@@ -32,11 +33,9 @@ const socialIcons = [
 interface NavOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  isLightSection?: boolean;
 }
 
-/**
- * Individual Nav Link with Internal Color Wipe
- */
 function NavLink({
   name,
   href,
@@ -44,6 +43,7 @@ function NavLink({
   isHovered,
   isDimmed,
   onMouseEnter,
+  isDark,
 }: {
   name: string;
   href: string;
@@ -51,12 +51,16 @@ function NavLink({
   isHovered: boolean;
   isDimmed: boolean;
   onMouseEnter: () => void;
+  isDark?: boolean;
 }) {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
   const animationRefs = useMemo(() => ({ link: linkRef, text: textRef }), []);
   useNavLinkAnimation(animationRefs, isHovered, isDimmed);
+
+  const fromColorClass = isDark ? "from-dark" : "from-white";
+  const toColorClass = isDark ? "to-zinc-500/50" : "to-zinc-700";
 
   return (
     <Link
@@ -73,7 +77,11 @@ function NavLink({
         <DaText
           variant="headlineMd"
           color="inherit"
-          className="whitespace-nowrap !text-transparent bg-clip-text bg-gradient-to-r from-white from-50% to-zinc-700 to-50% bg-[length:200%_100%] [background-position:var(--wipe-pos)_0%]"
+          className={cn(
+            "whitespace-nowrap !text-transparent bg-clip-text bg-gradient-to-r from-50% to-50% bg-[length:200%_100%] [background-position:var(--wipe-pos)_0%]",
+            fromColorClass,
+            toColorClass
+          )}
         >
           {name}
         </DaText>
@@ -82,13 +90,19 @@ function NavLink({
   );
 }
 
-export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
+export default function NavOverlay({ isOpen, onClose, isLightSection }: NavOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
+
+  // Overlay turns white on a dark section (isLightSection = false)
+  const isWhiteOverlay = !isLightSection;
+  const textColor = isWhiteOverlay ? "text-dark" : "text-white";
+  const mutedTextColor = isWhiteOverlay ? "text-zinc-500" : "text-zinc-400";
+  const circleBg = isWhiteOverlay ? "bg-white" : "bg-dark";
 
   const animationRefs = useMemo(() => ({
     overlay: overlayRef,
@@ -107,7 +121,7 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
       {/* Background Circle */}
       <div
         ref={circleRef}
-        className="fixed top-10 right-12 w-4 h-4 rounded-full bg-dark origin-center pointer-events-none scale-0"
+        className={`fixed top-10 right-12 w-4 h-4 rounded-full origin-center pointer-events-none scale-0 ${circleBg}`}
       />
       
 
@@ -115,7 +129,7 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
 
         <div className=" flex gap-20 max-md:gap-0 pointer-events-none" >
           <div className="relative z-10 hidden md:block">
-            <DaText variant="overline" color="white" className=" rotate-90 w-5 pt-16 "  >
+            <DaText variant="overline" className={`rotate-90 w-5 pt-16 transition-colors duration-500 ${textColor}`}  >
                 Menu
             </DaText>
           </div>
@@ -138,6 +152,7 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
                 isHovered={hoveredIndex === index}
                 isDimmed={isMenuHovered && hoveredIndex !== index}
                 onMouseEnter={() => setHoveredIndex(index)}
+                isDark={isWhiteOverlay}
               />
             ))}
           </div>
@@ -149,13 +164,13 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
           className="flex justify-end items-end flex-col gap-4 relative z-10 pointer-events-auto mt-auto md:mt-0"
         >
           <div className="flex flex-col md:items-end gap-2">
-            <DaText variant="titleLg" className="text-white">
+            <DaText variant="titleLg" className={`transition-colors duration-500 ${textColor}`}>
               Get in touch
             </DaText>
-            <a href="mailto:hello@omlivion.com" className="text-zinc-400 hover:text-white transition-colors">
+            <a href="mailto:hello@omlivion.com" className={`transition-colors duration-500 hover:opacity-70 ${mutedTextColor}`}>
               hello@omlivion.com
             </a>
-            <a href="tel:+1234567890" className="text-zinc-400 hover:text-white transition-colors">
+            <a href="tel:+1234567890" className={`transition-colors duration-500 hover:opacity-70 ${mutedTextColor}`}>
               +1 (234) 567-890
             </a>
             <div className="flex gap-3 pt-6">
@@ -163,7 +178,7 @@ export default function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
               <a 
                 key={social.name} 
                 href={social.href} 
-                className="w-8 h-8 flex items-center justify-center rounded-full text-white/70 hover:text-white transition-colors"
+                className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-500 hover:opacity-70 ${textColor}`}
                 aria-label={social.name}
               >
                 {social.icon}

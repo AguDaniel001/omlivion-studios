@@ -13,7 +13,8 @@ export default function QuoteSection() {
   });
 
   return (
-    <main 
+    <section 
+      data-theme="dark"
       ref={sectionRef} 
       className="relative min-h-screen bg-white flex items-center justify-center overflow-hidden"
     >
@@ -33,6 +34,6 @@ export default function QuoteSection() {
           brands and startups in Africa.
         </DaText>
       </DaSectionContainer>
-    </main>
+    </section>
   );
 }

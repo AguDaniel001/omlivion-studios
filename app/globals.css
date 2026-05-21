@@ -145,6 +145,10 @@ html {
   --small-laptop-content-width: var(--small-laptop-content-width);
 }
 
+.navbar {
+  /* mix-blend-mode: difference; */
+}
+
 body {
     font-family: var(--font-neueplak);
     font-weight: 300;

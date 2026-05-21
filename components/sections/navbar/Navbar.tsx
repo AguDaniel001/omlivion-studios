@@ -6,12 +6,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import NavOverlay from "./NavOverlay";
 import DaButton from "@/components/ui/buttons/DaButton";
+import { useThemeDetection } from "@/lib/gsap/gsapTheme";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLight, setIsLight] = useState(false);
+  const isLight = useThemeDetection();
   const containerRef = useRef<HTMLDivElement>(null);
   const logoTextRef = useRef<HTMLDivElement>(null);
   const logoIconRef = useRef<HTMLDivElement>(null);
@@ -61,30 +62,20 @@ export default function Navbar() {
           });
         },
       });
-
-      // 4. Section Theme Detection
-      const sections = gsap.utils.toArray('[data-theme]');
-      sections.forEach((section: any) => {
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 10%",
-          end: "bottom 10%",
-          onEnter: () => setIsLight(section.getAttribute('data-theme') === 'light'),
-          onEnterBack: () => setIsLight(section.getAttribute('data-theme') === 'light'),
-        });
-      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   const isDarkElements = (isOpen && !isLight) || (!isOpen && isLight);
-  const textColor = isDarkElements ? "text-dark" : "text-white";
-  const iconColor = isDarkElements ? "var(--color-dark)" : "white";
+  const colorClass = isDarkElements ? "text-dark" : "text-white";
+  const iconColor = isDarkElements ? "#1f1e1d" : "#ffffff";
+  const hamburgerBg = isDarkElements ? "bg-dark" : "bg-white";
+  const hamburgerSpan = isDarkElements ? "bg-white" : "bg-black";
 
   return (
     <>
-      <nav ref={containerRef} className={` navbar fixed top-8 left-0 w-full z-[110] bg-transparent transition-colors duration-500 ${textColor}`}>
+      <nav ref={containerRef} className={`navbar fixed top-8 left-0 w-full z-[110] bg-transparent transition-all duration-500 ${colorClass}`}>
         <div className=" px-10 h-20 flex items-center justify-between">
           <Link href="/" className="relative flex items-center h-10" onClick={() => setIsOpen(false)}>
             {/* Logo Text SVG */}
@@ -110,18 +101,18 @@ export default function Navbar() {
           </Link>
 
           <div className="flex justify-end items-center">
-             <Link href="/contact" className="z-[110] mr-12">
-              <DaButton variant="underline" className="transition-colors duration-500">let&apos;s talk</DaButton>
+             <Link href="/contact" className={`z-[110] mr-12 transition-all duration-500 ${colorClass}`}>
+              <DaButton variant="underline">let&apos;s talk</DaButton>
             </Link>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`z-[120] group flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 active:scale-95 ${isDarkElements ? "bg-dark hover:bg-zinc-800" : "bg-white hover:bg-gray-200"}`}
+              className={`z-[120] group flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 active:scale-95 ${hamburgerBg}`}
             >
               <div className="relative flex flex-col items-center justify-center w-6 gap-1.5 z-10">
-                <span className={`block w-full h-0.5 transition-all duration-500 ${isDarkElements ? "bg-white" : "bg-black"} ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
-                <span className={`block w-full h-0.5 transition-all duration-500 ${isDarkElements ? "bg-white" : "bg-black"} ${isOpen ? "opacity-0" : "opacity-100"}`} />
-                <span className={`block w-full h-0.5 transition-all duration-500 ${isDarkElements ? "bg-white" : "bg-black"} ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+                <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
+                <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "opacity-0" : "opacity-100"}`} />
+                <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
               </div>
             </button>
           </div>
@@ -132,7 +123,7 @@ export default function Navbar() {
         key={isOpen ? "open" : "closed"} 
         isOpen={isOpen} 
         onClose={() => setIsOpen(false)} 
-        // isLightSection={isLight}
+        isLightSection={isLight}
       />
     </>
   );

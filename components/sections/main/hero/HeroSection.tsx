@@ -112,7 +112,7 @@ export default function HeroSection() {
   });
 
   return (
-    <div ref={sectionRef} className="relative overflow-hidden bg-white min-h-screen">
+    <section data-theme="dark" ref={sectionRef} className="relative overflow-hidden bg-white min-h-screen">
       <div 
         ref={bgFillRef} 
         className="absolute inset-0 bg-dark z-0" 
@@ -191,7 +191,7 @@ export default function HeroSection() {
             </div>
             
             <div ref={ctaRef} style={{ opacity: 0 }}>
-              <DaButton variant="circle-plus" className="pl-12">
+              <DaButton variant="circle-plus" className="pl-12 text-white">
                 Get to know us
               </DaButton>
             </div>
@@ -199,6 +199,6 @@ export default function HeroSection() {
           <div className="flex-1 hidden lg:block" />
         </div>
       </DaSectionContainer>
-    </div>
+    </section>
   );
 }

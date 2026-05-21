@@ -63,9 +63,10 @@ export default function PortfolioSection() {
   });
 
   return (
-    <div ref={containerRef} className="w-full">
+    <section data-theme="light" ref={containerRef} className="w-full bg-white relative">
       <DaSectionContainer className="min-h-screen flex flex-col items-center w-full py-0">
         {/* Header Section */}
+
         <div ref={headerRef} className="flex flex-col w-full max-w-[1200px] pt-[200px] gap-3 mb-16">
           <div className="overflow-hidden">
             <div ref={titleRef}>
@@ -104,7 +105,7 @@ export default function PortfolioSection() {
           </DaButton>
         </div>
         
-      </DaSectionContainer>
-    </div>
+        </DaSectionContainer>
+      </section>
   );
 }

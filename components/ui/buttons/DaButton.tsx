@@ -64,7 +64,7 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
     <button 
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={cn("relative uppercase flex flex-col items-start group py-1 font-semibold text-base cursor-pointer font-neueplak " , className)}
+      className={cn("relative uppercase flex flex-col items-start group py-1 font-semibold text-base cursor-pointer font-neueplak text-inherit" , className)}
       {...props}
     >
       <div className="flex">
@@ -72,7 +72,7 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
           <span 
             key={i} 
             ref={el => { if(el) charsRef.current[i] = el }}
-            className="inline-block text-white"
+            className="inline-block"
           >
             {char === " " ? "\u00A0" : char}
           </span>
@@ -80,7 +80,7 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
       </div>
       <div
         ref={underlineRef}
-        className="w-full h-[1px] bg-white mt-2 transition-opacity duration-700 "
+        className="w-full h-[1px] bg-current mt-2 transition-opacity duration-700 "
         style={{ transformOrigin: "left center", transform: "scaleX(1)" }}
       />
     </button>
@@ -175,12 +175,12 @@ function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps
       ref={containerRef}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={cn("relative flex items-center gap-8 px-6 py-3 uppercase group font-bold text-sm isolate overflow-visible text-white tracking-widest cursor-pointer font-neueplak ", className)}
+      className={cn("relative flex items-center gap-8 px-6 py-3 uppercase group font-bold text-sm isolate overflow-visible text-inherit tracking-widest cursor-pointer font-neueplak ", className)}
       {...props}
     >
       <div 
         ref={circleRef}
-        className="absolute w-10 h-10 bg-bg-on-dark rounded-full -z-10 top-1/2 -translate-y-1/2 pointer-events-none"
+        className="absolute w-10 h-10 bg-current opacity-20 rounded-full -z-10 top-1/2 -translate-y-1/2 pointer-events-none"
       />
       <div className="flex">
         {children.toUpperCase().split("").map((char, i) => (
