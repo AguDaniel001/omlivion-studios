@@ -66,7 +66,7 @@ export const DaTypoVariants = {
     tag:       "h1",
     size:      "5xl",
     weight:    "bold",
-    leading:   "snug",
+    leading:   "tight",
     color:     "primary",
     font:      "montserrat",
     tracking:  "inherit",

@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useLayoutEffect } from "react";
 import Link from "next/link";
+import gsap from "gsap";
 import DaText from "@/components/ui/typography/DaText";
 import { useNavOverlayAnimation } from "@/hooks/useNavOverlayAnimation";
 import { useNavLinkAnimation } from "@/hooks/useNavLinkAnimation";
@@ -95,6 +96,7 @@ export default function NavOverlay({ isOpen, onClose, isLightSection }: NavOverl
   const circleRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
 
@@ -109,29 +111,59 @@ export default function NavOverlay({ isOpen, onClose, isLightSection }: NavOverl
     circle: circleRef,
     links: linksRef,
     contact: contactRef,
+    menu: menuRef,
   }), []);
 
   useNavOverlayAnimation(animationRefs, isOpen);
 
+  // Animate theme changes with GSAP
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(overlayRef.current, {
+        color: isWhiteOverlay ? "var(--color-dark)" : "var(--color-white)",
+        duration: 0.5,
+        ease: "power2.inOut"
+      });
+      gsap.to(circleRef.current, {
+        backgroundColor: isWhiteOverlay ? "#ffffff" : "#1f1e1d",
+        duration: 0.5,
+        ease: "power2.inOut"
+      });
+    }, overlayRef);
+
+    return () => ctx.revert();
+  }, [isWhiteOverlay, isOpen]);
+
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[100] invisible flex items-center px-12 md:px-24 pointer-events-none"
+      className="fixed inset-0 z-[100] invisible flex items-center justify-center pointer-events-none"
     >
       {/* Background Circle */}
       <div
         ref={circleRef}
         className={`fixed top-10 right-12 w-4 h-4 rounded-full origin-center pointer-events-none scale-0 ${circleBg}`}
       />
-      
 
-      <div className="flex w-full justify-between max-md:flex-col max-h-screen overflow-y-auto py-20 gap-20 pointer-events-none">
 
-        <div className=" flex gap-20 max-md:gap-0 pointer-events-none" >
-          <div className="relative z-10 hidden md:block">
-            <DaText variant="overline" className={`rotate-90 w-5 pt-16 transition-colors duration-500 ${textColor}`}  >
-                Menu
-            </DaText>
+      <div className="flex w-full max-w-[1450px] px-12 md:px-24 justify-between max-md:flex-col max-h-screen overflow-y-auto py-20 gap-20 pointer-events-none">
+
+        <div className="flex gap-10 max-md:gap-0 pointer-events-none" >
+          <div ref={menuRef} className="relative z-10 hidden md:block pt-11">
+            <div className=" -rotate-90 origin-center whitespace-nowrap">
+              <DaText 
+                variant="overline"
+                size="base"
+                color="inherit"
+                tracking="widest"
+                weight="extrabold"
+                className={`transition-colors duration-500 ${textColor}`}
+              >
+                  Menu
+              </DaText>
+            </div>
           </div>
                 {/* Nav Links Container */}
           <div

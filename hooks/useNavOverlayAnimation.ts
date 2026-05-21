@@ -8,6 +8,7 @@ export interface NavOverlayAnimationRefs {
   circle: React.RefObject<HTMLDivElement | null>;
   links: React.RefObject<HTMLDivElement | null>;
   contact: React.RefObject<HTMLDivElement | null>;
+  menu: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -25,24 +26,26 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
   // 2. Animate based on isOpen state
   useLayoutEffect(() => {
     ctx.current?.add(() => {
-      if (isOpen) {
-        const tl = gsap.timeline();
+      const tl = gsap.timeline({
+        onStart: () => {
+          if (isOpen) {
+            gsap.set(refs.overlay.current, { autoAlpha: 1 });
+          }
+        }
+      });
 
+      if (isOpen) {
         // Scale up the circle
         tl.to(refs.circle.current, {
           scale: 1500,
           duration: 0.8,
           ease: "power2.inOut",
+          overwrite: true,
         });
-
-        tl.to(refs.overlay.current, {
-          autoAlpha: 1,
-          duration: 0.1,
-        }, 0);
 
         // Animate content in
         tl.fromTo(
-          refs.links.current?.children || [],
+          [refs.menu.current, ...Array.from(refs.links.current?.children || [])],
           { x: -50, opacity: 0 },
           {
             x: 0,
@@ -50,6 +53,7 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
             duration: 0.6,
             stagger: 0.05,
             ease: "power3.out",
+            overwrite: true,
           },
           "-=0.5"
         );
@@ -62,36 +66,50 @@ export function useNavOverlayAnimation(refs: NavOverlayAnimationRefs, isOpen: bo
             opacity: 1,
             duration: 0.6,
             ease: "power3.out",
+            overwrite: true,
           },
           "<0.1"
         );
       } else {
-        const tl = gsap.timeline();
-
-        // Close animation
-        tl.to(refs.links.current?.children || [], {
-          x: -30,
+        // Close animation - reverse order and values
+        tl.to(refs.contact.current, {
+          y: 50,
           opacity: 0,
-          duration: 0.3,
-          stagger: 0.02,
-          ease: "power2.in",
+          duration: 0.4,
+          ease: "power3.in",
+          overwrite: true,
         });
 
-        tl.to(refs.contact.current, {
-          y: 30,
+        tl.to(
+          [...Array.from(refs.links.current?.children || [])].reverse(),
+          {
+            x: -50,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power3.in",
+            overwrite: true,
+          },
+          "<"
+        );
+
+        tl.to(refs.menu.current, {
+          x: -50,
           opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
+          duration: 0.4,
+          ease: "power3.in",
+          overwrite: true,
         }, "<");
 
         tl.to(refs.circle.current, {
           scale: 0,
-          duration: 0.5,
-          ease: "power4.in",
+          duration: 0.8,
+          ease: "power2.inOut",
+          overwrite: true,
           onComplete: () => {
             gsap.set(refs.overlay.current, { autoAlpha: 0 });
           },
-        }, "-=0.2");
+        }, "-=0.4");
       }
     });
   }, [isOpen]);

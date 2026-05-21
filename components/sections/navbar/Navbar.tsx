@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -73,6 +73,18 @@ export default function Navbar() {
   const hamburgerBg = isDarkElements ? "bg-dark" : "bg-white";
   const hamburgerSpan = isDarkElements ? "bg-white" : "bg-black";
 
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(containerRef.current, {
+        color: isDarkElements ? "var(--color-dark)" : "var(--color-white)",
+        duration: 0.5,
+        ease: "power2.inOut",
+        overwrite: "auto"
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, [isDarkElements]);
+
   return (
     <>
       <nav ref={containerRef} className={`navbar fixed top-8 left-0 w-full z-[110] bg-transparent transition-all duration-500 ${colorClass}`}>
@@ -120,7 +132,6 @@ export default function Navbar() {
       </nav>
 
       <NavOverlay 
-        key={isOpen ? "open" : "closed"} 
         isOpen={isOpen} 
         onClose={() => setIsOpen(false)} 
         isLightSection={isLight}
