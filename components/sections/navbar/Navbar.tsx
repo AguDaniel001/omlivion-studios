@@ -16,6 +16,33 @@ export default function Navbar() {
   const containerRef = useRef<HTMLDivElement>(null);
   const logoTextRef = useRef<HTMLDivElement>(null);
   const logoIconRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+
+  const handleMagnet = (e: React.MouseEvent) => {
+    const btn = hamburgerRef.current;
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+
+    gsap.to(btn, {
+      x: x * 1.5, // Increased intensity
+      y: y * 1.5,
+      duration: 0.5,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+  };
+
+  const resetMagnet = () => {
+    gsap.to(hamburgerRef.current, {
+      x: 0,
+      y: 0,
+      duration: 1, // Longer duration for better bounce visibility
+      ease: "elastic.out(1, 0.9)", // More pronounced bounce
+      overwrite: "auto",
+    });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -113,20 +140,28 @@ export default function Navbar() {
           </Link>
 
           <div className="flex justify-end items-center">
-             <Link href="/contact" className={`z-[110] mr-12 transition-all duration-500 ${colorClass}`}>
+             <Link href="/contact" className={`z-[110] mr-12 transition-all duration-300 ${colorClass}`}>
               <DaButton variant="underline">let&apos;s talk</DaButton>
             </Link>
 
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`z-[120] group flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 active:scale-95 ${hamburgerBg}`}
+            <div 
+              className="z-[120] flex items-center justify-center w-16 h-16 -mr-6" // Larger trigger area
+              onMouseMove={handleMagnet}
+              onMouseLeave={resetMagnet}
             >
-              <div className="relative flex flex-col items-center justify-center w-6 gap-1.5 z-10">
-                <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
-                <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "opacity-0" : "opacity-100"}`} />
-                <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-              </div>
-            </button>
+              <button
+                ref={hamburgerRef}
+                onClick={() => setIsOpen(!isOpen)}
+                data-magnetic="true"
+                className={`group flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-500 active:scale-95 ${hamburgerBg}`}
+              >
+                <div className="relative flex flex-col items-end justify-center w-5 gap-1 z-10">
+                  <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
+                  <span className={`block w-full h-0.5 !w-4 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "opacity-0" : "opacity-100"}`} />
+                  <span className={`block w-full h-0.5 transition-all duration-500 ${hamburgerSpan} ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </nav>

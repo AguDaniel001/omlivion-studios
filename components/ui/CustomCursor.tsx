@@ -43,8 +43,24 @@ export default function CustomCursor() {
     });
 
     const onMouseMove = (event: MouseEvent) => {
-      moveX(event.clientX);
-      moveY(event.clientY);
+      const target = event.target as HTMLElement;
+      const magneticTarget = target?.closest("[data-magnetic]");
+
+      if (magneticTarget) {
+        const rect = magneticTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const dx = event.clientX - centerX;
+        const dy = event.clientY - centerY;
+
+        // Magnetically snap towards center with a small offset for feel
+        moveX(centerX + dx * 0.1);
+        moveY(centerY + dy * 0.1);
+      } else {
+        moveX(event.clientX);
+        moveY(event.clientY);
+      }
     };
 
     const animateHoverIn = () => {
