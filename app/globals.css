@@ -6,6 +6,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
 /* ─── FONTS ────────────────────────────────────────────── */
 
 /* Neue Plak and Montserrat are now handled via next/font in _app.page.tsx */

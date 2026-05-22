@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import DaText from "@/components/ui/typography/DaText";
 import DaSectionContainer from "../../../layout/DaSectionContainer";
-import PortfolioCard from "@/components/composite/PortfolioCard";
+import InsightCard from "@/components/composite/InsightCard";
 import DaButton from "@/components/ui/buttons/DaButton";
 import { usePortfolioSectionAnimation } from "@/hooks/usePortfolioSectionAnimation";
 
@@ -21,29 +21,29 @@ const   INSIGHTS: ProjectItem[] = [
   {
     id: "karat",
     title: "web & digital design",
-    subtitle: "Corporate Website",
-    imageSrc: "/assets/images/woman-smiling.webp",
+    subtitle: "Building a Thriving Partnership with Your Digital Agency",
+    imageSrc: "/assets/images/pattern1.png",
     imageAlt: "Karat Corporate Website Showcase",
   },
   {
     id: "apex",
     title: "web & digital design",
-    subtitle: "Corporate Website",
-    imageSrc: "/assets/images/fuel-pump.webp",
+    subtitle: " The Modern Web Playbook: Launching a SaaS Site That Resonates, Delivers, & Sets Your Brand Apart",
+    imageSrc: "/assets/images/pattern2.png",
     imageAlt: "Apex Corporate Website Showcase",
   },
     {
     id: "pulse",
     title: "seo & digital marketing",
-    subtitle: "SaaS Landing Page",
-    imageSrc: "/assets/images/camera.webp",
+    subtitle: " Designing High-Intent Journeys: Conversion Rate Optimization for Modern B2B Brands",
+    imageSrc: "/assets/images/pattern3.png",
     imageAlt: "Pulse AI SaaS Landing Page Showcase",
   },
   {
     id: "nova",
     title: "web & digital design",
-    subtitle: "Corporate Website",
-    imageSrc: "/assets/images/robotics.webp",
+    subtitle: "Designing High-Intent Journeys: Conversion Rate Optimization for Modern B2B Brands",
+    imageSrc: "/assets/images/pattern4.png",
     imageAlt: "Nova Labs Corporate Website Showcase",
   },
 
@@ -71,14 +71,14 @@ export default function InsightSection() {
           <div className="overflow-hidden">
             <div ref={titleRef}>
               <DaText variant="headlineSm">
-                Featured Work
+                Latest Insight
               </DaText>
             </div>
           </div>
           <div className="overflow-hidden">
             <div ref={bodyRef}>
               <DaText variant="bodyMd">
-                Explore some of our latest website projects.
+                Our thoughts and perspectives on digital.
               </DaText>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function InsightSection() {
         {/* 3. Grid Container mapping the config data */}
         <div className="w-full max-w-[1200px] mb-20 grid grid-cols-1 md:grid-cols-2 gap-8 space-y-30 lg:gap-12">
           { INSIGHTS.map((project, index) => (
-            <PortfolioCard
+            <InsightCard
               key={project.id}
               index={index}
               title={project.title}
@@ -99,9 +99,9 @@ export default function InsightSection() {
           ))}
         </div>
 
-        <div className="mb-60">
+        <div className="mb-50">
           <DaButton variant="circle-plus" className=" text-text-primary">
-            View more projects
+            View more insights
           </DaButton>
         </div>
         

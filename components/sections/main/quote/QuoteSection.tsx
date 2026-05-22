@@ -28,7 +28,7 @@ export default function QuoteSection() {
         <DaText variant="overline" color="white" className="pb-10">
           A Digital Agency
         </DaText>
-        <DaText variant="bodyLg" color="white" className="pl-8">
+        <DaText variant="bodyXl" color="white" className="pl-8">
           We are a web design and development company, building websites 
           that drive traffic, engagement, and conversion for industry-leading 
           brands and startups in Africa.

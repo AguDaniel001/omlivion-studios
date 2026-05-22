@@ -83,15 +83,15 @@ export const DaTypoVariants = {
     uppercase: false,
   },
 
-  titleLg: {
+  titleSm: {
     tag:       "h5",
-    size:      "lg",
+    size:      "base",
     weight:    "semibold",
     leading:   "normal",
     color:     "primary",
     font:      "neueplak",
     tracking:  "inherit",
-    uppercase: false,
+    uppercase: true,
   },
 
   subTitle: {
@@ -105,11 +105,22 @@ export const DaTypoVariants = {
     uppercase: false,
   },
 
-  bodyLg: {
+  bodyXl: {
     tag:       "p",
     size:      "3xl",
     weight:    "bold",
     leading:   "loose",
+    color:     "primary",
+    font:      "montserrat",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
+  bodyLg: {
+    tag:       "h5",
+    size:      "2xl",
+    weight:    "light",
+    leading:   "relaxed",
     color:     "primary",
     font:      "montserrat",
     tracking:  "inherit",
