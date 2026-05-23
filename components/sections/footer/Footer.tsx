@@ -19,9 +19,9 @@ const socialIcons = [
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-900 text-white py-20 px-6 mt-auto">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-white/10 pt-12">
-        
+    <div className="bg-neutral-900 text-white py-50 px-6 mt-auto">
+      <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+
         {/* Left Side */}
         <div className="flex flex-col gap-6">
           <Link href="/" className="text-3xl font-bold tracking-tighter">
@@ -46,12 +46,15 @@ export default function Footer() {
               </a>
             ))}
           </div>
+           <DaText variant="captionSm" className="text-zinc-600">
+          © {new Date().getFullYear()} Omlivion Studios. All rights reserved.
+        </DaText>
         </div>
 
         {/* Right Side */}
-        <div className="flex flex-col md:items-end justify-between gap-12">
+        <div className="flex flex-col md:items-start justify-between gap-12">
           {/* Contact Details */}
-          <div className="flex flex-col md:items-end gap-2">
+          <div className="flex flex-col gap-2">
             <DaText variant="titleSm" className="text-white">
               Get in touch
             </DaText>
@@ -62,9 +65,13 @@ export default function Footer() {
               +1 (234) 567-890
             </a>
           </div>
+          <DaText variant="titleSm" className="text-white">
+              explore
+            </DaText>
 
           {/* Nav Links */}
           <div className="flex flex-wrap gap-x-8 gap-y-4">
+
             {navItems.map((item) => (
               <Link 
                 key={item.name} 
@@ -75,17 +82,11 @@ export default function Footer() {
               </Link>
             ))}
           </div>
+           <DaText variant="bodySm" className="text-zinc-400 ">
+            75 E Santa Clara St, Ste 1425 San Jose, California 95113
+          </DaText>
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4">
-        <DaText variant="captionSm" className="text-zinc-600">
-          © {new Date().getFullYear()} Omlivion Studios. All rights reserved.
-        </DaText>
-        <DaText variant="captionSm" className="text-zinc-600">
-          Privacy Policy • Terms of Service
-        </DaText>
-      </div>
-    </footer>
+    </div>
   );
 }
