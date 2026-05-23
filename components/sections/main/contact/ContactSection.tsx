@@ -36,12 +36,12 @@ export default function ContactSection() {
   };
 
   return (
-    <DaSectionContainer dataTheme="light" className="bg-white min-h-screen pt-40 pb-20 px-0">
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start px-6 sm:px-12 md:px-20 lg:px-24">
+    <DaSectionContainer dataTheme="light" className="bg-white min-h-screen pt-50 pb-80 !px-0 !pl-10 justify-end ">
+      <div className="max-w-[1420px] h-screen  w-full flex flex-col lg:flex-row gap-5 justify-between lg:gap-32 ">
         
         {/* Left Column: Form Section */}
-        <div className="flex flex-col max-w-xl w-full">
-          <DaText variant="headlineMd" className="mb-6">
+        <div className="flex flex-col max-w-xl w-full ">
+          <DaText variant="headlineSm" className="mb-6">
             Hi. Tell us about <br /> your project.
           </DaText>
           
@@ -98,7 +98,7 @@ export default function ContactSection() {
               name="projectDetails"
               placeholder="Tell us about your project (Scope, timeline, budget, etc.)"
               variant="filled"
-              rows={5}
+              rows={10}
               value={formData.projectDetails}
               onChange={handleChange}
               required
@@ -113,9 +113,9 @@ export default function ContactSection() {
         </div>
 
         {/* Right Column: Office Image Section */}
-        <div className="relative hidden lg:block w-full aspect-[4/5] overflow-hidden rounded-2xl">
+        <div className="relative hidden lg:block w-full max-w-[680px]  overflow-hidden ">
           <Image
-            src="/assets/images/woman-smiling.webp" // Using an existing image from the context
+            src="/assets/images/office-space.jpg" // Using an existing image from the context
             alt="Office culture"
             fill
             priority

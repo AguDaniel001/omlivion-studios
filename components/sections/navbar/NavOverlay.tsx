@@ -190,7 +190,7 @@ export default function NavOverlay({ isOpen, onClose, isLightSection }: NavOverl
           className="flex justify-end items-end flex-col gap-4 relative z-10 pointer-events-auto mt-auto md:mt-0"
         >
           <div className="flex flex-col md:items-end gap-2">
-            <DaText variant="titleLg" className={`transition-colors duration-500 ${textColor}`}>
+            <DaText variant="titleSm" className={`transition-colors duration-500 ${textColor}`}>
               Get in touch
             </DaText>
             <a href="mailto:hello@omlivion.com" className={`transition-colors duration-500 hover:opacity-70 ${mutedTextColor}`}>

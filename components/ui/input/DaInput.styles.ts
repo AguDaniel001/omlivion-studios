@@ -15,7 +15,7 @@ export const sizeStyles: Record<
     fontSize: "text-sm",
   },
   lg: {
-    wrapper:  "h-14 px-5",
+    wrapper:  "h-16 px-5",
     fontSize: "text-base",
   },
 }

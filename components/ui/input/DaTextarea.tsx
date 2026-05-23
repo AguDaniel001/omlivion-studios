@@ -25,7 +25,7 @@ export const DaTextarea = React.forwardRef<HTMLTextAreaElement, DaTextareaProps>
       prefixIcon,
       suffixIcon,
       variant      = "outlined",
-      size         = "md",
+      size         = "lg",
       status,
       label,
       helperText,
@@ -101,7 +101,7 @@ export const DaTextarea = React.forwardRef<HTMLTextAreaElement, DaTextareaProps>
           aria-invalid={!!error}
           className={clsx(
             "flex-1 min-w-0 w-full bg-transparent outline-none",
-            "text-text-primary placeholder:text-text-tertiary",
+            "text-text-primary placeholder:text-text-tertiary placeholder:font-normal ",
             size === "lg" ? "text-base" : "text-sm",
             "leading-normal",
             autoResize ? "resize-none" : "resize-y",

@@ -7,7 +7,7 @@
 import * as React from "react"
 import clsx from "clsx"
 import { DaInputBase } from "./DaInputBase"
-import type { DaInputProps as NativeProps } from "./DaInput.types" // Wait, I didn't export DaInputProps in types
+// import type { DaInputProps as NativeProps } from "./DaInput.types" // Wait, I didn't export DaInputProps in types
 import type { BaseDaInputProps } from "./DaInput.types"
 
 // ─── Props ────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ export const DaInput = React.forwardRef<HTMLInputElement, DaInputProps>(
       prefixIcon,
       suffixIcon,
       variant  = "outlined",
-      size     = "md",
+      size     = "lg",
       status,
       label,
       helperText,
@@ -78,7 +78,7 @@ export const DaInput = React.forwardRef<HTMLInputElement, DaInputProps>(
           aria-invalid={!!error}
           className={clsx(
             "flex-1 min-w-0 bg-transparent outline-none",
-            "text-text-primary placeholder:text-text-tertiary",
+            "text-text-primary placeholder:text-text-tertiary placeholder:font-normal ",
             "disabled:cursor-not-allowed",
             size === "lg" ? "text-base" : "text-sm",
             inputClassName,

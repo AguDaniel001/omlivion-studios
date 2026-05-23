@@ -170,7 +170,7 @@ function SolidBlackVariant({ children, className, ...props }: Omit<DaButtonProps
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={cn(
-        "flex items-center justify-between bg-[#111111] hover:bg-black text-white px-8 py-4 rounded-full transition-colors group uppercase font-bold text-[10px] tracking-[0.2em] font-neueplak",
+        "flex items-center justify-between bg-[#111111] hover:bg-bg-accent duration-700 ease-in-out text-white px-8 py-4 rounded-full transition-colors group uppercase font-bold text-xs tracking-[0.2em] font-neueplak",
         className
       )}
       {...props}

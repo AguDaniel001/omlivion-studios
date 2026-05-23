@@ -4,19 +4,13 @@ import DaText from '@/components/ui/typography/DaText';
 
 export default function ContactInfoSection() {
   return (
-    <DaSectionContainer dataTheme="light" className="bg-[#f5f5f5] py-20">
-      <div className="max-w-7xl mx-auto w-full relative">
-        {/* Decorative element */}
-        <div className="absolute -top-12 left-0">
-          <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center bg-white shadow-sm">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#ff5a36]"></div>
-          </div>
-        </div>
+    <DaSectionContainer dataTheme="light" className="bg-[#f5f5f5] py-40">
+      <div className="max-w-6xl mx-auto w-full relative">
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 pt-4">
           {/* Column 1: Let's Talk */}
           <div className="flex flex-col space-y-4">
-            <DaText variant="titleSm" color="primary">
+            <DaText variant="titleMd" color="primary">
               Let's Talk
             </DaText>
             <DaText variant="bodyMd" color="secondary" className="max-w-[240px]">
@@ -34,7 +28,7 @@ export default function ContactInfoSection() {
 
           {/* Column 2: Say Hello */}
           <div className="flex flex-col space-y-4">
-            <DaText variant="titleSm" color="primary">
+            <DaText variant="titleMd" color="primary">
               Say Hello
             </DaText>
             <DaText variant="bodyMd" color="secondary" className="max-w-[240px]">
@@ -52,7 +46,7 @@ export default function ContactInfoSection() {
 
           {/* Column 3: Our Office */}
           <div className="flex flex-col space-y-4">
-            <DaText variant="titleSm" color="primary">
+            <DaText variant="titleMd" color="primary">
               Our Office
             </DaText>
             <div>

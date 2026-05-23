@@ -71,7 +71,7 @@ export default function PortfolioCard({
           {/* Title Wrap */}
           <div className="overflow-hidden translate-x-16  ">
             <div ref={titleRef}>
-              <DaText variant="bodyXl" align="right" >
+              <DaText variant="titleMd" align="right" >
                 {title}
               </DaText>
             </div>

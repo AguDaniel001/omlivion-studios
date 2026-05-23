@@ -83,6 +83,16 @@ export const DaTypoVariants = {
     uppercase: false,
   },
 
+  titleMd: {
+    tag:       "p",
+    size:      "3xl",
+    weight:    "bold",
+    leading:   "loose",
+    color:     "primary",
+    font:      "montserrat",
+    tracking:  "inherit",
+    uppercase: false,
+  },
   titleSm: {
     tag:       "h5",
     size:      "base",
@@ -130,7 +140,7 @@ export const DaTypoVariants = {
   bodyMd: {
     tag:       "p",
     size:      "lg",
-    weight:    "light",
+    weight:    "normal",
     leading:   "normal",
     color:     "primary",
     font:      "neueplak",
