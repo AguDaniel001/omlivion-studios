@@ -1,8 +1,16 @@
+
+import ContactInfoSection from "@/components/sections/main/contact/ContactInfoSection";
+import PageHeroSection from "@/components/sections/main/page-hero-section/PageHeroSection";
+
 export default function AboutPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">About Us</h1>
-      <p className="mt-4 text-xl">Learn more about our mission and team.</p>
-    </main>
+    <div className="flex flex-col min-h-screen">
+      <PageHeroSection 
+        overline="who we are"
+        headline="A passionate team, rooted in digital."
+        description="Building great things in the heart of Africa."
+      />
+      <ContactInfoSection />
+    </div>
   );
 }

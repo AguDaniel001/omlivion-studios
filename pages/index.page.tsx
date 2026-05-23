@@ -4,7 +4,7 @@ import InsightSection from "@/components/sections/main/insight/InsightSection";
 import PortfolioSection from "@/components/sections/main/porfolio/PortfolioSection";
 import QuoteSection from "@/components/sections/main/quote/QuoteSection";
 
-export default function Hero() {
+export default function Index() {
   return (
     <div className="flex flex-col min-h-screen  ">
         <HeroSection />

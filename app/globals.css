@@ -45,6 +45,7 @@ body {
   /* ─── SEMANTIC TEXT COLORS ────────────────────────────── */
   --color-text-primary: var(--color-primary-black-2);
   --color-text-secondary: var(--color-primary-black-3);
+  --color-text-tertiary: var(--color-sub-gray-2);
   --color-text-muted: var(--color-sub-gray-3);
   --color-text-inverse: var(--color-primary-white);
   --color-text-brand: var(--color-primary-red);
@@ -95,6 +96,7 @@ body {
   /* ─── TEXT COLORS ─────────────────────────────────────── */
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
   --color-text-muted: var(--color-text-muted);
   --color-text-inverse: var(--color-text-inverse);
   --color-text-brand: var(--color-text-brand);
