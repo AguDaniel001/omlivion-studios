@@ -5,6 +5,7 @@ import DaSectionContainer from "@/components/layout/DaSectionContainer";
 import DaButton from "@/components/ui/buttons/DaButton";
 import DaText from "@/components/ui/typography/DaText";
 import { Spark } from "@/components/ui/Spark";
+import { Circle } from "@/components/ui/Circle";
 import { useHeroAnimation } from "@/hooks/useHeroAnimation";
 
 /**
@@ -119,26 +120,7 @@ export default function HeroSection() {
       />
       
       {/* Background decoration */}
-      <div className="absolute bottom-10 right-5 h-[130vh] pointer-events-none z-0 overflow-visible">
-        <svg
-          viewBox="0 0 100 100"
-          className="h-full w-auto"
-          preserveAspectRatio="xMidYMid meet"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle 
-            ref={circleRef}
-            cx="50" 
-            cy="50" 
-            r="45" 
-            stroke="#9ca3af" 
-            strokeWidth={0.2} 
-            fill="transparent" 
-            strokeOpacity={0.1} 
-          />
-        </svg>
-      </div>
+      <Circle ref={circleRef} className="absolute bottom-10 right-5" />
 
       <DaSectionContainer className="relative z-10 flex min-h-screen flex-col items-center justify-center max-w-7xl mx-auto">
         {/* Sparks - Increased z-index to z-20 to be in front of text (z-10) and SVG (z-0) */}

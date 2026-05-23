@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 type SparkVariant = "cloud" | "sparkAfrica" | "spark1" | "spark2";
@@ -9,6 +9,7 @@ interface SparkProps {
   variant?: SparkVariant;
   className?: string;
   accentColor?: string;
+  color?: string;
 }
 
 const SPARKAFRICA_POINTS = [
@@ -69,50 +70,63 @@ const SPARK2_POINTS = [
   { x: 70, y: 60 },
 ];
 
-export const Spark: React.FC<SparkProps> = ({
-  variant = "cloud",
-  className,
-  accentColor = "#f84525", // Default from CSS --color-primary-red
-}) => {
-  const points = React.useMemo(() => {
-    switch (variant) {
-      case "sparkAfrica": return SPARKAFRICA_POINTS;
-      case "spark1": return SPARK1_POINTS;
-      case "spark2": return SPARK2_POINTS;
-      default: return CLOUD_POINTS;
-    }
-  }, [variant]);
+export const Spark = forwardRef<SVGSVGElement, SparkProps>(
+  (
+    {
+      variant = "cloud",
+      className,
+      accentColor = "#f84525", // Default from CSS --color-primary-red
+      color = "currentColor",
+    },
+    ref
+  ) => {
+    const points = React.useMemo(() => {
+      switch (variant) {
+        case "sparkAfrica":
+          return SPARKAFRICA_POINTS;
+        case "spark1":
+          return SPARK1_POINTS;
+        case "spark2":
+          return SPARK2_POINTS;
+        default:
+          return CLOUD_POINTS;
+      }
+    }, [variant]);
 
-  const accentIndex = React.useMemo(() => {
-    if (variant === "spark1") {
-      return 2; // Matches { x: 40, y: 30 } (The red crosshair)
-    }
-    if (variant === "spark2") {
-      return 6; // Matches { x: 60, y: 50 } (The red crosshair)
-    }
-    return Math.floor(points.length / 2);
-  }, [variant, points.length]);
+    const accentIndex = React.useMemo(() => {
+      if (variant === "spark1") {
+        return 2; // Matches { x: 40, y: 30 } (The red crosshair)
+      }
+      if (variant === "spark2") {
+        return 6; // Matches { x: 60, y: 50 } (The red crosshair)
+      }
+      return Math.floor(points.length / 2);
+    }, [variant, points.length]);
 
-  return (
-    <svg
-      viewBox="0 0 100 100"
-      className={cn("w-32 h-32 overflow-visible", className)}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {points.map((point, index) => (
-        <g 
-          key={index} 
-          className="spark-point"
-          transform={`translate(${point.x - 2}, ${point.y - 2})`}
-        >
-          <path
-            d="M2 0V4M0 2H4"
-            stroke={index === accentIndex ? accentColor : "currentColor"}
-            strokeWidth="1"
-            strokeLinecap="round"
-          />
-        </g>
-      ))}
-    </svg>
-  );
-};
+    return (
+      <svg
+        ref={ref}
+        viewBox="0 0 100 100"
+        className={cn("w-32 h-32 overflow-visible", className)}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {points.map((point, index) => (
+          <g
+            key={index}
+            className="spark-point"
+            transform={`translate(${point.x - 2}, ${point.y - 2})`}
+          >
+            <path
+              d="M2 0V4M0 2H4"
+              stroke={index === accentIndex ? accentColor : color}
+              strokeWidth="1"
+              strokeLinecap="round"
+            />
+          </g>
+        ))}
+      </svg>
+    );
+  }
+);
+
+Spark.displayName = "Spark";

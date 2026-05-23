@@ -12,6 +12,7 @@ import { DaTextarea } from '@/components/ui/input/DaTextarea';
 import DaButton from '@/components/ui/buttons/DaButton';
 import '@/lib/gsap/animations'; // Ensure custom eases are registered
 import { Spark } from '@/components/ui/Spark';
+import { Circle } from '@/components/ui/Circle';
 
 interface FormData {
   companyName: string;
@@ -83,27 +84,9 @@ export default function ContactSection() {
   return (
     <DaSectionContainer dataTheme="light" className="bg-white min-h-screen pt-50 pb-80 !px-0 !pl-10 justify-end ">
         {/* Background decoration */}
-      <div className="absolute bottom-10 right-5 h-[130vh] pointer-events-none z-0 overflow-visible">
-        <svg
-          viewBox="0 0 100 100"
-          className="h-full w-auto"
-          preserveAspectRatio="xMidYMid meet"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle 
-            cx="50" 
-            cy="50" 
-            r="45" 
-            stroke="#9ca3af" 
-            strokeWidth={0.2} 
-            fill="transparent" 
-            strokeOpacity={0.1} 
-          />
-        </svg>
-      </div>
-       <div className="absolute top-30 right-24 z-5 pointer-events-none text-white">
-          <Spark variant="sparkAfrica" className="w-28 h-28" />
+      <Circle className="absolute bottom-10 right-5" />
+       <div className="absolute top-26 right-50 z-5 pointer-events-none text-white">
+          <Spark variant="sparkAfrica" color='#dcdcdc' accentColor='#dcdcdc' className="w-40 h-40" />
         </div>
       <div className="max-w-[1420px] h-screen  w-full flex flex-col lg:flex-row gap-5 justify-between lg:gap-32 ">
         
