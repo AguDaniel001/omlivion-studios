@@ -1,13 +1,16 @@
 
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DaSectionContainer from '@/components/layout/DaSectionContainer';
 import DaText from '@/components/ui/typography/DaText';
 import { DaInput } from '@/components/ui/input/DaInput';
 import { DaTextarea } from '@/components/ui/input/DaTextarea';
 import DaButton from '@/components/ui/buttons/DaButton';
+import '@/lib/gsap/animations'; // Ensure custom eases are registered
 
 interface FormData {
   companyName: string;
@@ -25,6 +28,46 @@ export default function ContactSection() {
     emailAddress: '',
     projectDetails: '',
   });
+
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const clipperRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      if (clipperRef.current && imageRef.current) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: imageContainerRef.current,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          }
+        });
+
+        tl.fromTo(clipperRef.current, 
+          { xPercent: -100 },
+          { 
+            xPercent: 0,
+            duration: 1.8,
+            ease: "custom-3",
+          }
+        );
+
+        tl.fromTo(imageRef.current,
+          { xPercent: 100, scale: 1.2 },
+          { 
+            xPercent: 0,
+            scale: 1,
+            duration: 1.8,
+            ease: "custom-3",
+          },
+          "<"
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -64,7 +107,7 @@ export default function ContactSection() {
                 onChange={handleChange}
               />
               <DaInput
-                name="userName"
+                name="yourName"
                 placeholder="Your Name"
                 variant="filled"
                 value={formData.yourName}
@@ -114,15 +157,24 @@ export default function ContactSection() {
         </div>
 
         {/* Right Column: Office Image Section */}
-        <div className="relative hidden lg:block w-full max-w-[680px]  overflow-hidden ">
-          <Image
-            src="/assets/images/office-space.jpg" // Using an existing image from the context
-            alt="Office culture"
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 900px) 100vw, 40vw"
-          />
+        <div 
+          ref={imageContainerRef}
+          className="relative hidden lg:block w-full max-w-[680px] overflow-hidden"
+        >
+          {/* Clipper (reveals from left to right) */}
+          <div ref={clipperRef} className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            {/* Image Container (counter-slides and zooms out) */}
+            <div ref={imageRef} className="relative h-full w-full">
+              <Image
+                src="/assets/images/office-space.jpg"
+                alt="Office culture"
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 900px) 100vw, 40vw"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </DaSectionContainer>
