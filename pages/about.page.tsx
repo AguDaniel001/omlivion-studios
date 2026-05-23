@@ -1,6 +1,7 @@
 
 import ContactInfoSection from "@/components/sections/main/contact/ContactInfoSection";
 import PageHeroSection from "@/components/sections/main/page-hero-section/PageHeroSection";
+import PageImageSection from "@/components/sections/main/about/PageImageSection";
 
 export default function AboutPage() {
   return (
@@ -9,6 +10,10 @@ export default function AboutPage() {
         overline="who we are"
         headline="A passionate team, rooted in digital."
         description="Building great things in the heart of Africa."
+      />
+      <PageImageSection 
+        src="/assets/images/workers.webp" 
+        alt="Workers in an office"
       />
       <ContactInfoSection />
     </div>

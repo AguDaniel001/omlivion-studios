@@ -50,13 +50,13 @@ export default function PageHeroSection({
       {/* Background decoration */}
 
       <Circle ref={circleRef} size="120vh" className="absolute -bottom-30  right-0" />
-      <DaSectionContainer className="relative z-10 flex min-h-screen flex-col items-start justify-center max-w-7xl mx-auto">
+      <DaSectionContainer className="relative z-10 flex h-full  flex-col items-start justify-center max-w-7xl mx-auto">
 
         <div className="absolute top-1/3 right-0 z-5 pointer-events-none text-white">
             <Spark variant="sparkAfrica" color='#dcdcdc' accentColor='#dcdcdc' className="w-40 h-40" />
         </div>
 
-        <div className="relative z-10 flex w-full items-center justify-between ">
+        <div className="relative z-10 flex w-full">
           <div className="w-full max-w-4xl flex-shrink-0">
             <div ref={overlineRef} style={{ opacity: 0 }}>
               <DaText variant="overline" size="base" className="pb-14">
