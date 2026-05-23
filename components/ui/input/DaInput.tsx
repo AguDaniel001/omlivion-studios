@@ -26,7 +26,7 @@ export const DaInput = React.forwardRef<HTMLInputElement, DaInputProps>(
       type = "text",
       prefixIcon,
       suffixIcon,
-      variant  = "outlined",
+      variant  = "underline",
       size     = "lg",
       status,
       label,

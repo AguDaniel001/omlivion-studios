@@ -15,7 +15,7 @@ export const sizeStyles: Record<
     fontSize: "text-sm",
   },
   lg: {
-    wrapper:  "h-16 px-5",
+    wrapper:  "h-16 px-5 py-0",
     fontSize: "text-base",
   },
 }
@@ -44,6 +44,10 @@ export const variantStyles: Record<InputVariant, string[]> = {
     "border border-transparent",
     "bg-[#f5f5f5]",
     "focus-within:border-gray-400",
+  ],
+  underline: [
+    "bg-[#f5f5f5]",
+    "border-none",
   ],
 }
 

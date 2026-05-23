@@ -3,7 +3,7 @@ import * as React from "react"
 // ─── Enumerations ─────────────────────────────────────────────
 
 /** Visual variant — controls border/fill treatment. */
-export type InputVariant = "outlined" | "filled"
+export type InputVariant = "outlined" | "filled" | "underline"
 
 /** Size variant — controls padding, height, and font size. */
 export type InputSize = "sm" | "md" | "lg"

@@ -98,15 +98,29 @@ export function DaInputBase({
 
       <div
         className={cn(
-          "relative flex items-stretch overflow-hidden transition-all duration-200",
+          "group relative flex items-stretch overflow-hidden transition-all duration-200",
           variantStyles[variant],
-          status !== "default" && statusStyles[status].border,
+          (status !== "default" && variant !== "underline") && statusStyles[status].border,
           disabled && "opacity-50 cursor-not-allowed pointer-events-none",
         )}
       >
-        <div className={clsx("flex flex-1 items-center", multiline ? textareaSizeStyles[size] : sizeStyles[size].wrapper, "gap-3")}>
+        <div className={clsx(
+          "flex flex-1 items-center gap-3", 
+          multiline ? textareaSizeStyles[size] : sizeStyles[size].wrapper
+        )}>
           {children}
         </div>
+
+        {variant === "underline" && (
+          <div 
+            className={cn(
+              "absolute bottom-0 inset-x-0 h-[2px] bg-on-dark/40 transition-transform duration-600 ease-in-out z-10",
+              "-translate-x-full group-focus-within:translate-x-0",
+              status !== "default" && "translate-x-0",
+              status !== "default" && statusStyles[status].textColor.replace("text-", "bg-")
+            )} 
+          />
+        )}
 
         <DaInputTrailing size={size} status={status} loading={loading} />
       </div>

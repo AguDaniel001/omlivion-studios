@@ -24,7 +24,7 @@ export const DaTextarea = React.forwardRef<HTMLTextAreaElement, DaTextareaProps>
     {
       prefixIcon,
       suffixIcon,
-      variant      = "outlined",
+      variant      = "underline",
       size         = "lg",
       status,
       label,

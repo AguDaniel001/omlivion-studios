@@ -109,14 +109,12 @@ export default function ContactSection() {
               <DaInput
                 name="companyName"
                 placeholder="Company Name"
-                variant="filled"
                 value={formData.companyName}
                 onChange={handleChange}
               />
               <DaInput
                 name="yourName"
                 placeholder="Your Name"
-                variant="filled"
                 value={formData.yourName}
                 onChange={handleChange}
                 required
@@ -129,7 +127,6 @@ export default function ContactSection() {
                 type="tel"
                 name="phoneNumber"
                 placeholder="Phone Number"
-                variant="filled"
                 value={formData.phoneNumber}
                 onChange={handleChange}
               />
@@ -137,7 +134,6 @@ export default function ContactSection() {
                 type="email"
                 name="emailAddress"
                 placeholder="Email Address"
-                variant="filled"
                 value={formData.emailAddress}
                 onChange={handleChange}
                 required
@@ -148,7 +144,6 @@ export default function ContactSection() {
             <DaTextarea
               name="projectDetails"
               placeholder="Tell us about your project (Scope, timeline, budget, etc.)"
-              variant="filled"
               rows={10}
               value={formData.projectDetails}
               onChange={handleChange}
