@@ -1,6 +1,12 @@
+"use client";
+
+import React, { useRef } from 'react';
 import { Circle } from '@/components/ui/Circle';
 import { Spark } from '@/components/ui/Spark';
-import React from 'react';
+import DaSectionContainer from '@/components/layout/DaSectionContainer';
+import DaSectionHeader from '@/components/layout/DaSectionHeader';
+import DaText from '@/components/ui/typography/DaText';
+import { useSplitScrollAnimation } from '@/hooks/useSplitScrollAnimation';
 
 // Define the structure for our content blocks
 interface ContentStep {
@@ -38,36 +44,64 @@ const stepsData: ContentStep[] = [
 ];
 
 export const SplitScrollSection: React.FC = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const sparkRef = useRef<SVGSVGElement>(null);
+
+  useSplitScrollAnimation({
+    container: containerRef as React.RefObject<HTMLDivElement | null>,
+    header: headerRef,
+    title: titleRef,
+    spark: sparkRef as React.RefObject<HTMLDivElement | null>,
+    sparkSpeed: 400, // Faster parallel scroll
+  });
+
   return (
-    <section className=" relative bg-bg-dark text-white min-h-screen w-full px-4 py-16 md:py-24">
-       <Circle size="120vh" className="absolute  -left-1/6" />
-      <Spark variant="spark1" className="w-28 h-28 absolute left-1/3 top-1/3 z-10 pointer-events-none" />
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row relative gap-12 md:gap-8">
+    <DaSectionContainer 
+      ref={containerRef}
+      dataTheme="dark" 
+      className="relative min-h-screen w-full overflow-clip bg-bg-dark"
+    >
+      <Circle size="120vh" className="absolute -left-1/6 top-0" />
+      <Spark 
+        ref={sparkRef}
+        variant="spark1" 
+        className="w-28 h-28 absolute left-1/3 top-1/3 z-10 pointer-events-none text-white" 
+      />
+      
+      <div className="max-w-6xl mx-auto py-30 flex flex-col md:flex-row md:items-start relative gap-12 md:gap-8 w-full">
         
-        {/* Left Column - Fixed/Sticky Header */}
-        {/*   USE DASECTIONHEADER HERE */}
-        <div className="md:w-1/2 md:sticky md:top-24 h-fit pr-0 md:pr-8">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
-            Design-driven.<br />Strategy-led.
-          </h1>
+        {/* Left Column - Fixed/Sticky Header (Anchors Global Context) */}
+        <div className="md:w-1/2 md:sticky md:top-24 h-fit pr-0 md:pr-8 ">
+          <DaSectionHeader 
+            headline="Design-driven. Strategy-led."
+            headerRef={headerRef}
+            titleRef={titleRef}
+            variant="headlineSm"
+            color="white"
+            align="left"
+            maxW="100%"
+            className="mx-0 mt-30"
+          />
         </div>
 
-        {/* Right Column - Scrollable Content */}
-        <div className="md:w-1/2 flex flex-col gap-24 md:gap-32 pl-0 md:pl-8">
+        {/* Right Column - Scrollable Content (Progressive Details) */}
+        <div className="md:w-1/2 flex flex-col gap-32 pl-0 md:pl-8 py-10 md:py-20">
           {stepsData.map((step) => (
             <article key={step.number} className="max-w-md">
-              <h2 className="text-3xl font-bold mb-4 tracking-tight">
+              <DaText variant="titleMd" color="white" className="mb-4">
                 {step.number} {step.title}
-              </h2>
-              <p className="text-gray-400 text-lg leading-relaxed">
+              </DaText>
+              <DaText variant="bodyMd" color="muted">
                 {step.text}
-              </p>
+              </DaText>
             </article>
           ))}
         </div>
 
       </div>
-    </section>
+    </DaSectionContainer>
   );
 };
 

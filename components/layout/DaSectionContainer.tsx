@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import React, { forwardRef, type ReactNode } from "react";
 
 type DaSectionContainerProps = {
   id?: string
@@ -7,16 +7,21 @@ type DaSectionContainerProps = {
   className?: string;
 };
 
-const DaSectionContainer = ({ id, dataTheme, children, className = "" }: DaSectionContainerProps) => {
-  return (
-    <section
-      id={id}
-      data-theme={dataTheme}
-      className={`flex justify-center smooth-transition section-w-padding section-h-padding px-4 ${className}`}
-    >
-      {children}
-    </section>
-  );
-};
+const DaSectionContainer = forwardRef<HTMLElement, DaSectionContainerProps>(
+  ({ id, dataTheme, children, className = "" }, ref) => {
+    return (
+      <section
+        ref={ref}
+        id={id}
+        data-theme={dataTheme}
+        className={`flex justify-center smooth-transition section-w-padding section-h-padding px-4 ${className}`}
+      >
+        {children}
+      </section>
+    );
+  }
+);
+
+DaSectionContainer.displayName = "DaSectionContainer";
 
 export default DaSectionContainer;

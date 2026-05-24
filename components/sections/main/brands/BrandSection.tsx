@@ -59,7 +59,7 @@ export default function BrandSection() {
   const headline = "Some friends we’ve made in the process.";
 
   return (
-    <div ref={containerRef} className="w-full bg-bg-canvas">
+    <div data-theme="light" ref={containerRef} className="w-full bg-bg-canvas ">
       <DaSectionContainer className="flex flex-col gap-y-16 lg:gap-y-30 w-full py-20 lg:py-40">
         
         {/* Header Section */}

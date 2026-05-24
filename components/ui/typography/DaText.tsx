@@ -13,6 +13,9 @@ type DaTextProps = {
   /** Override the variant's default color role. */
   color?:     TextColor;
 
+  /** Override the variant's default font weight. */
+  weight?:    TextWeight;
+
   /** Override letter spacing. */
   tracking?:  TextTracking;
 
@@ -34,6 +37,7 @@ export default function DaText({
   variant   = "bodyMd",
   tag,
   color,
+  weight,
   tracking,
   uppercase,
   className,
@@ -53,7 +57,7 @@ export default function DaText({
     <DaTypography
       tag={tag ?? v.tag}
       size={v.size}
-      weight={v.weight}
+      weight={weight ?? v.weight}
       leading={v.leading}
       font={v.font}
       color={color ?? v.color}

@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from 'react';
 import DaText from '@/components/ui/typography/DaText';
+import { type TextColor } from '@/components/ui/typography/DaTypography';
 import { cn } from '@/lib/utils';
 
 interface DaSectionHeaderProps {
@@ -10,6 +11,7 @@ interface DaSectionHeaderProps {
   maxW?: string;
   align?: 'left' | 'center';
   variant?: 'headlineSm' | 'headlineMd' | 'headlineLg';
+  color?: TextColor;
   headerRef?: React.RefObject<HTMLDivElement | null>;
   titleRef?: React.RefObject<HTMLDivElement | null>;
 }
@@ -18,7 +20,7 @@ interface DaSectionHeaderProps {
  * Reusable Section Header with animated word reveal support.
  */
 const DaSectionHeader = forwardRef<HTMLDivElement, DaSectionHeaderProps>(
-  ({ headline, className, maxW = '700px', align = 'left', variant = 'headlineSm', headerRef, titleRef }, ref) => {
+  ({ headline, className, maxW = '700px', align = 'left', variant = 'headlineSm', color, headerRef, titleRef }, ref) => {
     const headlineWords = headline.split(" ");
 
     return (
@@ -34,6 +36,7 @@ const DaSectionHeader = forwardRef<HTMLDivElement, DaSectionHeaderProps>(
           <div ref={titleRef}>
             <DaText 
               variant={variant} 
+              color={color}
               className={cn(
                 "flex flex-wrap",
                 align === 'center' ? 'justify-center' : 'justify-start',

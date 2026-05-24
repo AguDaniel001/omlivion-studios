@@ -32,7 +32,7 @@ const  ServiceListSection = () => {
   ];
 
   return (
-    <section ref={containerRef} className="w-full bg-white relative">
+    <section ref={containerRef} data-theme="light" className="w-full bg-white relative">
       <DaSectionContainer className="flex flex-col gap-y-16 lg:gap-y-30 w-full py-20 lg:py-40">
         
         {/* Header Section */}
@@ -59,6 +59,7 @@ const  ServiceListSection = () => {
                   <DaText 
                     variant="bodyMd" 
                     tag="span" 
+                    weight="medium" 
                     tracking='tight'
                   >
                     {service.name}
