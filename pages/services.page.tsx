@@ -1,6 +1,8 @@
 import PageHeroSection from "@/components/sections/main/page-hero-section/PageHeroSection";
 import PageImageSection from "@/components/sections/main/about/PageImageSection";
 import ServiceListSection from "@/components/sections/main/service-list/ServiceListSection";
+import BrandSection from "@/components/sections/main/brands/BrandSection";
+import SplitScrollSection from "@/components/sections/content-step/SplitScrollSection";
 
 export default function ServicesPage() {
   return (
@@ -12,6 +14,8 @@ export default function ServicesPage() {
       />
       <PageImageSection alt="Services" src="/assets/images/workers.webp" />
       <ServiceListSection />
+      <BrandSection />
+      <SplitScrollSection />
     </div>
   );
 }

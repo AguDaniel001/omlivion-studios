@@ -21,7 +21,7 @@ export default function PageImageSection({ src, alt }: PageImageSectionProps) {
   });
 
   return (
-    <section data-theme="light" ref={containerRef} className="relative h-screen w-full overflow-hidden bg-white">
+    <section data-theme="light" ref={containerRef} className="relative h-[120vh] w-full overflow-hidden bg-white">
       <div 
         ref={maskRef} 
         className="relative h-full w-full overflow-hidden"

@@ -3,9 +3,10 @@
 import React, { useRef } from 'react';
 import DaText from '@/components/ui/typography/DaText';
 import DaSectionContainer from '@/components/layout/DaSectionContainer';
+import DaSectionHeader from '@/components/layout/DaSectionHeader';
 import { useServiceListAnimation } from '@/hooks/useServiceListAnimation';
 
-const ServiceListSection = () => {
+const  ServiceListSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -17,7 +18,6 @@ const ServiceListSection = () => {
   });
 
   const headline = "Elevating your brand at every touchpoint.";
-  const headlineWords = headline.split(" ");
 
   const services = [
     { id: 1, name: 'Website Design' },
@@ -36,21 +36,11 @@ const ServiceListSection = () => {
       <DaSectionContainer className="flex flex-col gap-y-16 lg:gap-y-30 w-full py-20 lg:py-40">
         
         {/* Header Section */}
-        <div ref={headerRef} className="w-full max-w-[1200px] mx-auto">
-          <div className="overflow-hidden">
-            <div ref={titleRef}>
-              <DaText variant="headlineSm" className="max-w-[700px] flex flex-wrap">
-                {headlineWords.map((word, i) => (
-                  <span key={i} className="inline-block overflow-hidden mr-[0.25em] leading-[1.4]">
-                    <span className="word-inner inline-block">
-                      {word}
-                    </span>
-                  </span>
-                ))}
-              </DaText>
-            </div>
-          </div>
-        </div>
+        <DaSectionHeader 
+          headline={headline}
+          headerRef={headerRef}
+          titleRef={titleRef}
+        />
 
         {/* Mapped List Section */}
         <div className="w-full max-w-[1200px] mx-auto flex justify-end">
