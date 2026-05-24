@@ -1,6 +1,7 @@
 
 import PageHeroSection from "@/components/sections/main/page-hero-section/PageHeroSection";
 import ContactInfoSection from "@/components/sections/main/contact/ContactInfoSection";
+import PageImageSection from "@/components/sections/main/about/PageImageSection";
 
 export default function ServicesPage() {
   return (
@@ -11,7 +12,7 @@ export default function ServicesPage() {
         description="A digital-first approach to strategy and creative."
       />
       {/* Additional sections can be added here */}
-      <ContactInfoSection />
+      <PageImageSection alt="Services" src="/assets/images/workers.webp" />
     </div>
   );
 }

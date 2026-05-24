@@ -12,10 +12,9 @@ export default function AboutPage() {
         description="Building great things in the heart of Africa."
       />
       <PageImageSection 
-        src="/assets/images/workers.webp" 
+        src="/assets/images/glass-office.webp" 
         alt="Workers in an office"
       />
-      <ContactInfoSection />
     </div>
   );
 }
