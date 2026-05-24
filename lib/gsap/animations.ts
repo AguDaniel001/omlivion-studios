@@ -16,6 +16,30 @@ if (typeof window !== "undefined") {
 }
 
 /**
+ * Reusable Word Reveal Animation
+ * Matches the HeroSection's word-by-word reveal effect.
+ * Elements move from y: 110% to 0% within an overflow-hidden container.
+ */
+export const revealWords = (
+  words: gsap.DOMTarget,
+  trigger: gsap.DOMTarget,
+  options: gsap.TimelineVars = {}
+) => {
+  return gsap.from(words, {
+    y: "110%",
+    duration: 1,
+    stagger: 0.1,
+    ease: "power4.out",
+    scrollTrigger: {
+      trigger: trigger,
+      start: "top 90%",
+      toggleActions: "play none none none",
+    },
+    ...options,
+  });
+};
+
+/**
  * Reusable Reveal Animation
  * Animate elements from under (y: 100%) to their natural position.
  */

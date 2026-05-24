@@ -1,7 +1,6 @@
-
 import PageHeroSection from "@/components/sections/main/page-hero-section/PageHeroSection";
 import PageImageSection from "@/components/sections/main/about/PageImageSection";
-import ServiceList from "@/components/sections/main/service-list/ServiceList";
+import ServiceListSection from "@/components/sections/main/service-list/ServiceListSection";
 
 export default function ServicesPage() {
   return (
@@ -11,9 +10,8 @@ export default function ServicesPage() {
         headline="Driving brands forward online."
         description="A digital-first approach to strategy and creative."
       />
-      {/* Additional sections can be added here */}
       <PageImageSection alt="Services" src="/assets/images/workers.webp" />
-      <ServiceList />
+      <ServiceListSection />
     </div>
   );
 }
