@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "components/smooth/SmoothScrolling.jsx", "components/ui/icon/DaIcon.registry.tsx"  ],
+, "lib/gsap/SmoothScrolling.jsx", "components/ui/icon/DaIcon.registry.tsx"  ],
   "exclude": ["node_modules"]
 }

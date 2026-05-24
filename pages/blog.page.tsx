@@ -1,6 +1,6 @@
 
-import BlogInsightsHeroSection from "@/components/sections/blog/BlogInsightsHero";
-import BlogListSection from "@/components/sections/blog/BlogList";
+import BlogInsightsHeroSection from "@/components/sections/main/blog/BlogInsightsHero";
+import BlogListSection from "@/components/sections/main/blog/BlogList";
 import { Circle } from "@/components/ui/Circle";
 
 export default function BlogPage() {
