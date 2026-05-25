@@ -6,6 +6,7 @@ import DaSectionContainer from '@/components/layout/DaSectionContainer';
 import DaSectionHeader from '@/components/layout/DaSectionHeader';
 import DaText from '@/components/ui/typography/DaText';
 import { useSplitScrollAnimation } from '@/hooks/useSplitScrollAnimation';
+import { useCenterCircleAnimation } from '@/hooks/useCenterCircleAnimation';
 
 // Define the structure for our content blocks
 interface ContentStep {
@@ -62,6 +63,7 @@ export const CultureSection: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const sparkRef = useRef<SVGSVGElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
 
   useSplitScrollAnimation({
     container: containerRef as React.RefObject<HTMLDivElement | null>,
@@ -71,19 +73,32 @@ export const CultureSection: React.FC = () => {
     sparkSpeed: 400, // Faster parallel scroll
   });
 
+  useCenterCircleAnimation({
+    circle: circleRef,
+    container: containerRef,
+  });
+
   return (
     <DaSectionContainer 
       ref={containerRef}
       dataTheme="light" 
-      className="relative min-h-screen w-full overflow-clip bg-bg-canvas"
+      className="relative min-h-[200vh] w-full overflow-clip bg-bg-canvas"
     >
+      {/* Background Scaling Circle */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div 
+          ref={circleRef}
+          className="sticky top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-sub-gray-4 rounded-full"
+        />
+      </div>
+
       <Spark 
         ref={sparkRef}
         variant="sparkAfrica" 
-        className="w-28 h-28 absolute left-1/3 top-1/3 z-10 pointer-events-none " 
+        className="w-28 h-28 absolute left-1/3 top-1/3 z-20 pointer-events-none " 
       />
       
-      <div className="max-w-[1200px] mx-auto py-30 flex flex-col md:flex-row md:items-start relative gap-14 md:gap-8 w-full">
+      <div className="max-w-[1200px] mx-auto py-30 flex flex-col md:flex-row md:items-start relative z-10 gap-14 md:gap-8 w-full">
         
         {/* Left Column - Fixed/Sticky Header (Anchors Global Context) */}
         <div className="md:w-1/2 md:sticky md:top-24 h-fit pr-0 md:pr-8 lg:pb-18 ">

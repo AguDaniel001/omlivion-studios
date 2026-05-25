@@ -139,8 +139,36 @@ export const applyCardHoverEffect = (
   };
 };
 
-/**
- * Reusable Scroll Parallax Animation
+  /**
+  * Reusable Center Circle Scale Animation
+  * A circle starts small and scales up to fill the viewport as the user scrolls.
+  * Best used with a fixed or absolute positioned circle at the center of the trigger.
+  */
+  export const applyCenterCircleScale = (
+    circle: HTMLElement,
+    trigger: HTMLElement,
+    options: gsap.TimelineVars = {}
+  ) => {
+    return gsap.fromTo(circle,
+      { scale: 1, opacity: 1 },
+      {
+        scale: 16, // Large enough to cover screen
+        opacity: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: trigger,
+          start: "top top", // Starts scaling once the section is at the top
+          end: "bottom bottom", // Reaches full scale as we reach the end of the scrollable area
+          scrub: 1,
+        },
+        ...options,
+      }
+    );
+  };
+
+  /**
+  * Reusable Scroll Parallax Animation
+
  * Elements move upwards as the user scrolls down.
  */
 export const applyScrollParallax = (

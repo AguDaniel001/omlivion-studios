@@ -37,7 +37,7 @@ body {
   --color-sub-gray-1: #464646;
   --color-sub-gray-2: #5b5b5a;
   --color-sub-gray-3: #9c9c9c;
-  --color-sub-gray-4: #bbbbbb;
+  --color-sub-gray-4: #efefef;
 
   --color-sub-white-1: #f2f2f2;
   --color-sub-white-2: #f6f6f6;
@@ -128,6 +128,11 @@ body {
   /* ─── NEUTRAL / MUTED ────────────────────────────────── */
   --color-foreground: var(--color-foreground);
   --color-muted: var(--color-muted);
+
+  --color-sub-gray-1: var(--color-sub-gray-1);
+  --color-sub-gray-2: var(--color-sub-gray-2);
+  --color-sub-gray-3: var(--color-sub-gray-3);
+  --color-sub-gray-4: var(--color-sub-gray-4);
 
   /* ─── BORDERS ────────────────────────────────────────── */
   --color-border: var(--color-border);
