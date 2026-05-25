@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { cn } from "@/lib/utils";
@@ -7,13 +8,16 @@ import { cn } from "@/lib/utils";
 interface DaButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Button variant */
   variant?: "underline" | "circle-plus" | "solid-black";
+  href?: string;
+  target?: string;
+  rel?: string;
   children: string;
 }
 
 /**
  * Variant 1: Underline with Wave Effect
  */
-function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps, "variant">) {
+function UnderlineVariant({ children, className, href, target, rel, ...props }: Omit<DaButtonProps, "variant">) {
   const charsRef = useRef<HTMLSpanElement[]>([]);
   const underlineRef = useRef<HTMLDivElement>(null);
   
@@ -55,12 +59,8 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
     });
   };
 
-  return (
-    <button 
-      onMouseEnter={onMouseEnter}
-      className={cn("relative uppercase flex flex-col items-start group py-1 font-semibold text-base cursor-pointer font-neueplak text-inherit" , className)}
-      {...props}
-    >
+  const content = (
+    <>
       <div className="flex">
         {children.toUpperCase().split("").map((char, i) => (
           <span 
@@ -77,6 +77,32 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
         className="w-full h-[1px] bg-current mt-2 transition-opacity duration-100 "
         style={{ transformOrigin: "left center", transform: "scaleX(1)" }}
       />
+    </>
+  );
+
+  const sharedClasses = cn("relative uppercase flex flex-col items-start group py-1 font-semibold text-base cursor-pointer font-neueplak text-inherit" , className);
+
+  if (href) {
+    return (
+      <Link 
+        href={href} 
+        target={target} 
+        rel={rel} 
+        className={sharedClasses} 
+        onMouseEnter={onMouseEnter}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button 
+      onMouseEnter={onMouseEnter}
+      className={sharedClasses}
+      {...props}
+    >
+      {content}
     </button>
   );
 }
@@ -84,9 +110,9 @@ function UnderlineVariant({ children, className, ...props }: Omit<DaButtonProps,
 /**
  * Variant 2: Circle + Plus Icon with Circle Movement
  */
-function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps, "variant">) {
+function CirclePlusVariant({ children, className, href, target, rel, ...props }: Omit<DaButtonProps, "variant">) {
   const circleRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<any>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -126,17 +152,8 @@ function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps
       .to(circleRef.current, { width: h, x: 0, duration: 0.45, ease: "power2.inOut" });
   };
 
-  return (
-    <button
-      ref={containerRef}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      className={cn(
-        "relative flex items-center gap-6 px-4.5 pr-3.5 py-3 uppercase group font-bold text-sm isolate overflow-hidden text-inherit tracking-widest cursor-pointer font-neueplak rounded-full transition-colors duration-300", 
-        className
-      )}
-      {...props}
-    >
+  const content = (
+    <>
       <div 
         ref={circleRef}
         className="absolute h-full bg-on-dark opacity-20 left-0 top-0 -z-10 pointer-events-none rounded-full"
@@ -147,6 +164,39 @@ function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps
           <path d="M12 5v14M5 12h14" strokeLinecap="round" />
         </svg>
       </div>
+    </>
+  );
+
+  const sharedClasses = cn(
+    "relative flex items-center gap-6 px-4.5 pr-3.5 py-3 uppercase group font-bold text-sm isolate overflow-hidden text-inherit tracking-widest cursor-pointer font-neueplak rounded-full transition-colors duration-300", 
+    className
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        ref={containerRef}
+        target={target}
+        rel={rel}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        className={sharedClasses}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      ref={containerRef}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={sharedClasses}
+      {...props}
+    >
+      {content}
     </button>
   );
 }
@@ -154,7 +204,7 @@ function CirclePlusVariant({ children, className, ...props }: Omit<DaButtonProps
 /**
  * Variant 3: Solid Black Button with Plus Icon
  */
-function SolidBlackVariant({ children, className, ...props }: Omit<DaButtonProps, "variant">) {
+function SolidBlackVariant({ children, className, href, target, rel, ...props }: Omit<DaButtonProps, "variant">) {
   const plusRef = useRef<HTMLDivElement>(null);
 
   const onMouseEnter = () => {
@@ -165,22 +215,45 @@ function SolidBlackVariant({ children, className, ...props }: Omit<DaButtonProps
     gsap.to(plusRef.current, { rotation: 0, duration: 0.3, ease: "power2.out" });
   };
 
-  return (
-    <button
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      className={cn(
-        "flex items-center justify-between bg-[#111111] hover:bg-bg-accent duration-700 ease-in-out text-white px-8 py-4 rounded-full transition-colors group uppercase font-bold text-xs tracking-[0.2em] font-neueplak",
-        className
-      )}
-      {...props}
-    >
+  const content = (
+    <>
       <span>{children}</span>
       <div ref={plusRef} className="ml-4 flex items-center justify-center w-3 h-3 text-gray-400 group-hover:text-white transition-colors">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-full h-full">
           <path d="M12 5v14M5 12h14" strokeLinecap="round" />
         </svg>
       </div>
+    </>
+  );
+
+  const sharedClasses = cn(
+    "flex items-center justify-between bg-[#111111] hover:bg-bg-accent duration-700 ease-in-out text-white px-8 py-4 rounded-full transition-colors group uppercase font-bold text-xs tracking-[0.2em] font-neueplak",
+    className
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        target={target}
+        rel={rel}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        className={sharedClasses}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={sharedClasses}
+      {...props}
+    >
+      {content}
     </button>
   );
 }
@@ -188,10 +261,12 @@ function SolidBlackVariant({ children, className, ...props }: Omit<DaButtonProps
 export default function DaButton({
   variant = "underline",
   children = "Button",
+  href,
   ...props
 }: DaButtonProps) {
-  if (variant === "circle-plus") return <CirclePlusVariant {...props}>{children}</CirclePlusVariant>;
-  if (variant === "solid-black") return <SolidBlackVariant {...props}>{children}</SolidBlackVariant>;
+  if (variant === "circle-plus") return <CirclePlusVariant href={href} {...props}>{children}</CirclePlusVariant>;
+  if (variant === "solid-black") return <SolidBlackVariant href={href} {...props}>{children}</SolidBlackVariant>;
 
-  return <UnderlineVariant {...props}>{children}</UnderlineVariant>;
+  return <UnderlineVariant href={href} {...props}>{children}</UnderlineVariant>;
 }
+

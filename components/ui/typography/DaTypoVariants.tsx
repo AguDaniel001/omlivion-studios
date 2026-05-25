@@ -184,7 +184,7 @@ export const DaTypoVariants = {
 
   overline: {
     tag:       "p",
-    size:      "sm",
+    size:      "base",
     weight:    "semibold",
     leading:   "none",
     color:     "brand",

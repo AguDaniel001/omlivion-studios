@@ -73,13 +73,13 @@ export default function PageHeroSection({
               </DaText>
             </div>
 
-            {/* {ctaText && (
+            {ctaText && (
               <div ref={ctaRef} style={{ opacity: 0 }} className="pl-8 mt-4">
                 <DaButton variant="circle-plus" className="text-dark" href={ctaHref}>
                   {ctaText}
                 </DaButton>
               </div>
-            )} */}
+            )}
           </div>
           <div className="flex-1 hidden lg:block" />
 
