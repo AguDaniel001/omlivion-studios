@@ -156,7 +156,7 @@ function CirclePlusVariant({ children, className, href, target, rel, ...props }:
     <>
       <div 
         ref={circleRef}
-        className="absolute h-full bg-on-dark opacity-20 left-0 top-0 -z-10 pointer-events-none rounded-full"
+        className="absolute h-full bg-[var(--color-sub-gray-4)] opacity-30 left-0 top-0 -z-10 pointer-events-none rounded-full"
       />
       <span className="whitespace-nowrap">{children.toUpperCase()}</span>
       <div className="flex items-center justify-center w-3 h-3">

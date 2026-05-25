@@ -17,14 +17,28 @@ interface CtaSectionProps {
   overline?: string;
   /** Main headline text. Default: "Let’s work together to build something great." */
   headline?: string;
+  /** Max width for the headline. Default: "700px" */
+  headerMaxWidth?: string;
   /** Button label. Default: "Let's Talk" */
   buttonText?: string;
   /** Button destination URL. Default: "/contact" */
   buttonHref?: string;
+  /** Whether to show the button. Default: true */
+  showButton?: boolean;
   /** Additional classes for the section container */
   className?: string;
   /** Whether to show the decorative spark. Default: true */
   showSpark?: boolean;
+  /** Decorative spark variant. Default: "sparkAfrica" */
+  sparkVariant?: "cloud" | "sparkAfrica" | "spark1" | "spark2";
+  /** Spark width. Default: "w-40" */
+  sparkWidth?: string;
+  /** Spark height. Default: "h-40" */
+  sparkHeight?: string;
+  /** Override default spark color */
+  sparkColor?: string;
+  /** Override default spark accent color */
+  sparkAccentColor?: string;
   /** Whether to show the decorative circle. Default: true */
   showCircle?: boolean;
 }
@@ -37,10 +51,17 @@ export default function CtaSection({
   bgFill = "brand",
   overline = "We are omlivion",
   headline = "Let’s work together to build something great.",
+  headerMaxWidth = "800px",
   buttonText = "Let's Talk",
   buttonHref = "/contact",
+  showButton = true,
   className,
   showSpark = true,
+  sparkVariant = "sparkAfrica",
+  sparkWidth = "w-40",
+  sparkHeight = "h-40",
+  sparkColor: customSparkColor,
+  sparkAccentColor: customSparkAccentColor,
   showCircle = true,
 }: CtaSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -62,11 +83,11 @@ export default function CtaSection({
 
   // Automatic color selection based on background theme
   const textColor = isWhite ? "primary" : "white";
-  const buttonClassName = isWhite ? "text-primary" : "text-white";
+  const buttonClassName = isWhite ? "" : "text-white";
   
   // Decorative element colors adjusted for visibility on light/dark backgrounds
-  const sparkColor = isWhite ? "#00000020" : "#dddddd49";
-  const sparkAccentColor = isWhite ? "#111111" : "#dcdcdc";
+  const defaultSparkColor = isWhite ? "#00000020" : "#dddddd49";
+  const defaultSparkAccentColor = isWhite ? "#111111" : "#dcdcdc";
   const circleStroke = isWhite ? "#11111120" : "#ffffff";
 
   return (
@@ -80,10 +101,10 @@ export default function CtaSection({
     >
       {showSpark && (
         <Spark 
-          variant="sparkAfrica" 
-          color={sparkColor} 
-          accentColor={sparkAccentColor} 
-          className="w-40 h-40 z-10 absolute right-20 top-50" 
+          variant={sparkVariant} 
+          color={customSparkColor || defaultSparkColor} 
+          accentColor={customSparkAccentColor || defaultSparkAccentColor} 
+          className={cn(sparkWidth, sparkHeight, "z-10 absolute right-20 top-50")} 
         />
       )}
       
@@ -114,18 +135,20 @@ export default function CtaSection({
           color={textColor}
           align="left"
           className="mb-8 pl-10"
-          maxW="700px"
+          maxW={headerMaxWidth}
         />
 
-        <div className="pl-10 mt-4">
-          <DaButton 
-            variant="circle-plus" 
-            className={cn("w-38.5", buttonClassName)} 
-            href={buttonHref}
-          >
-            {buttonText}
-          </DaButton>
-        </div>
+        {showButton && (
+          <div className="pl-10 mt-4">
+            <DaButton 
+              variant="circle-plus" 
+              className={cn("w-38.5", buttonClassName)} 
+              href={buttonHref}
+            >
+              {buttonText}
+            </DaButton>
+          </div>
+        )}
       </DaSectionContainer>
     </section>
   );

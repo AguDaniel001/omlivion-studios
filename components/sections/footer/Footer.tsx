@@ -83,7 +83,7 @@ export default function Footer() {
             ))}
           </div>
            <DaText variant="bodySm" className="text-zinc-400 ">
-            75 E Santa Clara St, Ste 1425 San Jose, California 95113
+            77 Chime Avenue, Mr Biggs Busstop, New Haven, Enugu
           </DaText>
         </div>
       </div>
