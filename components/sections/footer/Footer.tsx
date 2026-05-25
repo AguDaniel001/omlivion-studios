@@ -19,7 +19,7 @@ const socialIcons = [
 
 export default function Footer() {
   return (
-    <div className="bg-neutral-900 text-white py-50 px-6 mt-auto">
+    <div className="bg-bg-dark-tertiary text-white py-50 px-6 mt-auto">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
 
         {/* Left Side */}

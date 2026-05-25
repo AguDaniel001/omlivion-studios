@@ -56,7 +56,7 @@ body {
 
   --color-bg-dark: var(--color-primary-black-1);
   --color-bg-dark-secondary: var(--color-sub-black-2);
-  --color-bg-dark-tertiary: var(--color-sub-black-4);
+  --color-bg-dark-tertiary: var(--color-primary-black-3);
 
   --color-bg-accent: var(--color-primary-red);
 
@@ -110,6 +110,7 @@ body {
   --color-bg-dark-secondary: var(--color-bg-dark-secondary);
   --color-bg-dark-tertiary: var(--color-bg-dark-tertiary);
 
+  --color-bg-brand: var(--color-bg-accent);
   --color-bg-accent: var(--color-bg-accent);
 
   /* ─── SURFACE ─────────────────────────────────────────── */
