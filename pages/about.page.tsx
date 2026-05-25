@@ -3,6 +3,7 @@
 import CtaSectionReusable from "@/components/composite/Cta";
 import PageHeroSection from "@/components/sections/main/page-hero-section/PageHeroSection";
 import PageImageSection from "@/components/sections/main/about/PageImageSection";
+import CultureSection from "@/components/sections/main/culture/CultureSection";
 
 export default function AboutPage() {
   return (
@@ -24,6 +25,7 @@ export default function AboutPage() {
         buttonHref="/portfolio"
         className=" h-[110vh] "
       />
+      <CultureSection />
       <CtaSectionReusable
         bgFill="dark"
         overline="A DIGITAL AGENCY"

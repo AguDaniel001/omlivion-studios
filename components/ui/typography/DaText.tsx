@@ -40,6 +40,7 @@ export default function DaText({
   weight,
   tracking,
   uppercase,
+  leading,
   className,
   children,
   ...props
