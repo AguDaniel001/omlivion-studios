@@ -83,8 +83,8 @@ export const DaTypoVariants = {
     uppercase: false,
   },
 
-  titleMd: {
-    tag:       "p",
+  titleLg: {
+    tag:       "h3",
     size:      "3xl",
     weight:    "bold",
     leading:   "loose",
@@ -93,6 +93,18 @@ export const DaTypoVariants = {
     tracking:  "inherit",
     uppercase: false,
   },
+
+  titleMd: {
+    tag:       "h3",
+    size:      "3xl2",
+    weight:    "bold",
+    leading:   "relaxed",
+    color:     "primary",
+    font:      "montserrat",
+    tracking:  "inherit",
+    uppercase: false,
+  },
+
   titleSm: {
     tag:       "h5",
     size:      "base",

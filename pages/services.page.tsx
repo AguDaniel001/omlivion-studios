@@ -3,6 +3,7 @@ import PageImageSection from "@/components/sections/main/about/PageImageSection"
 import ServiceListSection from "@/components/sections/main/service-list/ServiceListSection";
 import BrandSection from "@/components/sections/main/brands/BrandSection";
 import SplitScrollSection from "@/components/sections/content-step/SplitScrollSection";
+import { PartnerSection } from "@/components/sections/Partner/PartnerSection";
 
 export default function ServicesPage() {
   return (
@@ -16,6 +17,7 @@ export default function ServicesPage() {
       <ServiceListSection />
       <BrandSection />
       <SplitScrollSection />
+      <PartnerSection />
     </div>
   );
 }

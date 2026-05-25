@@ -14,7 +14,7 @@ type DaTextProps = {
   color?:     TextColor;
 
   /** Override the variant's default font weight. */
-  weight?:    TextWeight;
+  // weight?:    TextWeight;
 
   /** Override letter spacing. */
   tracking?:  TextTracking;
