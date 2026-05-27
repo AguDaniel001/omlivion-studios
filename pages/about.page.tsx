@@ -4,6 +4,7 @@ import CtaSectionReusable from "@/components/composite/Cta";
 import PageHeroSection from "@/components/sections/main/page-hero-section/PageHeroSection";
 import PageImageSection from "@/components/sections/main/about/PageImageSection";
 import CultureSection from "@/components/sections/main/culture/CultureSection";
+import TestimonialSection from "@/components/sections/testimonial/TestimonialSection";
 
 export default function AboutPage() {
   return (
@@ -38,6 +39,7 @@ export default function AboutPage() {
         showCircle={false}
         className=" h-[110vh] "
       />
+      <TestimonialSection />
       <CtaSectionReusable 
         bgFill="brand"
         overline="We are omlivion"
