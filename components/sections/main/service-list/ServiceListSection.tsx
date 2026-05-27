@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import DaText from '@/components/ui/typography/DaText';
 import DaSectionContainer from '@/components/layout/DaSectionContainer';
-import DaSectionHeader from '@/components/layout/DaSectionHeader';
+import DaSectionHeader from '@/components/composite/DaSectionHeader';
 import { useServiceListAnimation } from '@/hooks/useServiceListAnimation';
 
 const  ServiceListSection = () => {

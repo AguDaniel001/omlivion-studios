@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import DaSectionContainer from '@/components/layout/DaSectionContainer';
-import DaSectionHeader from '@/components/layout/DaSectionHeader';
+import DaSectionHeader from '@/components/composite/DaSectionHeader';
 import { usePartnerSectionAnimation } from '@/hooks/usePartnerSectionAnimation';
 import { TestimonialCard } from './TestimonialCard';
 import { testimonialsData } from './testimonialList';

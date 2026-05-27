@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import { Spark } from '@/components/ui/Spark';
 import DaSectionContainer from '@/components/layout/DaSectionContainer';
-import DaSectionHeader from '@/components/layout/DaSectionHeader';
+import DaSectionHeader from '@/components/composite/DaSectionHeader';
 import DaText from '@/components/ui/typography/DaText';
 import { useSplitScrollAnimation } from '@/hooks/useSplitScrollAnimation';
 import { useCenterCircleAnimation } from '@/hooks/useCenterCircleAnimation';

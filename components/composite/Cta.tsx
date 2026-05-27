@@ -4,7 +4,7 @@ import { useRef } from "react";
 import DaSectionContainer from "@/components/layout/DaSectionContainer";
 import DaText from "@/components/ui/typography/DaText";
 import DaButton from "@/components/ui/buttons/DaButton";
-import DaSectionHeader from "@/components/layout/DaSectionHeader";
+import DaSectionHeader from "@/components/composite/DaSectionHeader";
 import { useQuoteAnimation } from "@/hooks/useQuoteAnimation";
 import { Circle } from "@/components/ui/Circle";
 import { Spark } from "@/components/ui/Spark";
