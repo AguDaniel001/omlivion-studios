@@ -80,14 +80,14 @@ export default function ServiceHeroSection() {
   }, []);
 
   return (
-    <DaSectionContainer ref={sectionRef} dataTheme="light" className="bg-bg-canvas min-h-screen pt-50 pb-60 !px-0 !pl-10 justify-end  ">
+    <DaSectionContainer ref={sectionRef} dataTheme="light" className="bg-bg-canvas  pt-50 !px-0 !pl-10 justify-end  ">
         {/* Background decoration */}
       <Circle className="absolute bottom-10 right-5" />
       <Spark variant="sparkAfrica" color='#dcdcdc' accentColor='#dcdcdc' className="w-40 h-40 absolute top-26 right-50 z-5 pointer-events-none text-white" />
-      <div className="max-w-[1420px] h-[76vh]  w-full flex flex-col lg:flex-row  justify-between gap-10 ">
+      <div className="max-w-[1420px] w-full flex flex-col lg:flex-row  justify-between gap-10 ">
         
         {/* Left Column: Content Section */}
-        <div className="flex flex-col max-w-lg w-full ">
+        <div className="flex flex-col max-w-lg w-full pt-20">
           <div ref={overlineRef} style={{ opacity: 0 }}>
             <DaText variant="overline" size="base" className="pb-14">
               Services
@@ -101,12 +101,15 @@ export default function ServiceHeroSection() {
         </div>
 
         {/* Right Column: Image Section */}
+        <div className='flex flex-col w-full'>
+          
+        
         <div 
           ref={imageContainerRef}
-          className="relative hidden lg:block w-full max-h-[76vh] overflow-hidden z-10 "
+          className="relative lg:block w-full h-[76vh] max-md:h-[30vh] overflow-hidden z-10 "
         >
           {/* Clipper (reveals from left to right) */}
-          <div ref={clipperRef} className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <div ref={clipperRef} className="absolute inset-0 z-0 overflow-hidden pointer-events-none  ">
             {/* Image Container (counter-slides and zooms out) */}
             <div ref={imageRef} className="relative h-full w-full">
               <Image
@@ -120,6 +123,17 @@ export default function ServiceHeroSection() {
             </div>
           </div>
         </div>
+        <div className='w-full py-[180px] '>
+          <DaText className=" flex flex-wrap max-w-xl pb-10 "   variant="titleMd" color="primary">
+            We design high-end marketing websites for ambitious brands.
+          </DaText>
+          <DaText className=" flex flex-wrap max-w-2xl  "   variant="bodyMd" color="primary">
+            Our dedicated team of graphic designers and digital designers hone in on your brand vision to develop an impactful visual language for your online presence.
+          </DaText>
+        </div>
+        
+        </div>
+
       </div>
     </DaSectionContainer>
   );

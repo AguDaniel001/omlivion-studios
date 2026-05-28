@@ -192,6 +192,16 @@ export const DaTypoVariants = {
     tracking:  "megaWide",
     uppercase: true,
   },
+  overlineSm: {
+    tag:       "h5",
+    size:      "sm",
+    weight:    "semibold",
+    leading:   "none",
+    color:     "primary",
+    font:      "neueplak",
+    tracking:  "widest",
+    uppercase: true,
+  },
 } as const satisfies Record<string, TypoVariantDef>;
 
 // ─── Types ────────────────────────────────────────────────────

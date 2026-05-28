@@ -1,0 +1,157 @@
+"use client";
+
+import React, { useRef, useLayoutEffect } from 'react';
+import gsap from 'gsap';
+import DaSectionContainer from '@/components/layout/DaSectionContainer';
+import DaText from '@/components/ui/typography/DaText';
+import DaButton from '@/components/ui/buttons/DaButton';
+import { Spark } from '@/components/ui/Spark';
+import { revealFromUnder } from '@/lib/gsap/animations';
+
+// Define types for component data
+interface RelatedService {
+  name: string;
+  href: string;
+}
+
+const servicesList: string[] = [
+  'Moodboards',
+  'Site Architecture',
+  'Wireframes',
+  'Visual Concepts',
+  'User Interface',
+  'User Experience',
+];
+
+const relatedServices: RelatedService[] = [
+  { name: 'UI/UX Design', href: '#' },
+  { name: 'Responsive Web Design', href: '#' },
+  { name: 'Content Strategy', href: '#' },
+];
+
+export const ServiceContentSection: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Reveal list items
+      const listItems = containerRef.current?.querySelectorAll('.list-item');
+      if (listItems && listItems.length > 0) {
+        revealFromUnder(listItems, containerRef.current!);
+      }
+
+      // Reveal main content paragraphs
+      const paragraphs = containerRef.current?.querySelectorAll('.content-paragraph');
+      if (paragraphs && paragraphs.length > 0) {
+        revealFromUnder(paragraphs, containerRef.current!, { delay: 0.2, stagger: 0.2 });
+      }
+
+      // Reveal button
+      const button = containerRef.current?.querySelector('.cta-button');
+      if (button) {
+        revealFromUnder(button, containerRef.current!, { delay: 0.6 });
+      }
+
+      // Reveal related services section
+      const related = containerRef.current?.querySelector('.related-section');
+      if (related) {
+        revealFromUnder(related, containerRef.current!, { delay: 0.4 });
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <DaSectionContainer
+      ref={containerRef}
+      dataTheme="light"
+      className="relative overflow-hidden py-[180px]"
+    >
+      {/* Decorative Spark */}
+      <Spark
+        variant="sparkAfrica"
+        color="#dcdcdc"
+        accentColor="#dcdcdc"
+        className="w-40 h-40 absolute top-[20%] right-[5%] z-0 pointer-events-none opacity-40 lg:opacity-60"
+      />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 w-full relative z-10">
+        
+        {/* Left Column: Core List & Related Services */}
+        <div className="lg:col-span-4 flex flex-col justify-between">
+          
+          {/* Core Design Deliverables List */}
+          <ul className="space-y-6">
+            {servicesList.map((service, index) => (
+              <li key={index} className="list-item flex items-center space-x-4">
+                <DaText variant="titleSm" >
+                  {service}
+                </DaText>
+              </li>
+            ))}
+          </ul>
+
+          {/* Related Services Links */}
+          <div className="related-section pt-12 lg:pt-0 mt-24 lg:mt-auto">
+            <DaText variant="overlineSm" className="mb-6">
+              Related Services
+            </DaText>
+            <ul className="space-y-4">
+              {relatedServices.map((service, index) => (
+                <li key={index}>
+                  <a
+                    href={service.href}
+                    className="group flex flex-col items-start"
+                  >
+                    <DaText 
+                      variant="bodyMd" 
+                      color="secondary"
+                      size="base"
+                      className="underline decoration-text-muted underline-offset-3 decoration-1"
+                    >
+                      {service.name}
+                    </DaText>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Right Column: Main Body Paragraphs */}
+        <div className="lg:col-span-8 flex flex-col space-y-12">
+          <div className="content-paragraph overflow-hidden">
+            <DaText variant="bodyMd" leading="" >
+              We align our web design agency with industry-leading global brands and forward-thinking 
+              startups to design great digital experiences on the web. Our purpose is to create impactful 
+              marketing websites, with web designs optimized to drive traffic, engagement, and conversion 
+              for businesses across various industries. With a design-driven, strategy-led approach, our 
+              creative team hones in on your brand vision in order to guide the overall look and feel of your 
+              website.
+            </DaText>
+          </div>
+          
+          <div className="content-paragraph overflow-hidden">
+            <DaText variant="bodyMd">
+              In the design execution phase of a website project, our goal is to leverage elevated visuals with 
+              clear purpose and intent. We do this by developing an improved user flow and navigation 
+              system, followed by a round of visual explorations in order to determine a clear design 
+              direction. We ensure that your redesigned website translates seamlessly across desktop, 
+              tablet, and mobile devices by creating a flexible visual language.
+            </DaText>
+          </div>
+
+          <div className="cta-button pt-12">
+            <DaButton variant="circle-plus">
+              Let's Talk
+            </DaButton>
+          </div>
+        </div>
+
+      </div>
+    </DaSectionContainer>
+  );
+};
+
+export default ServiceContentSection;
