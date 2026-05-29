@@ -10,7 +10,19 @@ import '@/lib/gsap/animations'; // Ensure custom eases are registered
 import { Spark } from '@/components/ui/Spark';
 import { Circle } from '@/components/ui/Circle';
 
-export default function ServiceHeroSection() {
+interface ServiceHeroSectionProps {
+  headline: string;
+  imageSrc: string;
+  subheadline?: string;
+  description?: string;
+}
+
+export default function ServiceHeroSection({
+  headline,
+  imageSrc,
+  subheadline = "We design high-end marketing websites for ambitious brands.",
+  description = "Our dedicated team of graphic designers and digital designers hone in on your brand vision to develop an impactful visual language for your online presence."
+}: ServiceHeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const overlineRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
@@ -95,7 +107,7 @@ export default function ServiceHeroSection() {
           </div>
           <div ref={headlineRef} style={{ opacity: 0 }}>
             <DaText className="pl-10 flex flex-wrap max-w-3xl  " size="5xl2"  variant="headlineLg" color="primary">
-              Website Design
+              {headline}
             </DaText>
           </div>
         </div>
@@ -113,8 +125,8 @@ export default function ServiceHeroSection() {
             {/* Image Container (counter-slides and zooms out) */}
             <div ref={imageRef} className="relative h-full w-full">
               <Image
-                src="/assets/images/woman-thinking.webp"
-                alt="Website Design"
+                src={imageSrc}
+                alt={headline}
                 fill
                 priority
                 className="object-cover"
@@ -125,10 +137,10 @@ export default function ServiceHeroSection() {
         </div>
         <div className='w-full py-[180px] '>
           <DaText className=" flex flex-wrap max-w-xl pb-10 "   variant="titleMd" color="primary">
-            We design high-end marketing websites for ambitious brands.
+            {subheadline}
           </DaText>
           <DaText className=" flex flex-wrap max-w-2xl  "   variant="bodyMd" color="primary">
-            Our dedicated team of graphic designers and digital designers hone in on your brand vision to develop an impactful visual language for your online presence.
+            {description}
           </DaText>
         </div>
         

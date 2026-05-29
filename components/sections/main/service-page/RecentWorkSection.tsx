@@ -4,11 +4,11 @@ import { useRef } from "react";
 import DaText from "@/components/ui/typography/DaText";
 import DaSectionContainer from "../../../layout/DaSectionContainer";
 import PortfolioCard from "@/components/composite/PortfolioCard";
-import DaButton from "@/components/ui/buttons/DaButton";
 import { usePortfolioSectionAnimation } from "@/hooks/usePortfolioSectionAnimation";
 
+
 // 1. Define the type structure for our portfolio items
-interface ProjectItem {
+export interface ProjectItem {
   id: string;
   title: string;
   subtitle: string;
@@ -16,9 +16,15 @@ interface ProjectItem {
   imageAlt: string;
 }
 
-// 2. Centralized configuration data for your 4 projects
-const PORTFOLIO_PROJECTS: ProjectItem[] = [
+interface RecentWorkSectionProps {
+  projects?: ProjectItem[];
+  title?: string;
+  description?: string;
+  backgroundImage?: string;
+}
 
+// 2. Centralized configuration data for your 4 projects
+const DEFAULT_PROJECTS: ProjectItem[] = [
     {
     id: "pulse",
     title: "Pulse AI",
@@ -33,10 +39,11 @@ const PORTFOLIO_PROJECTS: ProjectItem[] = [
     imageSrc: "/assets/images/robotics.webp",
     imageAlt: "Nova Labs Corporate Website Showcase",
   },
-
 ];
 
-export default function RecentWorkSection() {
+export default function RecentWorkSection({
+  projects = DEFAULT_PROJECTS,
+}: RecentWorkSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -50,23 +57,23 @@ export default function RecentWorkSection() {
   });
 
   return (
-    <section data-theme="light" ref={containerRef} className="w-full bg-bg-canvas relative">
-      <DaSectionContainer className="min-h-screen flex flex-col items-center w-full py-0 ">
-        {/* Header Section */}
+    <section data-theme="light" ref={containerRef} className="w-full bg-bg-canvas relative overflow-hidden">
 
-        <div ref={headerRef} className="flex flex-col w-full max-w-[1200px] pt-[200px] gap-3 mb-16">
+      <DaSectionContainer className="min-h-screen flex flex-col items-center w-full py-0 relative z-10">
+        {/* Header Section */}
+        <div ref={headerRef} className="flex flex-col w-full max-w-[1200px] pt-[200px] gap-6 mb-16">
           <div className="overflow-hidden">
             <div ref={titleRef}>
-              <DaText variant="headlineSm">
-                Recent Work
-              </DaText>
+                <DaText variant="headlineSm" className="mb-4">
+                  Recent Work
+                </DaText>
             </div>
           </div>
         </div>
 
-        {/* 3. Grid Container mapping the config data */}
+        {/* 3. Grid Container mapping the projects */}
         <div className="w-full max-w-[1200px] mb-20 grid grid-cols-1 md:grid-cols-2 gap-8 space-y-30 lg:gap-12">
-          {PORTFOLIO_PROJECTS.map((project, index) => (
+          {projects.map((project, index) => (
             <PortfolioCard
               key={project.id}
               index={index}
@@ -78,7 +85,6 @@ export default function RecentWorkSection() {
             />
           ))}
         </div>
-        
         </DaSectionContainer>
       </section>
   );

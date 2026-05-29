@@ -17,9 +17,11 @@ interface RelatedService {
 
 interface ServiceContentSectionProps {
   content?: string;
+  servicesList?: string[];
+  relatedServices?: RelatedService[];
 }
 
-const servicesList: string[] = [
+const defaultServicesList: string[] = [
   'Moodboards',
   'Site Architecture',
   'Wireframes',
@@ -28,7 +30,7 @@ const servicesList: string[] = [
   'User Experience',
 ];
 
-const relatedServices: RelatedService[] = [
+const defaultRelatedServices: RelatedService[] = [
   { name: 'UI/UX Design', href: '#' },
   { name: 'Responsive Web Design', href: '#' },
   { name: 'Content Strategy', href: '#' },
@@ -39,7 +41,9 @@ const defaultContent = `We align our web design agency with industry-leading glo
 In the design execution phase of a website project, our goal is to leverage elevated visuals with clear purpose and intent. We do this by developing an improved user flow and navigation system, followed by a round of visual explorations in order to determine a clear design direction. We ensure that your redesigned website translates seamlessly across desktop, tablet, and mobile devices by creating a flexible visual language.`;
 
 export const ServiceContentSection: React.FC<ServiceContentSectionProps> = ({ 
-  content = defaultContent 
+  content = defaultContent,
+  servicesList = defaultServicesList,
+  relatedServices = defaultRelatedServices
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const paragraphs = content.split('\n\n');
