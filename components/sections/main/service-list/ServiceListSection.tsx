@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from 'react';
+import Link from 'next/link';
 import DaText from '@/components/ui/typography/DaText';
 import DaSectionContainer from '@/components/layout/DaSectionContainer';
 import DaSectionHeader from '@/components/composite/DaSectionHeader';
@@ -20,15 +21,15 @@ const  ServiceListSection = () => {
   const headline = "Elevating your brand at every touchpoint.";
 
   const services = [
-    { id: 1, name: 'Website Design' },
-    { id: 2, name: 'Responsive Web Design' },
-    { id: 3, name: 'UI/UX Design' },
-    { id: 4, name: 'Website Development' },
-    { id: 5, name: 'Corporate Identity' },
-    { id: 6, name: 'Insights & Analytics' },
-    { id: 7, name: 'Motion Graphics' },
-    { id: 8, name: 'Research & Discovery' },
-    { id: 9, name: 'SEO Services' },
+    { id: 1, name: 'Website Design', slug: 'website-design' },
+    { id: 2, name: 'Responsive Web Design', slug: 'responsive-web-design' },
+    { id: 3, name: 'UI/UX Design', slug: 'ui-ux-design' },
+    { id: 4, name: 'Website Development', slug: 'website-development' },
+    { id: 5, name: 'Corporate Identity', slug: 'corporate-identity' },
+    { id: 6, name: 'Insights & Analytics', slug: 'insights-analytics' },
+    { id: 7, name: 'Motion Graphics', slug: 'motion-graphics' },
+    { id: 8, name: 'Research & Discovery', slug: 'research-discovery' },
+    { id: 9, name: 'SEO Services', slug: 'seo-services' },
   ];
 
   return (
@@ -46,8 +47,9 @@ const  ServiceListSection = () => {
         <div className="w-full max-w-[1200px] mx-auto flex justify-end">
           <div className="w-full lg:max-w-[800px] grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0 border-t border-gray-100">
             {services.map((service) => (
-              <div 
+              <Link 
                 key={service.id} 
+                href={`/${service.slug}`}
                 className="relative flex justify-between items-center py-6 px-4 group cursor-pointer border-b border-gray-100 overflow-hidden"
               >
                 {/* Hover Background - Enters from right to left */}
@@ -68,7 +70,7 @@ const  ServiceListSection = () => {
                     +
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
