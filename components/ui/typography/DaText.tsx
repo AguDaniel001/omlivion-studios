@@ -1,5 +1,11 @@
 import { DaTypoVariants, type TypoVariant } from "./DaTypoVariants";
-import DaTypography, { type Tag, type TextColor, type TextTracking } from "./DaTypography";
+import DaTypography, {
+  type Tag,
+  type TextColor,
+  type TextTracking,
+  type TextWeight,
+  type TextLeading,
+} from "./DaTypography";
 
 // ─── Props ────────────────────────────────────────────────────
 
@@ -14,7 +20,10 @@ type DaTextProps = {
   color?:     TextColor;
 
   /** Override the variant's default font weight. */
-  // weight?:    TextWeight;
+  weight?:    TextWeight;
+
+  /** Override the variant's default line height. */
+  leading?:   TextLeading;
 
   /** Override letter spacing. */
   tracking?:  TextTracking;
@@ -59,7 +68,7 @@ export default function DaText({
       tag={tag ?? v.tag}
       size={v.size}
       weight={weight ?? v.weight}
-      leading={v.leading}
+      leading={leading ?? v.leading}
       font={v.font}
       color={color ?? v.color}
       tracking={tracking ?? v.tracking ?? "inherit"}

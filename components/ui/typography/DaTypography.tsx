@@ -25,7 +25,7 @@ export const textStyles = {
    * Flutter equivalent: FontWeight.w100–w900.
    */
   weight: {
-    inherit:    "font-inherit",
+    inherit:    "font-[inherit]",
     thin:       "font-thin",        // w100
     extralight: "font-extralight",  // w200
     light:      "font-light",       // w300
@@ -69,7 +69,7 @@ export const textStyles = {
   },
 
   leading: {
-    inherit:  "leading-inherit",
+    inherit:  "leading-[inherit]",
     none:     "leading-none",      // 1.0
     tight:    "leading-[1.2]",     // 1.2
     snug:     "leading-[1.4]",     // 1.4
