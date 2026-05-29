@@ -49,10 +49,10 @@ interface CtaSectionProps {
  */
 export default function CtaSection({
   bgFill = "brand",
-  overline = "We are omlivion",
+  overline = "work with us",
   headline = "Let’s work together to build something great.",
   headerMaxWidth = "800px",
-  buttonText = "Let's Talk",
+  buttonText = "say hello",
   buttonHref = "/contact",
   showButton = true,
   className,

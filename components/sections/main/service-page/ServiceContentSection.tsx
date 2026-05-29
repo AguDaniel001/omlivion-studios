@@ -76,10 +76,10 @@ export const ServiceContentSection: React.FC = () => {
         className="w-40 h-40 absolute top-[20%] right-[5%] z-0 pointer-events-none opacity-40 lg:opacity-60"
       />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 w-full relative z-10">
+      <div className="max-w-[1200px]  grid grid-cols-1 lg:grid-cols-12 gap-30 w-full relative z-10 ">
         
         {/* Left Column: Core List & Related Services */}
-        <div className="lg:col-span-4 flex flex-col justify-between">
+        <div className="lg:col-span-3 flex flex-col justify-between h-full">
           
           {/* Core Design Deliverables List */}
           <ul className="space-y-6">
@@ -93,7 +93,7 @@ export const ServiceContentSection: React.FC = () => {
           </ul>
 
           {/* Related Services Links */}
-          <div className="related-section pt-12 lg:pt-0 mt-24 lg:mt-auto">
+          <div className="related-section pt-12 lg:pt-0 mb-[100px]">
             <DaText variant="overlineSm" className="mb-6">
               Related Services
             </DaText>
@@ -120,9 +120,9 @@ export const ServiceContentSection: React.FC = () => {
         </div>
 
         {/* Right Column: Main Body Paragraphs */}
-        <div className="lg:col-span-8 flex flex-col space-y-12">
-          <div className="content-paragraph overflow-hidden">
-            <DaText variant="bodyMd" leading="" >
+        <div className="lg:col-span-9 flex flex-col space-y-12 max-w-[860px] ">
+          <div className="content-paragraph overflow-hidden mt-[180px] ">
+            <DaText variant="bodyMd" >
               We align our web design agency with industry-leading global brands and forward-thinking 
               startups to design great digital experiences on the web. Our purpose is to create impactful 
               marketing websites, with web designs optimized to drive traffic, engagement, and conversion 
